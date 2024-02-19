@@ -48,7 +48,6 @@
     display: block;
     margin-right: .5rem;
 }
-
 .signup-info{
     width: 25rem;
     text-align: right;
@@ -70,7 +69,6 @@
     padding: 1rem;
     font-family: 'poppins', sans-serif;
 }
-
 .signup-form button {
     margin-top: 20px;
     height: 45px;
@@ -83,7 +81,6 @@
     border-radius: 30px;
     font-size: 17px;
 } 
-
 .footer {
     padding-left: 20px;
     font-size: 10px;
