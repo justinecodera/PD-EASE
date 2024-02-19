@@ -1,0 +1,46 @@
+.balck{
+    background-color: black;
+}
+.date-time {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+}
+.Hero{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: black;
+    margin: 0;
+}
+
+
+.login-info{
+    width: 25rem;
+    text-align: right;
+    margin: auto;
+}
+.login-form input {
+    border: 1px solid;
+    border-radius: 30px;
+    height: 2rem;
+    padding: 1rem;
+    font-family: 'poppins', sans-serif;
+}
+
+.login-form button {
+    margin-top: 20px;
+    height: 45px;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 17px;
+    color: white;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+} 
