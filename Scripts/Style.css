@@ -22,7 +22,7 @@
     text-align: right;
     margin: auto;
 }
-.login-form input {
+.login-form .inputlogin {
     border: 1px solid;
     border-radius: 30px;
     height: 2rem;
@@ -44,3 +44,53 @@
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 } 
+.EULAcheck{
+    display: block;
+    margin-right: .5rem;
+}
+
+.signup-info{
+    width: 25rem;
+    text-align: right;
+    margin: auto;
+    color: white;
+}
+.signup-form{
+    border-radius: 20px;
+    background-color: black;
+    padding: 20px;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+.signup-form .inputsignup {
+    border: 1px solid;
+    border-radius: 30px;
+    height: 2rem;
+    padding: 1rem;
+    font-family: 'poppins', sans-serif;
+}
+
+.signup-form button {
+    margin-top: 20px;
+    height: 45px;
+    padding: 10px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 17px;
+} 
+
+.footer {
+    padding-left: 20px;
+    font-size: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background-color: rgb(0, 0, 0);
+}
