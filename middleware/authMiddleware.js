@@ -10,7 +10,7 @@ const requireAuth = (req, res, next) => {
         jwt.verify(token, 'sikretong malupet pwede pabulong', (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
-                res.redirect('/');
+                res.redirect('/login');
             }
             else {
                 console.log(decodedToken);
@@ -19,14 +19,14 @@ const requireAuth = (req, res, next) => {
         });
     }
     else {
-        res.redirect('/');
+        res.redirect('/login');
     }
 }
 
 //check current user
 const checkUser = (req, res, next) => {
     const token = req.cookies.PEEDS;
-
+    console.log("is this working");
     if (token) {
         jwt.verify(token, 'sikretong malupet pwede pabulong', async (err, decodedToken) => {
             if (err) {
@@ -37,7 +37,7 @@ const checkUser = (req, res, next) => {
             else {
                 console.log(decodedToken);
                 let user = await User.findById(decodedToken.id);
-                console.log(user);
+                console.log('nagana dapat to');
                 res.locals.user = user;
                 next();
             }

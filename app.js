@@ -6,6 +6,7 @@ const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 //routes conection//
 const authRoutes = require('./Routes/authroutes');
+const dashboardRoutes = require('./Routes/dashboardroutes');
 
 //models//
 const Users = require('./Models/users');
@@ -34,11 +35,13 @@ app.use(cookieParser());
 
 app.get('*', checkUser);
 
-//dashboard
-app.get('/dashboard', requireAuth, (req, res) => {   res.render('Dashboard', { title: 'dashboard'}); });
-
 //loginroutes
-app.use(authRoutes)
+app.use(authRoutes);
+
+//dashboard
+app.use(dashboardRoutes);
+
+
 
 
 //404//

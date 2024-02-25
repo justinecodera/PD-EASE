@@ -1,60 +1,89 @@
-
-<div class="flex-shrink-0 p-3 bg-white vh-100 " style="width: 15rem;">
-    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-      <!-- logo to -->
-      <span class="fs-5 fw-semibold">Collapsible</span>
-    </a>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <a href="/dashboard" class="btn btn-toggle align-items-center rounded collapsed" >
-          Home
-        </a>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-          Manage PDS
-        </button>
-        <div class="collapse" id="dashboard-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">Personal Information</a></li>
-            <li><a href="#" class="link-dark rounded">Family Background</a></li>
-            <li><a href="#" class="link-dark rounded">Education</a></li>
-            <li><a href="#" class="link-dark rounded">Eligibility</a></li>
-            <li><a href="#" class="link-dark rounded">Work Experience</a></li>
-            <li><a href="#" class="link-dark rounded">Voluntary Work</a></li>
-            <li><a href="#" class="link-dark rounded">Training</a></li>
-            <li><a href="#" class="link-dark rounded">Other Information</a></li>
-            <li><a href="#" class="link-dark rounded">Questions</a></li>
-            <li><a href="#" class="link-dark rounded">References</a></li>
-            <li><a href="#" class="link-dark rounded">Service Records</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-          Transactions
-        </button>
-        <div class="collapse" id="orders-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">History</a></li>
-            <li><a href="#" class="link-dark rounded">Status</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="border-top my-3"></li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-          Account
-        </button>
-        <div class="collapse" id="account-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">New...</a></li>
-            <li><a href="#" class="link-dark rounded">Profile</a></li>
-            <li><a href="#" class="link-dark rounded">Settings</a></li>
-            <li><a href="/logout" class="link-dark rounded">Sign out</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+<aside id="sidebar">
+  <div class="d-flex">
+      <button class="toggle-btn" type="button">
+          <i class="lni lni-grid-alt"></i>
+      </button>
+      <div class="sidebar-logo">
+          <a href="#">    <% if (user) { %>
+              <%= user.lastname %>, <%= user.firstname %>
+          <% } %></a>
+      </div>
   </div>
+  <ul class="sidebar-nav">
+      <li class="sidebar-item">
+          <a href="/" class="sidebar-link">
+              <i class="lni lni-home"></i>
+              <span>Home</span>
+          </a>
+      </li>
+      <li class="sidebar-item">
+          <a href="#" class="sidebar-link">
+              <i class="lni lni-user"></i>
+              <span>Profile</span>
+          </a>
+      </li>
+      <li class="sidebar-item">
+          <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+              data-bs-target="#PDS" aria-expanded="false" aria-controls="PDS">
+              <i class="lni lni-files"></i>
+              <span>Manage PDS</span>
+          </a>
+          <ul id="PDS" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+              <li class="sidebar-item">
+                  <a href="/personalinformation" class="sidebar-link">Personal Information</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Family Background</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Education</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Eligibility</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Work Experience</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Voluntary Work</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Training</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Other Information</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Questions</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">References</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Service Records</a>
+              </li>
+          </ul>
+      </li>
+      <li class="sidebar-item">
+          <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+              data-bs-target="#transaction" aria-expanded="false" aria-controls="transaction">
+              <i class="lni lni-agenda"></i>
+              <span>Transactions</span>
+          </a>
+          <ul id="transaction" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Status</a>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">History</a>
+              </li>
+          </ul>
+      </li>
+  </ul>
+  <div class="sidebar-footer">
+      <a href="/logout" class="sidebar-link">
+          <i class="lni lni-exit"></i>
+          <span>Logout</span>
+      </a>
+  </div>
+</aside>

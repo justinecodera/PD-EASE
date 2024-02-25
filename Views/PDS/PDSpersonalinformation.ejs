@@ -1,0 +1,203 @@
+
+
+<div class="row align-items-center">
+    <form class="m-1 mx-3" >
+        <div class="row">
+            <div class="col-lg-9 col-md-7 col-sm-5"></div>
+            <div class="col">
+                <button class="btn btn-success" type="submit">Save</button></div>
+            <div class="col">
+                <button class="btn btn-primary disabled" >Print</button></div>
+                
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">  
+                <label class="form-control" for="lastName">Surname: </label>
+                <input class="form-control" id="lastName" name="lastName" value="<%= user.lastname %>" disabled >
+                    
+                <label class="form-control" for="firstName">First Name: </label>
+                <input class="form-control" id="firstName" name="firstName" value="<%= user.firstname %>" disabled >
+                    
+                <label class="form-control" for="middleName">Middle Name: </label>
+                <input class="form-control" id="middleName" name="middleName" >
+                    
+                <label class="form-control" for="nameExtension">Name extension (jr.): </label>
+                <input class="form-control" id="nameExtension" name="nameExtension" >
+                 
+                <label class="form-control" for="birthDate">Date of Birth: </label>
+                <input class="form-control" type="date" id="birthDate" name="birthDate" >
+    
+                <label class="form-control" for="placeOfBirth">Place of Birth: </label>
+                <input class="form-control" id="placeOfBirth" name="placeOfBirth" >
+                    
+                <label class="form-control" for="sex">Sex: </label>
+                <select class="form-control" id="sex" name="sex" >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                    
+                <label class="form-control" for="civilStatus">Civil Status: </label>
+                <select class="form-control" id="civilStatus" name="civilStatus" >
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Separated">Separated</option>
+                    <option value="Other">Other</option>
+                </select>
+                    
+                <label class="form-control" for="height">Height (m): </label>
+                <input class="form-control" id="height" name="height" >
+                    
+                <label class="form-control" for="weight">weight (Kg): </label>
+                <input class="form-control" id="weight" name="weight" >
+                    
+                <label class="form-control" for="bloodType">Blood Type: </label>
+                <input class="form-control" id="bloodType" name="bloodType" >
+                    
+                <label class="form-control" for="gsisId">GSIS ID: </label>
+                <input class="form-control" id="gsisId" name="gsisId" >
+                    
+                <label class="form-control" for="pagibigId">PAG-IBIG ID: </label>
+                <input class="form-control" id="pagibigId" name="pagibigId" >
+                    
+                <label class="form-control" for="philhealthId">PHILHEALTH No.: </label>
+                <input class="form-control" id="philhealthId" name="philhealthId" >
+                    
+                <label class="form-control" for="sssId">SSS No.: </label>
+                <input class="form-control" id="sssId" name="sssId" >
+                    
+                <label class="form-control" for="tinId">TIN No.: </label>
+                <input class="form-control" id="tinId" name="tinId" >
+                    
+                <label class="form-control" for="agencyEmployeeId">Agency Employee No.: </label>
+                <input class="form-control" id="agencyEmployeeId" name="agencyEmployeeId" >
+    
+                <label class="form-control" for="telNo">Telephone Number: </label>
+                <input class="form-control" id="telNo" name="telNo">
+                
+                <label class="form-control" for="institutionalEmail">Email: </label>
+                <input class="form-control disabled" id="institutionalEmail" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled >
+    
+            </div>
+            <div class="col-lg-5 col-sm-10">
+    
+                <label class="form-control" for="citizenship">Citizenship: </label>
+                <select class="form-control" id="citizenship" name="citizenship" >
+                    <option value="Filipino">Filipino</option>
+                    <option value="Dual Citizenship">Dual Citizenship</option>
+                </select>
+                <label class="form-control section-header" for="Residential Address">Residential Address: </label>
+    
+                <label class="form-control" for="raHBLN">House/Block/Lot No.: </label>
+                <input class="form-control" id="raHBLN" name="raHBLN" >
+                
+                <label class="form-control" for="raStrt">Street: </label>
+                <input class="form-control" id="raStrt" name="raStrt" >
+                
+                <label class="form-control" for="raSubVil">Subdivision/Village: </label>
+                <input class="form-control" id="raSubVil" name="raSubVil" >
+                
+                <label class="form-control" for="raBarangay">Barangay: </label>
+                <input class="form-control" id="raBarangay" name="raBarangay" >
+                
+                <label class="form-control" for="raCity">City: </label>
+                <input class="form-control" id="raCity" name="raCity" >
+                
+                <label class="form-control" for="raProvince">Province: </label>
+                <input class="form-control" id="raProvince" name="raProvince" >
+                
+                <label class="form-control" for="raZipCode">Zip Code: </label>
+                <input class="form-control" id="raZipCode" name="raZipCode" >
+    
+                <label class="form-control " for="Residential Address">Permanent Address: </label>
+    
+                <label class="form-control" for="paHBLN">House/Block/Lot No.: </label>
+                <input class="form-control" id="paHBLN" name="paHBLN" >
+                
+                <label class="form-control" for="paStrt">Street: </label>
+                <input class="form-control" id="paStrt" name="paStrt" >
+                
+                <label class="form-control" for="paSubVil">Subdivision/Village: </label>
+                <input class="form-control" id="paSubVil" name="paSubVil" >
+                
+                <label class="form-control" for="paBarangay">Barangay: </label>
+                <input class="form-control" id="paBarangay" name="paBarangay" >
+                
+                <label class="form-control" for="paCity">City: </label>
+                <input class="form-control" id="paCity" name="paCity" >
+                
+                <label class="form-control" for="paProvince">Province: </label>
+                <input class="form-control" id="paProvince" name="paProvince" >
+                
+                <label class="form-control" for="paZipCode">Zip Code: </label>
+                <input class="form-control" id="paZipCode" name="paZipCode" >
+
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+            </div>
+            
+        </div>
+        
+    </form>
+    
+</div>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = form.userId.value;
+        const middleName = form.middleName.value;
+        const nameExtension = form.nameExtension.value;
+        const birthDate = form.birthDate.value;
+        const placeOfBirth = form.placeOfBirth.value;
+        const sex = form.sex.value;
+        const civilStatus = form.civilStatus.value;
+        const height = form.height.value;
+        const weight = form.weight.value;
+        const bloodType = form.bloodType.value;
+        const gsisId = form.gsisId.value;
+        const pagibigId = form.pagibigId.value;
+        const philhealthId = form.philhealthId.value;
+        const sssId = form.sssId.value;
+        const tinId = form.tinId.value;
+        const agencyEmployeeId = form.agencyEmployeeId.value;
+        const telNo = form.telNo.value;
+        const citizenship = form.citizenship.value;
+        const raHBLN = form.raHBLN.value;
+        const raStrt = form.raStrt.value;
+        const raSubVil = form.raSubVil.value;
+        const raBarangay = form.raBarangay.value;
+        const raCity = form.raCity.value;
+        const raProvince = form.raProvince.value;
+        const raZipCode = form.raZipCode.value;
+        const paHBLN = form.paHBLN.value;
+        const paStrt = form.paStrt.value;
+        const paSubVil = form.paSubVil.value;
+        const paBarangay = form.paBarangay.value;
+        const paCity = form.paCity.value;
+        const paProvince = form.paProvince.value;
+        const paZipCode = form.paZipCode.value;
+        console.log({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
+            weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
+            citizenship, raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode,
+            paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode});
+        try{
+            const res = await fetch('/personalinformation', {
+              method: 'POST',
+              body: JSON.stringify({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
+                                    weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
+                                    citizenship, residentialAddress:{raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode},
+                                    permanentAddress:{paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+          catch (err){
+          }
+      
+      })
+
+
+</script>

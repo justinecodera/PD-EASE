@@ -4,15 +4,15 @@ const jwt = require('jsonwebtoken');
 //handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { username: '',institutionalEmail: '',password: '', };
+    let errors = {institutionalEmail: '',password: '', };
 
     //incorrect email
-    if (error.message === 'Email Not Registered') {
+    if (errors.message === 'Email Not Registered') {
         errors.email = 'Email Not Registered';
     }
 
     //incorrect password
-    if (error.message === 'Incorrect Password') {
+    if (errors.message === 'Incorrect Password') {
         errors.password = 'Incorrect Password';
     }
 
@@ -33,13 +33,13 @@ const handleErrors = (err) => {
 }
 
 //create a token function
-const maxAge = 3 * 24 * 60 * 60;
+const maxAge = 1 * 24 * 60 * 60;
 const createToken = (id) => {
     console.log('hello');
     console.log(id);
 
     return jwt.sign({ id }, 'sikretong malupet pwede pabulong', {
-        expiresIn: maxAge
+       
     })
 }
 
@@ -47,15 +47,15 @@ module.exports.signup_get = (req, res) => {
     res.render('signup', { title: 'signup'});
 }
 module.exports.signup_post = async (req, res) => {
-    const {username, institutionalEmail, password } = req.body;
+    const {firstname, lastname, institutionalEmail, password } = req.body;
     // console.log({username, institutionalEmail, password });
     try {
-        const user = await User.create({username, institutionalEmail, password });
+        const user = await User.create({firstname, lastname, institutionalEmail, password });
 
     
         const token = createToken(user._id);
         // console.log(token);
-        res.cookie('PEEDS', token, {httpOnly: true, maxAge: maxAge * 1000});
+        res.cookie('PEEDS', token, {httpOnly: true});
         res.status(201).json({user: user._id});
     }
     catch (err){
@@ -82,7 +82,7 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(institutionalEmail, password);
         const token = createToken(user._id);
         // console.log(token);
-        res.cookie('PEEDS', token, {httpOnly: true, maxAge: maxAge * 1000});
+        res.cookie('PEEDS', token, {httpOnly: true});
         res.status(200).json({user: user._id});
     }
     catch (err) {
@@ -93,5 +93,5 @@ module.exports.login_post = async (req, res) => {
 
 module.exports.logout_get = (req, res) => {
     res.cookie('PEEDS', '', {maxAge: 1});
-    res.redirect('/');
+    res.redirect('/login');
 }

@@ -1,4 +1,14 @@
-   // Update date and time in the upper right corner of Container-1
+ //sidebar toggle
+const hamBurger = document.querySelector(".toggle-btn");
+
+hamBurger.addEventListener("click", function () {
+  document.querySelector("#sidebar").classList.toggle("expand");
+});
+
+ 
+ 
+ 
+ // Update date and time in the upper right corner of Container-1
    function updateDateTime() {
     const dateTimeContainer = document.getElementById('date-time');
     const currentDate = new Date();
@@ -10,3 +20,5 @@
 // Call the function initially and set an interval to update every second
 updateDateTime();
 setInterval(updateDateTime, 1000);
+
+

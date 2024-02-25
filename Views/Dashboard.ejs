@@ -2,10 +2,24 @@
 <html lang="en">
     <%- include('./Partials/header.ejs') %>
 <body>
-    <%- include('./Partials/nav.ejs') %>
+    <div class="wrapper ">
+        <%- include('./Partials/nav.ejs') %>
+        <div class="main pt-3">
+            <div class="text-center">
+                <h1>
+                    RTU - PD-EASE
+                </h1>
+            </div>
 
-    
-
+            <% if (page === 'home') { %>
+                <%- include('./pages/home.ejs') %>
+            <% } else if (page === 'personalinformation') { %>
+            
+                <%- include('./PDS/PDSpersonalinformation.ejs') %>
+            <% } %>
+           
+        </div>
+    </div>
     <%- include('./Partials/footer.ejs') %>
 </body>
 <%- include('./Partials/scripts.ejs') %>
