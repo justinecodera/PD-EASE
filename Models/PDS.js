@@ -4,25 +4,24 @@ const { isEmail } = require('validator');
 
 const Schema = mongoose.Schema;
 
+//personal information schema
 const personalInfoSchema = new Schema({
     userId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'users',
         required: true,
+        unique: true
     },
     middleName: {
         type: String,
         required: true,
-        lowercase: true
     },
     nameExtension: {
         type: String,
-        lowercase: true
     },
     birthDate: {
         type: Date,
         required: true,
-        lowercase: true
     },
     placeOfBirth: {
         type: String,
@@ -89,75 +88,84 @@ const personalInfoSchema = new Schema({
         required: true,
         lowercase: true
     },
+    dualCitizenship: {
+        dcType: {
+            type: String
+        },
+        dcCountry: {
+            type: String
+        }
+    },
+
     residentialAddress: {
-        HBLN: {
+        raHBLN: {
             type: String,
             required: true,
             lowercase: true
         },
-        Strt: {
+        raStrt: {
             type: String,
             required: true,
             lowercase: true
         },
-        SubVil: {
+        raSubVil: {
             type: String,
             required: true,
             lowercase: true
         },
-        Barangay: {
+        raBarangay: {
             type: String,
             required: true,
             lowercase: true
         },
-        City: {
+        raCity: {
             type: String,
             required: true,
             lowercase: true
         },
-        Province: {
+        raProvince: {
             type: String,
             required: true,
             lowercase: true
         },
-        ZipCode: {
+        raZipCode: {
             type: String,
             required: true,
             lowercase: true
         }
     },
     permanentAddress: {
-        HBLN: {
+        paHBLN: {
             type: String,
             required: true,
             lowercase: true
         },
-        Strt: {
+        paStrt: {
             type: String,
             required: true,
             lowercase: true
         },
-        SubVil: {
+        paSubVil: {
             type: String,
             required: true,
             lowercase: true
         },
-        Barangay: {
+        paBarangay: {
             type: String,
             required: true,
             lowercase: true
         },
-        City: {
+        paCity: {
             type: String,
             required: true,
             lowercase: true
         },
-        Province: {
+        paProvince: {
             type: String,
             required: true,
             lowercase: true
         },
-        ZipCode: {
+        paZipCode: {
             type: String,
             required: true,
             lowercase: true
@@ -171,5 +179,430 @@ const personalInfoSchema = new Schema({
     },
 }, {timestamps: true});
 
+//family background schema
+const familyBackgroundSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    spouse: {
+        sLastName: {
+            type: String
+        },
+        sFirstName: {
+            type: String
+        },
+        sMiddleName: {
+            type: String
+        },
+        sNameExtension: {
+            type: String
+        },
+        sOccupation: {
+            type: String 
+        },
+        sEmployerBusinessName: {
+            type: String
+        },
+        sBusinessAdress: {
+            type: String
+        },
+        sTelNo: {
+            type: String
+        },
+    },
+    father: {
+        fLastName: {
+            type: String
+        },
+        fFirstName: {
+            type: String
+        },
+        fMiddleName: {
+            type: String
+        },
+        sNameExtension: {
+            type: String
+        }
+    },
+    mother: {
+        mLastname: {
+            type: String
+        },
+        mFirstname: {
+            type: String
+        },
+        mMiddlename: {
+            type: String
+        }
+    },
+    children: [
+        {
+            cFullName: {
+                type: String
+            },
+            cBirthDate: {
+                type: Date 
+            }
+        }
+    ]
+});
+
+//education schema
+const educationSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    ed: [
+        {
+            schooLevel: {
+                type: String
+            },
+            schoolName: {
+                type: String
+            },
+            basicEduDegCor: {
+                type: String
+            },
+            attendanceFrom: {
+                type: String
+            },
+            attendanceTo: {
+                type: String
+            },
+            highestLevel: {
+                type: String
+            },
+            yearGraduated: {
+                type: String
+            },
+            honorsRecieved: {
+                type: String
+            }
+        }
+    ]  
+            
+});
+
+//eligibility Schema
+const eligibilitySchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    cse: [
+        {
+            license: {
+                type: String,
+                unique: true
+            },
+            rating: {
+                type: String
+            },
+            dateOfExamination: {
+                type: Date
+            },
+            placeOfExamination: {
+                type: String
+            },
+            licenseNumber: {
+                type: String
+            },
+            dateOfValidity: {
+                type: Date
+            }
+        }
+    ]
+});
+
+// workExperienceSchema
+const workExperienceSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    we: [
+        {
+            workedFrom: {
+                type: Date
+            },
+            workedTo: {
+                type: Date
+            },
+            positionTitle: {
+                type: String
+            },
+            daoc: {
+                type: String
+            },
+            monthlySalary: {
+                type: Number
+            },
+            salaryJobPayGrade: {
+                type: String
+            },
+            statusOfAppointment: {
+                type: String
+            },
+            govtService: {
+                type: Boolean
+            }
+        }
+    ]
+});
+
+const voluntaryWorkSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    vw: [
+        {
+            nameAddressOfOrganization: {
+                type: String
+            },
+            volunteeredFrom: {
+                type: Date
+            },
+            volunteeredTo: {
+                type: Date
+            },
+            volunteernumberOfHours: {
+                type: Number
+            },
+            positionNature: {
+                type: String
+            }
+        }
+    ]
+});
+
+const trainingSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    ldit: [
+        {
+            lditPrograms: {
+                type: String
+            },
+            trainedFrom: {
+                type: Date
+            },
+            trainedTo: {
+                type: Date
+            },
+            trainingnumberOfHours: {
+                type: Number
+            },
+            typeOfLD: {
+                type: String
+            },
+            conductedSponsoredBy: {
+                type: String
+            }
+        }
+    ]
+});
+
+const otherInfoSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    specialSkillsHobbies: [
+        {
+            type: String
+        } 
+    ],
+    nonAcadDistRecog: [
+        {
+            type: String
+        } 
+    ],
+    membershipAssocOrg: [
+        {
+            type: String
+        } 
+    ]
+});
+
+const questionsSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    q1: [
+        {
+            q1a: {
+                type: Boolean
+            },
+            q1b: {
+                type: Boolean
+            },
+            q1bYesDetails: {
+                type: String
+            }
+        }
+    ],
+    q2: [
+        {
+            q2a: {
+                type: Boolean
+            },
+            q2aYesDetails: {
+                type: String
+            },
+            q2b: {
+                type: Boolean
+            },
+            q2bDateFiled: {
+                type: Date
+            },
+            q2bStatusofCase: {
+                type: String
+            }
+        }
+    ],
+    q3: [
+        {
+            q3a: {
+                type: Boolean
+            },
+            q3aYesDetails: {
+                type: String
+            }
+        }
+    ],
+    q4: [
+        {
+            q4a: {
+                type: Boolean
+            },
+            q4aYesDetails: {
+                type: String
+            }
+        }
+    ],
+    q5: [
+        {
+            q5a: {
+                type: Boolean
+            },
+            q5aYesDetails: {
+                type: String
+            },
+            q5b: {
+                type: Boolean
+            },
+            q5bYesDetails: {
+                type: String
+            }
+        }
+    ],
+    q6: [
+        {
+            q6a: {
+                type: Boolean
+            },
+            q6aYesDetails: {
+                type: String
+            }
+        }
+    ],
+    q7: [
+        {
+            q7a: {
+                type: Boolean
+            },
+            q7aYesDetails: {
+                type: String
+            },
+            q7b: {
+                type: Boolean
+            },
+            q7bYesDetails: {
+                type: String
+            },
+            q7c: {
+                type: Boolean
+            },
+            q7cYesDetails: {
+                type: String
+            }
+        }
+    ]
+});
+
+const referencesSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    ref: [
+        {
+            refName: {
+                type: String
+            },
+            refAddress: {
+                type: String
+            },
+            refTelNo: {
+                type: String
+            }
+        }
+    ]
+});
+
+const serviceRecordsSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    govIssuedIdType: {
+        type: String
+    },
+    govIssuedIdNumber: {
+        type: String
+    },
+    DatePlaceIssued: {
+        type: String
+    }
+});
+
+
+
 const PI = mongoose.model('pi', personalInfoSchema);
-module.exports = PI;
+const FB = mongoose.model('fb', familyBackgroundSchema);
+const ED = mongoose.model('ed', educationSchema);
+const EB = mongoose.model('eb', eligibilitySchema);
+const WE = mongoose.model('we', workExperienceSchema);
+const VW = mongoose.model('vw', voluntaryWorkSchema);
+const TR = mongoose.model('tr', trainingSchema);
+const OI = mongoose.model('oi', otherInfoSchema);
+const QT = mongoose.model('qt', questionsSchema);
+const RF = mongoose.model('rf', referencesSchema);
+const SR = mongoose.model('sr', serviceRecordsSchema);
+module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RF, SR};

@@ -5,7 +5,7 @@
       </button>
       <div class="sidebar-logo">
           <a href="#">    <% if (user) { %>
-              <%= user.lastname %>, <%= user.firstname %>
+              <%= user.lastname %>
           <% } %></a>
       </div>
   </div>
@@ -30,37 +30,37 @@
           </a>
           <ul id="PDS" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
               <li class="sidebar-item">
-                  <a href="/personalinformation" class="sidebar-link">Personal Information</a>
+                  <a href="/personalinformation/<%=user._id%>" class="sidebar-link">Personal Information</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Family Background</a>
+                  <a href="/familybackground/<%=user._id%>" class="sidebar-link">Family Background</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Education</a>
+                  <a href="/education/<%=user._id%>" class="sidebar-link">Education</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Eligibility</a>
+                  <a href="/eligibility/<%=user._id%>" class="sidebar-link">Eligibility</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Work Experience</a>
+                  <a href="/workexperience/<%=user._id%>" class="sidebar-link">Work Experience</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Voluntary Work</a>
+                  <a href="/voluntarywork/<%=user._id%>" class="sidebar-link">Voluntary Work</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Training</a>
+                  <a href="/training/<%=user._id%>" class="sidebar-link">Training</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Other Information</a>
+                  <a href="/otherinfo/<%=user._id%>" class="sidebar-link">Other Information</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Questions</a>
+                  <a href="/questions/<%=user._id%>" class="sidebar-link">Questions</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">References</a>
+                  <a href="/references/<%=user._id%>" class="sidebar-link">References</a>
               </li>
               <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Service Records</a>
+                  <a href="/servicerecords/<%=user._id%>" class="sidebar-link">Service Records</a>
               </li>
           </ul>
       </li>

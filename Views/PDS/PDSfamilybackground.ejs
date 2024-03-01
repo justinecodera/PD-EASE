@@ -1,1 +1,218 @@
-1
+
+<script>
+    const children = [];
+</script>
+<div class="row align-items-center">
+    <form class="m-1 mx-3 pds-form" >
+        <div class="row">
+            <div class="col-lg-9 col-md-7 col-sm-5"></div>
+            <div class="col">
+                
+                <button class="btn btn-primary " type="submit">Save</button>
+                <button class="btn btn-danger disabled" >Print</button></div>
+                
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">
+
+                <label class=" formsubHeader" for="spouse">Spouse: </label>
+
+                <label class="" for="sLastName">Surname: </label>
+                <input class="" id="sLastName" name="sLastName" placeholder="Spouse's Surname" value="<% if (fb === null) {} else {%><%= fb.spouse.sLastName %><%}%>" >
+                <label class="" for="sFirstName">First Name: </label>
+                <input class="" id="sFirstName" name="sFirstName" placeholder="Spouse's First Name" value="<% if (fb === null) {} else {%><%= fb.sFirstName %><% } %>" >
+                <label class="" for="sMiddleName">Middle Name: </label>
+                <input class="" id="sMiddleName" name="sMiddleName" placeholder="Spouse's Middle Name" value="<% if (fb === null) {} else {%><%= fb.sMiddleName %><% } %>" >
+                <label class="" for="sNameExtension">Name Extension: </label>
+                <input class="" id="sNameExtension" name="sNameExtension" placeholder="eg: (jr. sr.)" value="<% if (fb === null) {} else {%><%= fb.sNameExtension %><% } %>" >
+                <label class="" for="sOccupation">Occupation: </label>
+                <input class="" id="sOccupation" name="sOccupation" placeholder="Spouse's Occupation" value="<% if (fb === null) {} else {%><%= fb.sOccupation%><% } %>" >
+                <label class="" for="sEmployerBusinessName">Employer/Business Name: </label>
+                <input class="" id="sEmployerBusinessName" name="sEmployerBusinessName" placeholder="Spouse's Employer/Business Name" value="<% if (fb === null) {} else {%><%= fb.sEmployerBusinessName %><% } %>" >
+                <label class="" for="sBusinessAddress">Business Address: </label>
+                <input class="" id="sBusinessAddress" name="sBusinessAddress" placeholder="Spouse's Surname" value="<% if (fb === null) {} else {%><%= fb.sBusinessAddress %><% } %>" >
+                <label class="" for="sTelNo">Telephone No.: </label>
+                <input class="" id="sTelNo" name="sTelNo" placeholder="Spouse's Surname" value="<% if (fb === null) {} else {%><%= fb.sTelNo %><% } %>" >                                                                                
+
+                <label class=" formsubHeader" for="spouse">Father: </label>
+
+                <label class="" for="fLastName">Surname: </label>
+                <input class="" id="fLastName" name="fLastName" placeholder="father's Surname" value="<% if (fb === null) {} else {%><%= fb.fLastName %><% } %>" >
+                <label class="" for="fFirstName">First Name: </label>
+                <input class="" id="fFirstName" name="fFirstName" placeholder="father's First Name" value="<% if (fb === null) {} else {%><%= fb.fFirstName %><% } %>" >
+                <label class="" for="fMiddleName">Middle Name: </label>
+                <input class="" id="fMiddleName" name="fMiddleName" placeholder="father's Middle Name" value="<% if (fb === null) {} else {%><%= fb.fMiddleName %><% } %>" >
+                <label class="" for="fNameExtension">Name Extension: </label>
+                <input class="" id="fNameExtension" name="fNameExtension" placeholder="eg: (jr. sr.)" value="<% if (fb === null) {} else {%><%= fb.fNameExtension %><% } %>" >
+                 
+            </div>
+            <div class="col-lg-5 col-sm-10">
+                                                                                               
+                <label class=" formsubHeader" for="spouse">Mother: </label>
+
+                <label class="" for="mLastName">Surname: </label>
+                <input class="" id="mLastName" name="mLastName" placeholder="mother's Surname" value="<% if (fb === null) {} else {%><%= fb.mLastName %><% } %>" >
+                <label class="" for="mFirstName">First Name: </label>
+                <input class="" id="mFirstName" name="mFirstName" placeholder="mother's First Name" value="<% if (fb === null) {} else {%><%= fb.mFirstName %><% } %>" >
+                <label class="" for="mMiddleName">Middle Name: </label>
+                <input class="" id="mMiddleName" name="mMiddleName" placeholder="mother's Middle Name" value="<% if (fb === null) {} else {%><%= fb.mMiddleName %><% } %>" >
+
+
+                <% if(fb) {if (fb.children === null) {} else {%><% for( var child of fb.children ) { %>
+                    <!-- add all the current childrens to the array -->
+
+                    <script data-fullname="<%- child.cFullName %>" data-birthdate="<%- child.cBirthDate.toDateString() %>" >
+                        cFullName = document.currentScript.dataset.fullname;
+                        cBirthDate = document.currentScript.dataset.birthdate;
+                        children.push( {cFullName,cBirthDate} );
+                    </script>
+
+                <% } %><%}}%>
+                <label class=" formsubHeader" for="spouse">Childrens: </label>
+                <div id="referenceblock1"></div>
+                
+                
+                <label class="" for="cFullName">Child's Full Name: </label>
+                <input class="" id="cFullName" name="cFullName" placeholder="Surname, Firstname Mi." >
+                <label class="" for="cBirthDate">Child's BirthDate: </label>
+                <input class="" id="cBirthDate" name="cBirthDate" placeholder="MM/DD/YYYY" >
+                <a class="btn" id="AddChild" onclick="addchild()">+ add</a>
+            </div>
+        </div>
+        <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+    </form>
+    
+    
+</div>
+<script >
+    
+    const form = document.querySelector('form');
+    const referenceblock = document.getElementById('referenceblock1');
+   
+    children.forEach((child, index) => {
+        // Create h1 element for child's name
+        var cFullNameblock = document.createElement("h1");
+        cFullNameblock.textContent = child.cFullName;
+    
+        // Create p element for child's birthday
+        var cBirthDateblock = document.createElement("p");
+        cBirthDateblock.textContent = child.cBirthDate;
+    
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(cFullNameblock);
+            referenceblock.removeChild(cBirthDateblock);
+            referenceblock.removeChild(deleteButton);
+            
+            // Remove child's data from the 'children' array
+            children.splice(index, 1);
+        });
+    
+        // Append child's name, birthday, and delete button to reference block
+        referenceblock.appendChild(cFullNameblock);
+        referenceblock.appendChild(cBirthDateblock);
+        referenceblock.appendChild(deleteButton);
+
+    
+    });
+    
+function addchild() {
+
+    const cFullName = document.getElementById('cFullName');
+    const cBirthDate = document.getElementById('cBirthDate');
+    const referenceblock = document.getElementById('referenceblock1');
+
+
+
+    children.push({cFullName: cFullName.value, cBirthDate: cBirthDate.value});
+
+
+    while (referenceblock.firstChild) {
+        referenceblock.removeChild(referenceblock.firstChild);
+    }
+
+    children.forEach(function(child, index) {
+        // Create h1 element for child's name
+        var cFullNameblock = document.createElement("h1");
+        cFullNameblock.textContent = child.cFullName;
+    
+        // Create p element for child's birthday
+        var cBirthDateblock = document.createElement("p");
+        cBirthDateblock.textContent = child.cBirthDate;
+    
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(cFullNameblock);
+            referenceblock.removeChild(cBirthDateblock);
+            referenceblock.removeChild(deleteButton);
+            
+            // Remove child's data from the 'children' array
+            children.splice(index, 1);
+        });
+    
+        // Append child's name, birthday, and delete button to reference block
+        referenceblock.appendChild(cFullNameblock);
+        referenceblock.appendChild(cBirthDateblock);
+        referenceblock.appendChild(deleteButton);
+
+    
+    });
+
+
+}
+
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const userId = form.userId.value;
+    const sLastName = form.sLastName.value;
+    const sFirstName = form.sFirstName.value;
+    const sMiddleName = form.sMiddleName.value;
+    const sNameExtension = form.sNameExtension.value;
+    const sOccupation = form.sOccupation.value;
+    const sEmployerBusinessName = form.sEmployerBusinessName.value;
+    const sBusinessAddress = form.sBusinessAddress.value;
+    const sTelNo = form.sTelNo.value;
+    const fLastName = form.fLastName.value;
+    const fFirstName = form.fFirstName.value;
+    const fMiddleName = form.fMiddleName.value;
+    const fNameExtension = form.fNameExtension.value;
+    const mLastName = form.mLastName.value;
+    const mFirstName = form.mFirstName.value;
+    const mMiddleName = form.mMiddleName.value;
+     
+
+    console.log({userId, sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sTelNo, fLastName,
+                fFirstName, fMiddleName, fNameExtension, mLastName, mFirstName, mMiddleName, children} );
+    try{
+        const res = await fetch('/familybackground', {
+          method: 'POST',
+          body: JSON.stringify({userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sTelNo}, father: {fLastName,
+            fFirstName, fMiddleName, fNameExtension}, mother:{mLastName, mFirstName, mMiddleName}, children}),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+            if(data.errors){
+            }
+            if (data.status){
+              location.assign('/familybackground/<%=user._id%>');
+            }
+      }
+      catch (err){
+      }
+  
+  })
+</script>

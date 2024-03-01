@@ -1,1 +1,276 @@
-2
+
+<script>
+    const educations = [];
+</script>
+<div class="row align-items-center">
+    <form class="m-1 mx-3 pds-form" >
+        <div class="row">
+            <div class="col-lg-9 col-md-7 col-sm-5"></div>
+            <div class="col">
+                
+                <button class="btn btn-primary " type="submit">Save</button>
+                <button class="btn btn-danger disabled" >Print</button></div>
+                
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">
+                <label class=" formsubHeader" for="spouse">Education: </label>
+
+                <label class="" for="schooLevel">Education Level: </label>
+                <select class="" id="schooLevel" name="schooLevel" value="" required>
+                    <option value="Elementary">Elementary</option>
+                    <option value="Secondary">Secondary</option>
+                    <option value="Vocational/Trade Course">Vocational/Trade Course</option>
+                    <option value="College">College</option>
+                    <option value="Graduate Studies">Graduate Studies</option>
+                </select>
+
+                <label class="" for="schoolName">School Name: </label>
+                <input class="" id="schoolName" name="schoolName" placeholder="Write in full do not Abbreviate" value="" >
+
+                <label class="" for="basicEduDegCor">Basic Education/Degree/Course: </label>
+                <input class="" id="basicEduDegCor" name="basicEduDegCor" placeholder="Write in full do not Abbreviate" value="" >
+                
+                <label class=" formsubHeader" for="spouse">Period of Attendance: </label>
+                <label class="" for="attendanceFrom">From: </label>
+                <input class="" id="attendanceFrom" name="attendanceFrom" placeholder="Month-Year eg: June-2019" value="" >
+                <label class="" for="attendanceTo">To: </label>
+                <input class="" id="attendanceTo" name="attendanceTo" placeholder="Month-Year eg: June-2019" value="" >
+                
+                <label class="" for="highestLevel">Highest Level/ Units Earned: </label>
+                <input class="" id="highestLevel" name="highestLevel" placeholder="Write in full do not Abbreviate" value="" >
+
+                <label class="" for="yearGraduated">Year Graduated: </label>
+                <input class="" id="yearGraduated" name="yearGraduated" placeholder="Year Only" value="" >
+
+                <label class="" for="honorsRecieved">Scholarship/Academic Honors Recieved: </label>
+                <input class="" id="honorsRecieved" name="honorsRecieved" placeholder="Write in full do not Abbreviate" value="" >
+
+                <a class="btn" id="AddChild" onclick="addeducation()">+ add</a>
+            </div>
+            <div class="col-lg-5 col-sm-10">
+                <% if(ed) {if (ed.ed === null) {} else {%><% for( var education of ed.ed ) { %>
+                    <!-- add all the current childrens to the array -->
+
+                    <script data-schoolevel="<%- education.schooLevel %>" data-basicedudegcor="<%- education.basicEduDegCor %>" 
+                        data-attendancefrom="<%- education.attendanceFrom %>" data-attendanceto="<%- education.attendanceTo%>"
+                        data-highestlevel="<%- education.highestLevel%>" data-yeargraduated="<%- education.yearGraduated %>"
+                        data-honorsecieved="<%- education.honorsRecieved%>," data-schoolname="<%- education.schoolName%>">
+                        
+                        schooLevel = document.currentScript.dataset.schoolevel;
+                        schoolName = document.currentScript.dataset.schoolname;
+                        basicEduDegCor = document.currentScript.dataset.basicedudegcor;
+                        attendanceFrom = document.currentScript.dataset.attendancefrom;
+                        attendanceTo = document.currentScript.dataset.attendanceto;
+                        highestLevel = document.currentScript.dataset.highestlevel;
+                        yearGraduated = document.currentScript.dataset.yeargraduated;
+                        honorsRecieved = document.currentScript.dataset.honorsecieved;
+
+                        console.log({schooLevel, schoolName, basicEduDegCor, attendanceFrom, attendanceTo, highestLevel, yearGraduated, honorsRecieved})
+                        educations.push( {schooLevel, schoolName, basicEduDegCor, attendanceFrom, attendanceTo, highestLevel, yearGraduated, honorsRecieved} );
+                    </script>
+
+                <% } %><%}}%>
+                <label class=" formsubHeader" for="educations">Education</label>
+                <div id="referenceblock1"></div>
+            </div>
+        </div>
+        <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+    </form>
+    
+    
+</div>
+<script >
+    const referenceblock = document.getElementById('referenceblock1');
+   
+    educations.forEach((education, index) => {
+        // Create h1 element
+    var schooLevelblock = document.createElement("h1");
+    schooLevelblock.textContent = education.schooLevel;
+
+    // Create p element 
+    var schoolNameblock = document.createElement("p");
+    schoolNameblock.textContent = education.schoolName;
+
+    // Create p element 
+    var basicEduDegCorblock = document.createElement("p");
+    basicEduDegCorblock.textContent = education.basicEduDegCor;
+
+    // Create p element 
+    var attendanceFromblock = document.createElement("p");
+    attendanceFromblock.textContent = education.attendanceFrom;
+
+    // Create p element 
+    var attendanceToblock = document.createElement("p");
+    attendanceToblock.textContent = education.attendanceTo;
+
+    // Create p element 
+    var highestLevelblock = document.createElement("p");
+    highestLevelblock.textContent = education.highestLevel;
+
+    // Create p element 
+    var yearGraduatedblock = document.createElement("p");
+    yearGraduatedblock.textContent = education.yearGraduated;
+
+    // Create p element 
+    var honorsRecievedblock = document.createElement("p");
+    honorsRecievedblock.textContent = education.honorsRecieved;
+    
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(schooLevelblock);
+            referenceblock.removeChild(schoolNameblock);
+            referenceblock.removeChild(basicEduDegCorblock);
+            referenceblock.removeChild(attendanceFromblock);
+            referenceblock.removeChild(attendanceToblock);
+            referenceblock.removeChild(highestLevelblock);
+            referenceblock.removeChild(yearGraduatedblock);
+            referenceblock.removeChild(honorsRecievedblock);
+            referenceblock.removeChild(deleteButton);
+            
+            // Remove child's data from the 'children' array
+            educations.splice(index);
+        });
+    
+        // Append child's name, birthday, and delete button to reference block
+        referenceblock.appendChild(schooLevelblock);
+        referenceblock.appendChild(schoolNameblock);
+        referenceblock.appendChild(basicEduDegCorblock);
+        referenceblock.appendChild(attendanceFromblock);
+        referenceblock.appendChild(attendanceToblock);
+        referenceblock.appendChild(highestLevelblock);
+        referenceblock.appendChild(yearGraduatedblock);
+        referenceblock.appendChild(honorsRecievedblock);
+        referenceblock.appendChild(deleteButton);
+
+    
+    });
+
+
+    function addeducation() {
+
+        const schooLevel = document.getElementById('schooLevel');
+        const schoolName = document.getElementById('schoolName');
+        const basicEduDegCor = document.getElementById('basicEduDegCor');
+        const attendanceFrom = document.getElementById('attendanceFrom');
+        const attendanceTo = document.getElementById('attendanceTo');
+        const highestLevel = document.getElementById('highestLevel');
+        const yearGraduated = document.getElementById('yearGraduated');
+        const honorsRecieved = document.getElementById('honorsRecieved');
+        const referenceblock = document.getElementById('referenceblock1');
+       
+    
+        educations.push({schooLevel: schooLevel.value, schoolName: schoolName.value, basicEduDegCor: basicEduDegCor.value
+            , attendanceFrom: attendanceFrom.value, attendanceTo: attendanceTo.value
+            , highestLevel: highestLevel.value, yearGraduated: yearGraduated.value
+            , honorsRecieved: honorsRecieved.value});
+            console.log(educations, 'hello')
+    
+        while (referenceblock.firstChild) {
+            referenceblock.removeChild(referenceblock.firstChild);
+        }
+    
+        educations.forEach((education, index) => {
+
+            // Create h1 element
+        var schooLevelblock = document.createElement("h1");
+        schooLevelblock.textContent = education.schooLevel;
+        
+        // Create p element 
+        var schoolNameblock = document.createElement("p");
+        schoolNameblock.textContent = education.schoolName;
+
+        // Create p element 
+        var basicEduDegCorblock = document.createElement("p");
+        basicEduDegCorblock.textContent = education.basicEduDegCor;
+    
+        // Create p element 
+        var attendanceFromblock = document.createElement("p");
+        attendanceFromblock.textContent = education.attendanceFrom;
+    
+        // Create p element 
+        var attendanceToblock = document.createElement("p");
+        attendanceToblock.textContent = education.attendanceTo;
+    
+        // Create p element 
+        var highestLevelblock = document.createElement("p");
+        highestLevelblock.textContent = education.highestLevel;
+    
+        // Create p element 
+        var yearGraduatedblock = document.createElement("p");
+        yearGraduatedblock.textContent = education.yearGraduated;
+
+        // Create p element 
+        var honorsRecievedblock = document.createElement("p");
+        honorsRecievedblock.textContent = education.honorsRecieved;
+        
+            // Create delete button for deleting this child's information
+            var deleteButton = document.createElement("a");
+            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+            deleteButton.textContent = "Delete";
+            
+            // Add event listener to delete button
+            deleteButton.addEventListener("click", function() {
+                // Remove child's information and the delete button from the DOM
+                referenceblock.removeChild(schooLevelblock);
+                referenceblock.removeChild(schoolNameblock);
+                referenceblock.removeChild(basicEduDegCorblock);
+                referenceblock.removeChild(attendanceFromblock);
+                referenceblock.removeChild(attendanceToblock);
+                referenceblock.removeChild(highestLevelblock);
+                referenceblock.removeChild(yearGraduatedblock);
+                referenceblock.removeChild(honorsRecievedblock);
+                referenceblock.removeChild(deleteButton);
+                
+                // Remove child's data from the 'children' array
+                educations.splice(index);
+            });
+        
+            // Append child's name, birthday, and delete button to reference block
+            referenceblock.appendChild(schooLevelblock);
+            referenceblock.appendChild(schoolNameblock);
+            referenceblock.appendChild(basicEduDegCorblock);
+            referenceblock.appendChild(attendanceFromblock);
+            referenceblock.appendChild(attendanceToblock);
+            referenceblock.appendChild(highestLevelblock);
+            referenceblock.appendChild(yearGraduatedblock);
+            referenceblock.appendChild(honorsRecievedblock);
+            referenceblock.appendChild(deleteButton);
+    
+        
+        });
+    
+    }
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = form.userId.value;
+         
+    
+        console.log({userId, educations} );
+        try{
+            const res = await fetch('/education', {
+              method: 'POST',
+              body: JSON.stringify({userId, ed: educations}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/education/<%=user._id%>');
+                }
+          }
+          catch (err){
+          }
+      
+      })
+</script>

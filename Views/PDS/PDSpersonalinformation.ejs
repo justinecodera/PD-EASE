@@ -1,44 +1,44 @@
 
 
 <div class="row align-items-center">
-    <form class="m-1 mx-3" >
+    <form class="m-1 mx-3 pds-form" >
         <div class="row">
             <div class="col-lg-9 col-md-7 col-sm-5"></div>
             <div class="col">
-                <button class="btn btn-success" type="submit">Save</button></div>
-            <div class="col">
-                <button class="btn btn-primary disabled" >Print</button></div>
+                
+                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-danger disabled" >Print</button></div>
                 
             <div class="col-lg-1 col-md-1 col-sm-1"></div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">  
-                <label class="form-control" for="lastName">Surname: </label>
-                <input class="form-control" id="lastName" name="lastName" value="<%= user.lastname %>" disabled >
+                <label class="" for="lastName">Surname: <p class="required">*</p></label>
+                <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>" disabled required>
                     
-                <label class="form-control" for="firstName">First Name: </label>
-                <input class="form-control" id="firstName" name="firstName" value="<%= user.firstname %>" disabled >
+                <label class="" for="firstName">First Name:  <p class="required">*</p></label>
+                <input class="" id="firstName" name="firstName" placeholder="First Name" value="<%= user.firstname %>" disabled required>
                     
-                <label class="form-control" for="middleName">Middle Name: </label>
-                <input class="form-control" id="middleName" name="middleName" >
+                <label class="" for="middleName">Middle Name: </label>
+                <input class="" id="middleName" name="middleName" placeholder="Middle Name" value="<% if (pi){%><%= pi.middleName %><% } %>" >
                     
-                <label class="form-control" for="nameExtension">Name extension (jr.): </label>
-                <input class="form-control" id="nameExtension" name="nameExtension" >
+                <label class="" for="nameExtension">Name extension: </label>
+                <input class="" id="nameExtension" name="nameExtension" placeholder="ex: jr. sr." value="<% if (pi === null) {} else {%><%= pi.nameExtension %><% } %>" >
                  
-                <label class="form-control" for="birthDate">Date of Birth: </label>
-                <input class="form-control" type="date" id="birthDate" name="birthDate" >
+                <label class="" for="birthDate">Date of Birth:  <p class="required">*</p></label>
+                <input class="" type="date" id="birthDate" name="birthDate" placeholder="Date of Birth" value="<% if (pi === null) {} else {%><%= pibirthDate %><% } %>" required>
     
-                <label class="form-control" for="placeOfBirth">Place of Birth: </label>
-                <input class="form-control" id="placeOfBirth" name="placeOfBirth" >
+                <label class="" for="placeOfBirth">Place of Birth:  <p class="required">*</p></label>
+                <input class="" id="placeOfBirth" name="placeOfBirth" placeholder="Place of Birth" value="<% if (pi === null) {} else {%><%= pi.placeOfBirth %><% } %>" required>
                     
-                <label class="form-control" for="sex">Sex: </label>
-                <select class="form-control" id="sex" name="sex" >
-                    <option value="Male">Male</option>
+                <label class="" for="sex">Sex:  <p class="required">*</p></label>
+                <select class="" id="sex" name="sex" value="<% if (pi === null) {} else {%><%= pi.sex %><% } %>" required>
+                    <option value="Male" default>Male</option>
                     <option value="Female">Female</option>
                 </select>
                     
-                <label class="form-control" for="civilStatus">Civil Status: </label>
-                <select class="form-control" id="civilStatus" name="civilStatus" >
+                <label class="" for="civilStatus">Civil Status:  <p class="required">*</p></label>
+                <select class="" id="civilStatus" name="civilStatus" value="<% if (pi === null) {} else {%><%= pi.civilStatus %><% } %>" required>
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
                     <option value="Widowed">Widowed</option>
@@ -46,92 +46,352 @@
                     <option value="Other">Other</option>
                 </select>
                     
-                <label class="form-control" for="height">Height (m): </label>
-                <input class="form-control" id="height" name="height" >
+                <label class="" for="height">Height (m):   <p class="required">*</p></label>
+                <input class="" id="height" name="height"  placeholder="Height" value="<% if (pi === null) {} else {%><%= pi.height %><% } %>" required>
                     
-                <label class="form-control" for="weight">weight (Kg): </label>
-                <input class="form-control" id="weight" name="weight" >
+                <label class="" for="weight">Weight (Kg):  <p class="required">*</p></label>
+                <input class="" id="weight" name="weight" placeholder="Weight" value="<% if (pi === null) {} else {%><%= pi.weight %><% } %>" required>
                     
-                <label class="form-control" for="bloodType">Blood Type: </label>
-                <input class="form-control" id="bloodType" name="bloodType" >
+                <label class="" for="bloodType">Blood Type:  <p class="required">*</p></label>
+                <input class="" id="bloodType" name="bloodType" placeholder="Blood Type" value="<% if (pi === null) {} else {%><%= pi.bloodType %><% } %>" required>
                     
-                <label class="form-control" for="gsisId">GSIS ID: </label>
-                <input class="form-control" id="gsisId" name="gsisId" >
+                <label class="" for="gsisId">GSIS ID:  <p class="required">*</p></label>
+                <input class="" id="gsisId" name="gsisId" placeholder="GSIS ID" value="<% if (pi === null) {} else {%><%= pi.gsisId %><% } %>" required>
                     
-                <label class="form-control" for="pagibigId">PAG-IBIG ID: </label>
-                <input class="form-control" id="pagibigId" name="pagibigId" >
+                <label class="" for="pagibigId">PAG-IBIG ID:  <p class="required">*</p></label>
+                <input class="" id="pagibigId" name="pagibigId" placeholder="PAG-IBIG ID" value="<% if (pi === null) {} else {%><%= pi.pagibigId %><% } %>" required>
                     
-                <label class="form-control" for="philhealthId">PHILHEALTH No.: </label>
-                <input class="form-control" id="philhealthId" name="philhealthId" >
+                <label class="" for="philhealthId">PHILHEALTH No.:  <p class="required">*</p></label>
+                <input class="" id="philhealthId" name="philhealthId" placeholder="PHILHEALTH No." value="<% if (pi === null) {} else {%><%= pi.philhealthId %><% } %>" required>
                     
-                <label class="form-control" for="sssId">SSS No.: </label>
-                <input class="form-control" id="sssId" name="sssId" >
+                <label class="" for="sssId">SSS No.:  <p class="required">*</p></label>
+                <input class="" id="sssId" name="sssId" placeholder="SSS No." value="<% if (pi === null) {} else {%><%= pi.sssId %><% } %>" required>
                     
-                <label class="form-control" for="tinId">TIN No.: </label>
-                <input class="form-control" id="tinId" name="tinId" >
+                <label class="" for="tinId">TIN No.:  <p class="required">*</p></label>
+                <input class="" id="tinId" name="tinId" placeholder="TIN No." value="<% if (pi === null) {} else {%><%= pi.tinId %><% } %>" required>
                     
-                <label class="form-control" for="agencyEmployeeId">Agency Employee No.: </label>
-                <input class="form-control" id="agencyEmployeeId" name="agencyEmployeeId" >
+                <label class="" for="agencyEmployeeId">Agency Employee No.:  <p class="required">*</p></label>
+                <input class="" id="agencyEmployeeId" name="agencyEmployeeId" placeholder="Agency Employee No." value="<% if (pi === null) {} else {%><%= pi.agencyEmployeeId %><% } %>" required>
     
-                <label class="form-control" for="telNo">Telephone Number: </label>
-                <input class="form-control" id="telNo" name="telNo">
+                <label class="" for="telNo">Telephone Number: </label>
+                <input class="" id="telNo" name="telNo" placeholder="Telephone Number" value="<% if (pi === null) {} else {%><%= pi.telNo %><% } %>" >
                 
-                <label class="form-control" for="institutionalEmail">Email: </label>
-                <input class="form-control disabled" id="institutionalEmail" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled >
+                <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
+                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required>
     
             </div>
             <div class="col-lg-5 col-sm-10">
     
-                <label class="form-control" for="citizenship">Citizenship: </label>
-                <select class="form-control" id="citizenship" name="citizenship" >
-                    <option value="Filipino">Filipino</option>
+                <label class="" for="citizenship">Citizenship:  <p class="required">*</p></label>
+                <select class="" id="citizenship" name="citizenship" value="<%= user.citizenship %>" onchange="handleCitizenshipSelection()"  required>
+                    <option value="Filipino" default>Filipino</option>
                     <option value="Dual Citizenship">Dual Citizenship</option>
                 </select>
-                <label class="form-control section-header" for="Residential Address">Residential Address: </label>
+                <label id="dcTypeL" for="dcType" style="display: none;" >Dual Citizenship Type</label>
+                <select id="dcType" name="dcType" style="display: none;" value="<% if (pi === null) {} else {%><%= pi.dcType %><% } %>">
+                    <option value="">Select an Option...</option>
+                    <option value="By Birth">By Birth</option>
+                    <option value="By Naturalization">By Naturalization</option>
+                </select>
+
+                <label for="dcCountry" id="dcCountryL" style="display: none;">Pls. Indicate Country</label>
+                <select id="dcCountry" name="dcCountry" style="display: none;"  value="<% if (pi === null) {} else {%><%= pi.dcCountry %><% } %>">
+                    <option value="">Select a country...</option>
+                    <option value="AF">Afghanistan</option>
+                    <option value="AX">Åland Islands</option>
+                    <option value="AL">Albania</option>
+                    <option value="DZ">Algeria</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="AD">Andorra</option>
+                    <option value="AO">Angola</option>
+                    <option value="AI">Anguilla</option>
+                    <option value="AQ">Antarctica</option>
+                    <option value="AG">Antigua and Barbuda</option>
+                    <option value="AR">Argentina</option>
+                    <option value="AM">Armenia</option>
+                    <option value="AW">Aruba</option>
+                    <option value="AU">Australia</option>
+                    <option value="AT">Austria</option>
+                    <option value="AZ">Azerbaijan</option>
+                    <option value="BS">Bahamas</option>
+                    <option value="BH">Bahrain</option>
+                    <option value="BD">Bangladesh</option>
+                    <option value="BB">Barbados</option>
+                    <option value="BY">Belarus</option>
+                    <option value="BE">Belgium</option>
+                    <option value="BZ">Belize</option>
+                    <option value="BJ">Benin</option>
+                    <option value="BM">Bermuda</option>
+                    <option value="BT">Bhutan</option>
+                    <option value="BO">Bolivia (Plurinational State of)</option>
+                    <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                    <option value="BA">Bosnia and Herzegovina</option>
+                    <option value="BW">Botswana</option>
+                    <option value="BV">Bouvet Island</option>
+                    <option value="BR">Brazil</option>
+                    <option value="IO">British Indian Ocean Territory</option>
+                    <option value="BN">Brunei Darussalam</option>
+                    <option value="BG">Bulgaria</option>
+                    <option value="BF">Burkina Faso</option>
+                    <option value="BI">Burundi</option>
+                    <option value="CV">Cabo Verde</option>
+                    <option value="KH">Cambodia</option>
+                    <option value="CM">Cameroon</option>
+                    <option value="CA">Canada</option>
+                    <option value="KY">Cayman Islands</option>
+                    <option value="CF">Central African Republic</option>
+                    <option value="TD">Chad</option>
+                    <option value="CL">Chile</option>
+                    <option value="CN">China</option>
+                    <option value="CX">Christmas Island</option>
+                    <option value="CC">Cocos (Keeling) Islands</option>
+                    <option value="CO">Colombia</option>
+                    <option value="KM">Comoros</option>
+                    <option value="CG">Congo</option>
+                    <option value="CD">Congo (Democratic Republic of the)</option>
+                    <option value="CK">Cook Islands</option>
+                    <option value="CR">Costa Rica</option>
+                    <option value="CI">Côte d'Ivoire</option>
+                    <option value="HR">Croatia</option>
+                    <option value="CU">Cuba</option>
+                    <option value="CW">Curaçao</option>
+                    <option value="CY">Cyprus</option>
+                    <option value="CZ">Czech Republic</option>
+                    <option value="DK">Denmark</option>
+                    <option value="DJ">Djibouti</option>
+                    <option value="DM">Dominica</option>
+                    <option value="DO">Dominican Republic</option>
+                    <option value="EC">Ecuador</option>
+                    <option value="EG">Egypt</option>
+                    <option value="SV">El Salvador</option>
+                    <option value="GQ">Equatorial Guinea</option>
+                    <option value="ER">Eritrea</option>
+                    <option value="EE">Estonia</option>
+                    <option value="ET">Ethiopia</option>
+                    <option value="FK">Falkland Islands (Malvinas)</option>
+                    <option value="FO">Faroe Islands</option>
+                    <option value="FJ">Fiji</option>
+                    <option value="FI">Finland</option>
+                    <option value="FR">France</option>
+                    <option value="GF">French Guiana</option>
+                    <option value="PF">French Polynesia</option>
+                    <option value="TF">French Southern Territories</option>
+                    <option value="GA">Gabon</option>
+                    <option value="GM">Gambia</option>
+                    <option value="GE">Georgia</option>
+                    <option value="DE">Germany</option>
+                    <option value="GH">Ghana</option>
+                    <option value="GI">Gibraltar</option>
+                    <option value="GR">Greece</option>
+                    <option value="GL">Greenland</option>
+                    <option value="GD">Grenada</option>
+                    <option value="GP">Guadeloupe</option>
+                    <option value="GU">Guam</option>
+                    <option value="GT">Guatemala</option>
+                    <option value="GG">Guernsey</option>
+                    <option value="GN">Guinea</option>
+                    <option value="GW">Guinea-Bissau</option>
+                    <option value="GY">Guyana</option>
+                    <option value="HT">Haiti</option>
+                    <option value="HM">Heard Island and McDonald Islands</option>
+                    <option value="VA">Holy See</option>
+                    <option value="HN">Honduras</option>
+                    <option value="HK">Hong Kong</option>
+                    <option value="HU">Hungary</option>
+                    <option value="IS">Iceland</option>
+                    <option value="IN">India</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="IR">Iran (Islamic Republic of)</option>
+                    <option value="IQ">Iraq</option>
+                    <option value="IE">Ireland</option>
+                    <option value="IM">Isle of Man</option>
+                    <option value="IL">Israel</option>
+                    <option value="IT">Italy</option>
+                    <option value="JM">Jamaica</option>
+                    <option value="JP">Japan</option>
+                    <option value="JE">Jersey</option>
+                    <option value="JO">Jordan</option>
+                    <option value="KZ">Kazakhstan</option>
+                    <option value="KE">Kenya</option>
+                    <option value="KI">Kiribati</option>
+                    <option value="KP">Korea (Democratic People's Republic of)</option>
+                    <option value="KR">Korea (Republic of)</option>
+                    <option value="KW">Kuwait</option>
+                    <option value="KG">Kyrgyzstan</option>
+                    <option value="LA">Lao People's Democratic Republic</option>
+                    <option value="LV">Latvia</option>
+                    <option value="LB">Lebanon</option>
+                    <option value="LS">Lesotho</option>
+                    <option value="LR">Liberia</option>
+                    <option value="LY">Libya</option>
+                    <option value="LI">Liechtenstein</option>
+                    <option value="LT">Lithuania</option>
+                    <option value="LU">Luxembourg</option>
+                    <option value="MO">Macao</option>
+                    <option value="MK">Macedonia (the former Yugoslav Republic of)</option>
+                    <option value="MG">Madagascar</option>
+                    <option value="MW">Malawi</option>
+                    <option value="MY">Malaysia</option>
+                    <option value="MV">Maldives</option>
+                    <option value="ML">Mali</option>
+                    <option value="MT">Malta</option>
+                    <option value="MH">Marshall Islands</option>
+                    <option value="MQ">Martinique</option>
+                    <option value="MR">Mauritania</option>
+                    <option value="MU">Mauritius</option>
+                    <option value="YT">Mayotte</option>
+                    <option value="MX">Mexico</option>
+                    <option value="FM">Micronesia (Federated States of)</option>
+                    <option value="MD">Moldova (Republic of)</option>
+                    <option value="MC">Monaco</option>
+                    <option value="MN">Mongolia</option>
+                    <option value="ME">Montenegro</option>
+                    <option value="MS">Montserrat</option>
+                    <option value="MA">Morocco</option>
+                    <option value="MZ">Mozambique</option>
+                    <option value="MM">Myanmar</option>
+                    <option value="NA">Namibia</option>
+                    <option value="NR">Nauru</option>
+                    <option value="NP">Nepal</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="NC">New Caledonia</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="NI">Nicaragua</option>
+                    <option value="NE">Niger</option>
+                    <option value="NG">Nigeria</option>
+                    <option value="NU">Niue</option>
+                    <option value="NF">Norfolk Island</option>
+                    <option value="MP">Northern Mariana Islands</option>
+                    <option value="NO">Norway</option>
+                    <option value="OM">Oman</option>
+                    <option value="PK">Pakistan</option>
+                    <option value="PW">Palau</option>
+                    <option value="PS">Palestine, State of</option>
+                    <option value="PA">Panama</option>
+                    <option value="PG">Papua New Guinea</option>
+                    <option value="PY">Paraguay</option>
+                    <option value="PE">Peru</option>
+                    <option value="PH">Philippines</option>
+                    <option value="PN">Pitcairn</option>
+                    <option value="PL">Poland</option>
+                    <option value="PT">Portugal</option>
+                    <option value="PR">Puerto Rico</option>
+                    <option value="QA">Qatar</option>
+                    <option value="RE">Réunion</option>
+                    <option value="RO">Romania</option>
+                    <option value="RU">Russian Federation</option>
+                    <option value="RW">Rwanda</option>
+                    <option value="BL">Saint Barthélemy</option>
+                    <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                    <option value="KN">Saint Kitts and Nevis</option>
+                    <option value="LC">Saint Lucia</option>
+                    <option value="MF">Saint Martin (French part)</option>
+                    <option value="PM">Saint Pierre and Miquelon</option>
+                    <option value="VC">Saint Vincent and the Grenadines</option>
+                    <option value="WS">Samoa</option>
+                    <option value="SM">San Marino</option>
+                    <option value="ST">Sao Tome and Principe</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="SN">Senegal</option>
+                    <option value="RS">Serbia</option>
+                    <option value="SC">Seychelles</option>
+                    <option value="SL">Sierra Leone</option>
+                    <option value="SG">Singapore</option>
+                    <option value="SX">Sint Maarten (Dutch part)</option>
+                    <option value="SK">Slovakia</option>
+                    <option value="SI">Slovenia</option>
+                    <option value="SB">Solomon Islands</option>
+                    <option value="SO">Somalia</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="GS">South Georgia and the South Sandwich Islands</option>
+                    <option value="SS">South Sudan</option>
+                    <option value="ES">Spain</option>
+                    <option value="LK">Sri Lanka</option>
+                    <option value="SD">Sudan</option>
+                    <option value="SR">Suriname</option>
+                    <option value="SJ">Svalbard and Jan Mayen</option>
+                    <option value="SZ">Swaziland</option>
+                    <option value="SE">Sweden</option>
+                    <option value="CH">Switzerland</option>
+                    <option value="SY">Syrian Arab Republic</option>
+                    <option value="TW">Taiwan, Province of China[a]</option>
+                    <option value="TJ">Tajikistan</option>
+                    <option value="TZ">Tanzania, United Republic of</option>
+                    <option value="TH">Thailand</option>
+                    <option value="TL">Timor-Leste</option>
+                    <option value="TG">Togo</option>
+                    <option value="TK">Tokelau</option>
+                    <option value="TO">Tonga</option>
+                    <option value="TT">Trinidad and Tobago</option>
+                    <option value="TN">Tunisia</option>
+                    <option value="TR">Turkey</option>
+                    <option value="TM">Turkmenistan</option>
+                    <option value="TC">Turks and Caicos Islands</option>
+                    <option value="TV">Tuvalu</option>
+                    <option value="UG">Uganda</option>
+                    <option value="UA">Ukraine</option>
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="GB">United Kingdom of Great Britain and Northern Ireland</option>
+                    <option value="US">United States of America</option>
+                    <option value="UM">United States Minor Outlying Islands</option>
+                    <option value="UY">Uruguay</option>
+                    <option value="UZ">Uzbekistan</option>
+                    <option value="VU">Vanuatu</option>
+                    <option value="VE">Venezuela (Bolivarian Republic of)</option>
+                    <option value="VN">Viet Nam</option>
+                    <option value="VG">Virgin Islands (British)</option>
+                    <option value="VI">Virgin Islands (U.S.)</option>
+                    <option value="WF">Wallis and Futuna</option>
+                    <option value="EH">Western Sahara</option>
+                    <option value="YE">Yemen</option>
+                    <option value="ZM">Zambia</option>
+                    <option value="ZW">Zimbabwe</option>
+                  </select>
+                <label class=" formsubHeader" for="Residential Address">Residential Address:  <p class="required">*</p></label>
     
-                <label class="form-control" for="raHBLN">House/Block/Lot No.: </label>
-                <input class="form-control" id="raHBLN" name="raHBLN" >
+                <label class="" for="raHBLN">House/Block/Lot No.:  <p class="required">*</p></label>
+                <input class="" id="raHBLN" name="raHBLN" placeholder="House/Block/Lot No." value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raHBLN %><% } %>" required>
                 
-                <label class="form-control" for="raStrt">Street: </label>
-                <input class="form-control" id="raStrt" name="raStrt" >
+                <label class="" for="raStrt">Street:  <p class="required">*</p></label>
+                <input class="" id="raStrt" name="raStrt" placeholder="Street" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raStrt %><% } %>" required>
                 
-                <label class="form-control" for="raSubVil">Subdivision/Village: </label>
-                <input class="form-control" id="raSubVil" name="raSubVil" >
+                <label class="" for="raSubVil">Subdivision/Village:  <p class="required">*</p></label>
+                <input class="" id="raSubVil" name="raSubVil" placeholder="Subdivision/Village" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raSubVil %><% } %>" required>
                 
-                <label class="form-control" for="raBarangay">Barangay: </label>
-                <input class="form-control" id="raBarangay" name="raBarangay" >
+                <label class="" for="raBarangay">Barangay:  <p class="required">*</p></label>
+                <input class="" id="raBarangay" name="raBarangay" placeholder="Barangay" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raBarangay %><% } %>" required>
                 
-                <label class="form-control" for="raCity">City: </label>
-                <input class="form-control" id="raCity" name="raCity" >
+                <label class="" for="raCity">City:  <p class="required">*</p></label>
+                <input class="" id="raCity" name="raCity" placeholder="City" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raCity %><% } %>" required>
                 
-                <label class="form-control" for="raProvince">Province: </label>
-                <input class="form-control" id="raProvince" name="raProvince" >
+                <label class="" for="raProvince">Province:  <p class="required">*</p></label>
+                <input class="" id="raProvince" name="raProvince" placeholder="Province" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raProvince %><% } %>" required>
                 
-                <label class="form-control" for="raZipCode">Zip Code: </label>
-                <input class="form-control" id="raZipCode" name="raZipCode" >
+                <label class="" for="raZipCode">Zip Code:  <p class="required">*</p></label>
+                <input class="" id="raZipCode" name="raZipCode" placeholder="Zip Code" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raZipCode %><% } %>" required>
     
-                <label class="form-control " for="Residential Address">Permanent Address: </label>
+                <label class="formsubHeader" for="Residential Address">Permanent Address:  <p class="required">*</p></label>
     
-                <label class="form-control" for="paHBLN">House/Block/Lot No.: </label>
-                <input class="form-control" id="paHBLN" name="paHBLN" >
+                <label class="" for="paHBLN">House/Block/Lot No.:  <p class="required">*</p></label>
+                <input class="" id="paHBLN" name="paHBLN" placeholder="House/Block/Lot No." value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paHBLN %><% } %>" required>
                 
-                <label class="form-control" for="paStrt">Street: </label>
-                <input class="form-control" id="paStrt" name="paStrt" >
+                <label class="" for="paStrt">Street:  <p class="required">*</p></label>
+                <input class="" id="paStrt" name="paStrt" placeholder="Street" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paStrt %><% } %>" required>
                 
-                <label class="form-control" for="paSubVil">Subdivision/Village: </label>
-                <input class="form-control" id="paSubVil" name="paSubVil" >
+                <label class="" for="paSubVil">Subdivision/Village:  <p class="required">*</p></label>
+                <input class="" id="paSubVil" name="paSubVil" placeholder="Subdivision/Village" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paSubVil %><% } %>" required>
                 
-                <label class="form-control" for="paBarangay">Barangay: </label>
-                <input class="form-control" id="paBarangay" name="paBarangay" >
+                <label class="" for="paBarangay">Barangay:  <p class="required">*</p></label>
+                <input class="" id="paBarangay" name="paBarangay" placeholder="Barangay" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paBarangay %><% } %>" required>
                 
-                <label class="form-control" for="paCity">City: </label>
-                <input class="form-control" id="paCity" name="paCity" >
+                <label class="" for="paCity">City:  <p class="required">*</p></label>
+                <input class="" id="paCity" name="paCity" placeholder="City" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paCity %><% } %>" required>
                 
-                <label class="form-control" for="paProvince">Province: </label>
-                <input class="form-control" id="paProvince" name="paProvince" >
+                <label class="" for="paProvince">Province:  <p class="required">*</p></label>
+                <input class="" id="paProvince" name="paProvince" placeholder="Province" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paProvince %><% } %>" required>
                 
-                <label class="form-control" for="paZipCode">Zip Code: </label>
-                <input class="form-control" id="paZipCode" name="paZipCode" >
+                <label class="" for="paZipCode">Zip Code:  <p class="required">*</p></label>
+                <input class="" id="paZipCode" name="paZipCode" placeholder="Zip Code" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paZipCode %><% } %>" required>
 
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
@@ -166,6 +426,8 @@
         const agencyEmployeeId = form.agencyEmployeeId.value;
         const telNo = form.telNo.value;
         const citizenship = form.citizenship.value;
+        const dcType = form.dcType.value;
+        const dcCountry = form.dcCountry.value;
         const raHBLN = form.raHBLN.value;
         const raStrt = form.raStrt.value;
         const raSubVil = form.raSubVil.value;
@@ -182,22 +444,47 @@
         const paZipCode = form.paZipCode.value;
         console.log({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
             weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
-            citizenship, raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode,
+            citizenship, dcType, dcCountry, raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode,
             paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode});
         try{
             const res = await fetch('/personalinformation', {
               method: 'POST',
               body: JSON.stringify({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
                                     weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
-                                    citizenship, residentialAddress:{raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode},
+                                    citizenship, dualCitizenship:{dcType, dcCountry}, residentialAddress:{raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode},
                                     permanentAddress:{paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}}),
               headers: { 'Content-Type': 'application/json' }
             });
+            const data = await res.json();
+            if(data.errors){
+            }
+            if (data.status){
+              location.assign('/personalinformation/<%=user._id%>');
+            }
+            
           }
           catch (err){
           }
       
       })
 
-
+      function handleCitizenshipSelection() {
+        const citizenshipSelect = document.getElementById('citizenship');
+        const dcType = document.getElementById('dcType');
+        const dcCountry = document.getElementById('dcCountry');
+        const dcTypeL = document.getElementById('dcTypeL');
+        const dcCountryL = document.getElementById('dcCountryL');
+    
+        if (citizenshipSelect.value === 'Dual Citizenship') {
+            dcType.style.display = 'block';
+            dcCountry.style.display = 'block';
+            dcTypeL.style.display = 'block';
+            dcCountryL.style.display = 'block';
+        } else {
+            dcType.style.display = 'none';
+            dcCountry.style.display = 'none';
+            dcTypeL.style.display = 'none';
+            dcCountryL.style.display = 'none';
+        }
+    }
 </script>

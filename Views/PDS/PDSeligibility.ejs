@@ -1,1 +1,237 @@
-3
+
+<script>
+    const eligibilities = [];
+</script>
+<div class="row align-items-center">
+    <form class="m-1 mx-3 pds-form" >
+        <div class="row">
+            <div class="col-lg-9 col-md-7 col-sm-5"></div>
+            <div class="col">
+                
+                <button class="btn btn-primary " type="submit">Save</button>
+                <button class="btn btn-danger disabled" >Print</button></div>
+                
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">
+
+                <label class=" formsubHeader" for="spouse">Eligibility</label>
+                
+                <label class="" for="license">CAREER SERVICE/ RA 1080 (BOARD/ BAR) UNDER SPECIAL LAWS/ CES/ cseE BARANGAY ELIGIBILITY / DRIVER'S LICENSE: </label>
+                <input class="" id="license" name="license" placeholder="license Name" value="<% if (eb === null) {} else {%><%= eb.cse.license %><%}%>" >
+                
+                <label class="" for="rating">Rating (if Applicable): </label>
+                <input class="" id="rating" name="rating" placeholder="Rating" value="<% if (eb === null) {} else {%><%= eb.cse.rating %><%}%>" >
+                
+                <label class="" for="dateOfExamination">Date of Examination/Conferment: </label>
+                <input class="" type="date" id="dateOfExamination" name="dateOfExamination" placeholder="Date Of Examination" value="<% if (eb === null) {} else {%><%= eb.cse.dateOfExamination %><%}%>" >
+
+                <label class="" for="placeOfExamination">Place of Examination/Conferment</label>
+                <input class="" id="placeOfExamination" name="placeOfExamination" placeholder="Place of Examination" value="<% if (eb === null) {} else {%><%= eb.cse.placeOfExamination %><%}%>" >
+                
+                <label class=" formsubHeader" for="spouse">License (if Applicable)</label>
+                <label class="" for="licenseNumber">Number: </label>
+                <input class="" id="licenseNumber" name="licenseNumber" placeholder="license Number" value="<% if (eb === null) {} else {%><%= eb.cse.licenseNumber %><%}%>" >
+                
+                <label class="" for="dateOfValidity">Date of Validity: </label>
+                <input class="" type="date" id="dateOfValidity" name="dateOfValidity" placeholder="Date of Validity" value="<% if (eb === null) {} else {%><%= eb.cse.dateOfValidity %><%}%>" >
+                <a class="btn" id="AddChild" onclick="addeligibility()">+ add</a>
+            </div>
+            <div class="col-lg-5 col-sm-10">
+                <% if(eb) {if (eb.cse === null) {} else {%><% for( var eligibility of eb.cse ) { %>
+                    <!-- add all the current childrens to the array -->
+
+                    <script data-license="<%- eligibility.license %>" data-rating="<%- eligibility.rating%>" 
+                        data-dateofexamination="<%- eligibility.dateOfExamination.toDateString() %>" data-placeofexamination="<%- eligibility.placeOfExamination%>"
+                        data-licensenumber="<%- eligibility.licenseNumber%>" data-dateofvalidity="<%- eligibility.dateOfValidity.toDateString() %>">
+                        
+                        license = document.currentScript.dataset.license;
+                        rating = document.currentScript.dataset.rating;
+                        dateOfExamination = document.currentScript.dataset.dateofexamination;
+                        placeOfExamination = document.currentScript.dataset.placeofexamination;
+                        licenseNumber = document.currentScript.dataset.licensenumber;
+                        dateOfValidity = document.currentScript.dataset.dateofvalidity;
+                        console.log({license, rating, dateOfExamination, placeOfExamination, licenseNumber, dateOfValidity})
+                        eligibilities.push( {license, rating, dateOfExamination, placeOfExamination, licenseNumber, dateOfValidity} );
+                    </script>
+
+                <% } %><%}}%>
+                <label class=" formsubHeader" for="eligibilities">Eligibilities</label>
+                <div id="referenceblock1"></div>
+            </div>
+        </div>
+        
+        <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+    </form>
+    
+    
+</div>
+<script >
+
+    const form = document.querySelector('form');
+    const referenceblock = document.getElementById('referenceblock1');
+   
+    eligibilities.forEach((eligibility, index) => {
+        // Create h1 element for license name
+        var licenseblock = document.createElement("h1");
+        licenseblock.textContent = eligibility.license;
+    
+        // Create p element for rating
+        var ratingblock = document.createElement("p");
+        ratingblock.textContent = eligibility.rating;
+    
+        // Create p element for date of examination
+        var dateofexaminationblock = document.createElement("p");
+        dateofexaminationblock.textContent = eligibility.dateOfExamination;
+    
+        // Create p element for place of examination
+        var placeofexaminationblock = document.createElement("p");
+        placeofexaminationblock.textContent = eligibility.placeOfExamination;
+    
+        // Create p element for license number
+        var licensenumberblock = document.createElement("p");
+        licensenumberblock.textContent = eligibility.licenseNumber;
+    
+        // Create p element for date of validity
+        var dateofvalidityblock = document.createElement("p");
+        dateofvalidityblock.textContent = eligibility.dateOfValidity;
+    
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(licenseblock);
+            referenceblock.removeChild(ratingblock);
+            referenceblock.removeChild(dateofexaminationblock);
+            referenceblock.removeChild(placeofexaminationblock);
+            referenceblock.removeChild(licensenumberblock);
+            referenceblock.removeChild(dateofvalidityblock);
+            referenceblock.removeChild(deleteButton);
+            
+            // Remove child's data from the 'children' array
+            eligibilities.splice(index);
+        });
+    
+        // Append child's name, birthday, and delete button to reference block
+        referenceblock.appendChild(licenseblock);
+        referenceblock.appendChild(ratingblock);
+        referenceblock.appendChild(dateofexaminationblock);
+        referenceblock.appendChild(placeofexaminationblock);
+        referenceblock.appendChild(licensenumberblock);
+        referenceblock.appendChild(dateofvalidityblock);
+        referenceblock.appendChild(deleteButton);
+
+    
+    });
+    
+    function addeligibility() {
+
+        const license = document.getElementById('license');
+        const rating = document.getElementById('rating');
+        const dateOfExamination = document.getElementById('dateOfExamination');
+        const placeOfExamination = document.getElementById('placeOfExamination');
+        const licenseNumber = document.getElementById('licenseNumber');
+        const dateOfValidity = document.getElementById('dateOfValidity');
+        const referenceblock = document.getElementById('referenceblock1');
+    
+    
+    
+        eligibilities.push({license: license.value, rating: rating.value
+            , dateOfExamination: dateOfExamination.value, placeOfExamination: placeOfExamination.value
+            , licenseNumber: licenseNumber.value, dateOfValidity: dateOfValidity.value});
+            console.log(eligibilities, 'hello')
+    
+        while (referenceblock.firstChild) {
+            referenceblock.removeChild(referenceblock.firstChild);
+        }
+    
+        eligibilities.forEach((eligibility, index) => {
+            // Create h1 element for license name
+            var licenseblock = document.createElement("h1");
+            licenseblock.textContent = eligibility.license;
+        
+            // Create p element for rating
+            var ratingblock = document.createElement("p");
+            ratingblock.textContent = eligibility.rating;
+        
+            // Create p element for date of examination
+            var dateofexaminationblock = document.createElement("p");
+            dateofexaminationblock.textContent = eligibility.dateOfExamination;
+        
+            // Create p element for place of examination
+            var placeofexaminationblock = document.createElement("p");
+            placeofexaminationblock.textContent = eligibility.placeOfExamination;
+        
+            // Create p element for license number
+            var licensenumberblock = document.createElement("p");
+            licensenumberblock.textContent = eligibility.licenseNumber;
+        
+            // Create p element for date of validity
+            var dateofvalidityblock = document.createElement("p");
+            dateofvalidityblock.textContent = eligibility.dateOfValidity;
+        
+            // Create delete button for deleting this information
+            var deleteButton = document.createElement("a");
+            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+            deleteButton.textContent = "Delete";
+            
+            // Add event listener to delete button
+            deleteButton.addEventListener("click", function() {
+                // Remove information and the delete button from the DOM
+                referenceblock.removeChild(licenseblock);
+                referenceblock.removeChild(ratingblock);
+                referenceblock.removeChild(dateofexaminationblock);
+                referenceblock.removeChild(placeofexaminationblock);
+                referenceblock.removeChild(licensenumberblock);
+                referenceblock.removeChild(dateofvalidityblock);
+                referenceblock.removeChild(deleteButton);
+                
+                // Remove data from the array
+                eligibilities.splice(index);
+            });
+        
+            // Append 
+            referenceblock.appendChild(licenseblock);
+            referenceblock.appendChild(ratingblock);
+            referenceblock.appendChild(dateofexaminationblock);
+            referenceblock.appendChild(placeofexaminationblock);
+            referenceblock.appendChild(licensenumberblock);
+            referenceblock.appendChild(dateofvalidityblock);
+            referenceblock.appendChild(deleteButton);
+    
+        
+        });
+    
+    
+    }
+
+    
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const userId = form.userId.value;
+     
+
+    console.log({userId, eligibilities} );
+    try{
+        const res = await fetch('/eligibility', {
+          method: 'POST',
+          body: JSON.stringify({userId, cse: eligibilities}),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+            if(data.errors){
+            }
+            if (data.status){
+              location.assign('/eligibility/<%=user._id%>');
+            }
+      }
+      catch (err){
+      }
+  
+  })
+</script>

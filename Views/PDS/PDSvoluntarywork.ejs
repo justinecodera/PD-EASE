@@ -1,1 +1,213 @@
-5
+
+<script>
+    const voluntaryworks = [];
+</script>
+<div class="row align-items-center">
+    <form class="m-1 mx-3 pds-form" >
+        <div class="row">
+            <div class="col-lg-9 col-md-7 col-sm-5"></div>
+            <div class="col">
+                
+                <button class="btn btn-primary " type="submit">Save</button>
+                <button class="btn btn-danger disabled" >Print</button></div>
+                
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">
+                <label class=" formsubHeader" for="nameAddressOfOrganization">Voluntary Work: </label>
+
+                <label class="" for="nameAddressOfOrganization">Name & Adress of Ogranization: </label>
+                <input class="" id="nameAddressOfOrganization" name="nameAddressOfOrganization" placeholder="Write in full do not Abbreviate" value="" >
+                
+                <label class=" formsubHeader" for="spouse">Inclusive Dates: </label>
+                <label class="" for="volunteeredFrom">From: </label>
+                <input class="" type="date" id="volunteeredFrom" name="volunteeredFrom" placeholder="Starting Date" value="" >
+                <label class="" for="volunteeredTo">To: </label>
+                <input class="" type="date" id="volunteeredTo" name="volunteeredTo" placeholder="Ending Date" value="" >
+
+                <label class="" for="volunteernumberOfHours">Number of Hours: </label>
+                <input class="" id="volunteernumberOfHours" name="volunteernumberOfHours" placeholder="in Hours" value="" >
+                <label class="" for="positionNature">Position/Nature of Work: </label>
+                <input class="" id="positionNature" name="positionNature" placeholder="Write in full " value="" >
+                <a class="btn" id="AddChild" onclick="addvoluntarywork()">+ add</a>
+            </div>
+            <div class="col-lg-5 col-sm-10">
+                <% if(vw) {if (vw.vw === null) {} else {%><% for( var voluntarywork of vw.vw ) { %>
+                    <!-- add all the current childrens to the array -->
+
+                    <script data-volunteeredfrom="<%- voluntarywork.volunteeredFrom.toDateString() %>" data-volunteeredto="<%- voluntarywork.volunteeredTo.toDateString() %>" 
+                        data-nameaddressoforganization="<%- voluntarywork.nameAddressOfOrganization %>" data-volunteernumberofhours="<%- voluntarywork.volunteernumberOfHours%>"
+                        data-positionnature="<%- voluntarywork.positionNature%>" >
+                        
+                        volunteeredFrom = document.currentScript.dataset.volunteeredfrom;
+                        volunteeredTo = document.currentScript.dataset.volunteeredto;
+                        nameAddressOfOrganization = document.currentScript.dataset.nameaddressoforganization;
+                        volunteernumberOfHours = document.currentScript.dataset.volunteernumberofhours;
+                        positionNature = document.currentScript.dataset.positionnature;
+
+                        console.log({volunteeredFrom, volunteeredTo, nameAddressOfOrganization, volunteernumberOfHours, positionNature})
+                        voluntaryworks.push( {volunteeredFrom, volunteeredTo, nameAddressOfOrganization, volunteernumberOfHours, positionNature});
+                    </script>
+
+                <% } %><%}}%>
+                <label class=" formsubHeader" for="voluntaryworks">Voluntary Works</label>
+                <div id="referenceblock1"></div>
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+            </div>
+        </div>
+    </form>
+    
+    
+</div>
+<script >
+    const referenceblock = document.getElementById('referenceblock1');
+   
+    voluntaryworks.forEach((voluntarywork, index) => {
+        // Create h1 element
+        var nameAddressOfOrganizationblock = document.createElement("h1");
+        nameAddressOfOrganizationblock.textContent = voluntarywork.nameAddressOfOrganization;
+    
+        // Create p element 
+        var volunteeredFromblock = document.createElement("p");
+        volunteeredFromblock.textContent = voluntarywork.volunteeredFrom;
+    
+        // Create p element 
+        var volunteeredToblock = document.createElement("p");
+        volunteeredToblock.textContent = voluntarywork.volunteeredTo;
+    
+        // Create p element 
+        var volunteernumberOfHoursblock = document.createElement("p");
+        volunteernumberOfHoursblock.textContent = voluntarywork.volunteernumberOfHours;
+    
+        // Create p element 
+        var positionNatureblock = document.createElement("p");
+        positionNatureblock.textContent = voluntarywork.positionNature;
+    
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(nameAddressOfOrganizationblock);
+            referenceblock.removeChild(volunteeredFromblock);
+            referenceblock.removeChild(volunteeredToblock);
+            referenceblock.removeChild(volunteernumberOfHoursblock);
+            referenceblock.removeChild(positionNatureblock);
+            referenceblock.removeChild(deleteButton);
+            
+            // Remove child's data from the 'children' array
+            voluntaryworks.splice(index);
+        });
+    
+        // Append child's name, birthday, and delete button to reference block
+        referenceblock.appendChild(nameAddressOfOrganizationblock);
+        referenceblock.appendChild(volunteeredFromblock);
+        referenceblock.appendChild(volunteeredToblock);
+        referenceblock.appendChild(volunteernumberOfHoursblock);
+        referenceblock.appendChild(positionNatureblock);
+        referenceblock.appendChild(deleteButton);
+
+    
+    });
+
+    function addvoluntarywork() {
+
+        const volunteeredFrom = document.getElementById('volunteeredFrom');
+        const volunteeredTo = document.getElementById('volunteeredTo');
+        const nameAddressOfOrganization = document.getElementById('nameAddressOfOrganization');
+        const volunteernumberOfHours = document.getElementById('volunteernumberOfHours');
+        const positionNatureblock = document.getElementById('positionNature');
+        const referenceblock = document.getElementById('referenceblock1');
+       
+    
+        voluntaryworks.push({volunteeredFrom: volunteeredFrom.value, volunteeredTo: volunteeredTo.value
+            , nameAddressOfOrganization: nameAddressOfOrganization.value, volunteernumberOfHours: volunteernumberOfHours.value
+            , positionNature: positionNatureblock.value});
+            console.log(voluntaryworks, 'hello')
+    
+        while (referenceblock.firstChild) {
+            referenceblock.removeChild(referenceblock.firstChild);
+        }
+    
+        voluntaryworks.forEach((voluntarywork, index) => {
+            // Create h1 element
+            var nameAddressOfOrganizationblock = document.createElement("h1");
+            nameAddressOfOrganizationblock.textContent = voluntarywork.nameAddressOfOrganization;
+        
+            // Create p element 
+            var volunteeredFromblock = document.createElement("p");
+            volunteeredFromblock.textContent = voluntarywork.volunteeredFrom;
+        
+            // Create p element 
+            var volunteeredToblock = document.createElement("p");
+            volunteeredToblock.textContent = voluntarywork.volunteeredTo;
+        
+            // Create p element 
+            var volunteernumberOfHoursblock = document.createElement("p");
+            volunteernumberOfHoursblock.textContent = voluntarywork.volunteernumberOfHours;
+        
+            // Create p element 
+            var positionNatureblock = document.createElement("p");
+            positionNatureblock.textContent = voluntarywork.positionNature;
+        
+            // Create delete button for deleting this child's information
+            var deleteButton = document.createElement("a");
+            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+            deleteButton.textContent = "Delete";
+            
+            // Add event listener to delete button
+            deleteButton.addEventListener("click", function() {
+                // Remove child's information and the delete button from the DOM
+                referenceblock.removeChild(nameAddressOfOrganizationblock);
+                referenceblock.removeChild(volunteeredFromblock);
+                referenceblock.removeChild(volunteeredToblock);
+                referenceblock.removeChild(volunteernumberOfHoursblock);
+                referenceblock.removeChild(positionNatureblock);
+                referenceblock.removeChild(deleteButton);
+                
+                // Remove child's data from the 'children' array
+                voluntaryworks.splice(index);
+            });
+        
+            // Append child's name, birthday, and delete button to reference block
+            referenceblock.appendChild(nameAddressOfOrganizationblock);
+            referenceblock.appendChild(volunteeredFromblock);
+            referenceblock.appendChild(volunteeredToblock);
+            referenceblock.appendChild(volunteernumberOfHoursblock);
+            referenceblock.appendChild(positionNatureblock);
+            referenceblock.appendChild(deleteButton);
+    
+        
+        });
+    
+    }
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = form.userId.value;
+         
+    
+        console.log({userId, voluntaryworks} );
+        try{
+            const res = await fetch('/voluntarywork', {
+              method: 'POST',
+              body: JSON.stringify({userId, vw: voluntaryworks}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/voluntarywork/<%=user._id%>');
+                }
+          }
+          catch (err){
+          }
+      
+      })
+</script>

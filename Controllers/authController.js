@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 //handle errors
 const handleErrors = (err) => {
-    console.log(err.message, err.code);
+    console.log('start', err.message, err.code, 'end');
     let errors = {institutionalEmail: '',password: '', };
 
     //incorrect email
@@ -48,7 +48,6 @@ module.exports.signup_get = (req, res) => {
 }
 module.exports.signup_post = async (req, res) => {
     const {firstname, lastname, institutionalEmail, password } = req.body;
-    // console.log({username, institutionalEmail, password });
     try {
         const user = await User.create({firstname, lastname, institutionalEmail, password });
 
@@ -59,8 +58,9 @@ module.exports.signup_post = async (req, res) => {
         res.status(201).json({user: user._id});
     }
     catch (err){
-        const errors = handleErrors(err);
-        console.log(res.json({ errors }));
+        // const errors = handleErrors(err);
+        // console.log(res.json({ errors }));
+        console.log(err.message)
     }
 
 

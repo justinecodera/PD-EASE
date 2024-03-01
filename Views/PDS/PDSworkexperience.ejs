@@ -1,1 +1,261 @@
-4
+
+<script>
+    const workexperiences = [];
+</script>
+<div class="row align-items-center">
+    <form class="m-1 mx-3 pds-form" >
+        <div class="row">
+            <div class="col-lg-9 col-md-7 col-sm-5"></div>
+            <div class="col">
+                
+                <button class="btn btn-primary " type="submit">Save</button>
+                <button class="btn btn-danger disabled" >Print</button></div>
+                
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">
+                <label class=" formsubHeader" for="spouse">Work Experience: </label>
+
+                <label class=" formsubHeader" for="spouse">Inclusive Dates: </label>
+                <label class="" for="workedFrom">From: </label>
+                <input class="" type="date" id="workedFrom" name="workedFrom" placeholder="Starting Date" value="" >
+                <label class="" for="workedTo">To: </label>
+                <input class="" type="date" id="workedTo" name="workedTo" placeholder="Ending Date" value="" >
+
+                <label class="" for="positionTitle">Position Title: </label>
+                <input class="" id="positionTitle" name="positionTitle" placeholder="Write in full do not Abbreviate" value="" >
+                <label class="" for="daoc">Department/Agency/Office/Company: </label>
+                <input class="" id="daoc" name="daoc" placeholder="Write in full do not Abbreviate" value="" >
+                <label class="" for="monthlySalary">Monthly Salary: </label>
+                <input class="" id="monthlySalary" name="monthlySalary" placeholder="do not put comma (,)" value="" >
+                <label class="" for="salaryJobPayGrade">Salary/Job/Pay Grade and  Step(Format "00-0")/Increment: </label>
+                <input class="" id="salaryJobPayGrade" name="salaryJobPayGrade" placeholder="Salary/Job/Pay Grade" value="" >
+                <label class="" for="statusOfAppointment">Status of Appointment: </label>
+                <input class="" id="statusOfAppointment" name="statusOfAppointment" placeholder="Write in full do not Abbreviate" value="" >
+                <label class="" for="govtService">Gov't Service?(y/n): </label><br>
+                <input class="" type="checkbox" id="govtService" name="govtService" placeholder="Write in full do not Abbreviate" value="" ><br>
+                <a class="btn" id="AddChild" onclick="addworkexperience()">+ add</a>
+            </div>
+            <div class="col-lg-5 col-sm-10">
+                <% if(we) {if (we.we === null) {} else {%><% for( var workexperience of we.we ) { %>
+                    <!-- add all the current childrens to the array -->
+
+                    <script data-workedfrom="<%- workexperience.workedFrom.toDateString() %>" data-workedto="<%- workexperience.workedTo.toDateString() %>" 
+                        data-positiontitle="<%- workexperience.positionTitle %>" data-daoc="<%- workexperience.daoc%>"
+                        data-monthlysalary="<%- workexperience.monthlySalary%>" data-salaryjobpaygrade="<%- workexperience.salaryJobPayGrade %>"
+                        data-statusofappointment="<%- workexperience.statusOfAppointment%>" data-govtservice="<%- workexperience.govtService %>">
+                        
+                        workedFrom = document.currentScript.dataset.workedfrom;
+                        workedTo = document.currentScript.dataset.workedto;
+                        positionTitle = document.currentScript.dataset.positiontitle;
+                        daoc = document.currentScript.dataset.daoc;
+                        monthlySalary = document.currentScript.dataset.monthlysalary;
+                        salaryJobPayGrade = document.currentScript.dataset.salaryjobpaygrade;
+                        statusOfAppointment = document.currentScript.dataset.statusofappointment;
+                        govtService = document.currentScript.dataset.govtservice;
+
+                        console.log({workedFrom, workedTo, positionTitle, daoc, monthlySalary, salaryJobPayGrade, statusOfAppointment, govtService})
+                        workexperiences.push( {workedFrom, workedTo, positionTitle, daoc, monthlySalary, salaryJobPayGrade, statusOfAppointment, govtService} );
+                    </script>
+
+                <% } %><%}}%>
+                <label class=" formsubHeader" for="workexperiences">Work Experiences</label>
+                <div id="referenceblock1"></div>
+            </div>
+        </div>
+        <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+    </form>
+    
+    
+</div>
+<script >
+    const referenceblock = document.getElementById('referenceblock1');
+   
+    workexperiences.forEach((workexperience, index) => {
+        // Create h1 element
+        var positionTitleblock = document.createElement("h1");
+        positionTitleblock.textContent = workexperience.positionTitle;
+    
+        // Create p element 
+        var workedFromblock = document.createElement("p");
+        workedFromblock.textContent = workexperience.workedFrom;
+    
+        // Create p element 
+        var workedToblock = document.createElement("p");
+        workedToblock.textContent = workexperience.workedTo;
+    
+        // Create p element 
+        var daocblock = document.createElement("p");
+        daocblock.textContent = workexperience.daoc;
+    
+        // Create p element 
+        var monthlySalaryblock = document.createElement("p");
+        monthlySalaryblock.textContent = workexperience.monthlySalary;
+    
+        // Create p element 
+        var salaryJobPayGradeblock = document.createElement("p");
+        salaryJobPayGradeblock.textContent = workexperience.salaryJobPayGrade;
+
+        // Create p element 
+        var statusOfAppointmentblock = document.createElement("p");
+        statusOfAppointmentblock.textContent = workexperience.statusOfAppointment;
+    
+        // Create p element 
+        var govtServiceblock = document.createElement("p");
+        govtServiceblock.textContent = workexperience.govtService;
+    
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(positionTitleblock);
+            referenceblock.removeChild(workedFromblock);
+            referenceblock.removeChild(workedToblock);
+            referenceblock.removeChild(daocblock);
+            referenceblock.removeChild(monthlySalaryblock);
+            referenceblock.removeChild(salaryJobPayGradeblock);
+            referenceblock.removeChild(statusOfAppointmentblock);
+            referenceblock.removeChild(govtServiceblock);
+            referenceblock.removeChild(deleteButton);
+            
+            // Remove child's data from the 'children' array
+            workexperiences.splice(index);
+        });
+    
+        // Append child's name, birthday, and delete button to reference block
+        referenceblock.appendChild(positionTitleblock);
+        referenceblock.appendChild(workedFromblock);
+        referenceblock.appendChild(workedToblock);
+        referenceblock.appendChild(daocblock);
+        referenceblock.appendChild(monthlySalaryblock);
+        referenceblock.appendChild(salaryJobPayGradeblock);
+        referenceblock.appendChild(statusOfAppointmentblock);
+        referenceblock.appendChild(govtServiceblock);
+        referenceblock.appendChild(deleteButton);
+
+    
+    });
+    function addworkexperience() {
+
+        const workedFrom = document.getElementById('workedFrom');
+        const workedTo = document.getElementById('workedTo');
+        const positionTitle = document.getElementById('positionTitle');
+        const daoc = document.getElementById('daoc');
+        const monthlySalary = document.getElementById('monthlySalary');
+        const salaryJobPayGrade = document.getElementById('salaryJobPayGrade');
+        const statusOfAppointment = document.getElementById('statusOfAppointment');
+        const govtService = document.getElementById('govtService');
+        const referenceblock = document.getElementById('referenceblock1');
+       
+    
+        workexperiences.push({workedFrom: workedFrom.value, workedTo: workedTo.value
+            , positionTitle: positionTitle.value, daoc: daoc.value
+            , monthlySalary: monthlySalary.value, salaryJobPayGrade: salaryJobPayGrade.value
+            , statusOfAppointment: statusOfAppointment.value, govtService: govtService.checked});
+            console.log(workexperiences, 'hello')
+    
+        while (referenceblock.firstChild) {
+            referenceblock.removeChild(referenceblock.firstChild);
+        }
+    
+        workexperiences.forEach((workexperience, index) => {
+            // Create h1 element
+            var positionTitleblock = document.createElement("h1");
+            positionTitleblock.textContent = workexperience.positionTitle;
+        
+            // Create p element 
+            var workedFromblock = document.createElement("p");
+            workedFromblock.textContent = workexperience.workedFrom;
+        
+            // Create p element 
+            var workedToblock = document.createElement("p");
+            workedToblock.textContent = workexperience.workedTo;
+        
+            // Create p element 
+            var daocblock = document.createElement("p");
+            daocblock.textContent = workexperience.daoc;
+        
+            // Create p element 
+            var monthlySalaryblock = document.createElement("p");
+            monthlySalaryblock.textContent = workexperience.monthlySalary;
+        
+            // Create p element 
+            var salaryJobPayGradeblock = document.createElement("p");
+            salaryJobPayGradeblock.textContent = workexperience.salaryJobPayGrade;
+    
+            // Create p element 
+            var statusOfAppointmentblock = document.createElement("p");
+            statusOfAppointmentblock.textContent = workexperience.statusOfAppointment;
+        
+            // Create p element 
+            var govtServiceblock = document.createElement("p");
+            govtServiceblock.textContent = workexperience.govtService;
+        
+            // Create delete button for deleting this child's information
+            var deleteButton = document.createElement("a");
+            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+            deleteButton.textContent = "Delete";
+            
+            // Add event listener to delete button
+            deleteButton.addEventListener("click", function() {
+                // Remove child's information and the delete button from the DOM
+                referenceblock.removeChild(positionTitleblock);
+                referenceblock.removeChild(workedFromblock);
+                referenceblock.removeChild(workedToblock);
+                referenceblock.removeChild(daocblock);
+                referenceblock.removeChild(monthlySalaryblock);
+                referenceblock.removeChild(salaryJobPayGradeblock);
+                referenceblock.removeChild(statusOfAppointmentblock);
+                referenceblock.removeChild(govtServiceblock);
+                referenceblock.removeChild(deleteButton);
+                
+                // Remove child's data from the 'children' array
+                workexperiences.splice(index);
+            });
+        
+            // Append child's name, birthday, and delete button to reference block
+            referenceblock.appendChild(positionTitleblock);
+            referenceblock.appendChild(workedFromblock);
+            referenceblock.appendChild(workedToblock);
+            referenceblock.appendChild(daocblock);
+            referenceblock.appendChild(monthlySalaryblock);
+            referenceblock.appendChild(salaryJobPayGradeblock);
+            referenceblock.appendChild(statusOfAppointmentblock);
+            referenceblock.appendChild(govtServiceblock);
+            referenceblock.appendChild(deleteButton);
+    
+        
+        });
+    
+    }
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = form.userId.value;
+         
+    
+        console.log({userId, workexperiences} );
+        try{
+            const res = await fetch('/workexperience', {
+              method: 'POST',
+              body: JSON.stringify({userId, we: workexperiences}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/workexperience/<%=user._id%>');
+                }
+          }
+          catch (err){
+          }
+      
+      })
+</script>

@@ -14,8 +14,27 @@
             <% if (page === 'home') { %>
                 <%- include('./pages/home.ejs') %>
             <% } else if (page === 'personalinformation') { %>
-            
                 <%- include('./PDS/PDSpersonalinformation.ejs') %>
+            <% } else if (page === 'familybackground') { %>
+                <%- include('./PDS/PDSfamilybackground.ejs') %>
+            <% } else if (page === 'education') { %>
+                <%- include('./PDS/PDSeducation.ejs') %>
+            <% } else if (page === 'eligibility') { %>
+                <%- include('./PDS/PDSeligibility.ejs') %>
+            <% } else if (page === 'workexperience') { %>
+                <%- include('./PDS/PDSworkexperience.ejs') %>
+            <% } else if (page === 'voluntarywork') { %>
+                <%- include('./PDS/PDSvoluntarywork.ejs') %>
+            <% } else if (page === 'training') { %>
+                <%- include('./PDS/PDStraining.ejs') %>
+            <% } else if (page === 'otherinformation') { %>
+                <%- include('./PDS/PDSotherinformation.ejs') %>
+            <% } else if (page === 'questions') { %>
+                <%- include('./PDS/PDSquestions.ejs') %>
+            <% } else if (page === 'references') { %>
+                <%- include('./PDS/PDSreferences.ejs') %>
+            <% } else if (page === 'servicerecords') { %>
+                <%- include('./PDS/PDSservicerecords.ejs') %>
             <% } %>
            
         </div>
