@@ -1,5 +1,5 @@
 const { isEmpty } = require('validator');
-const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RF, SR} = require('../Models/PDS');
+const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR} = require('../Models/PDS');
 const User = require('../Models/PDS');
 const moment = require('moment');
 
@@ -450,7 +450,8 @@ module.exports.questions_get = async (req, res) => {
                 // console.log(result,'eto ba nagpiprint')
                 res.render('Dashboard', { qt: null, title: "Questions", page: "questions"});
             } else {
-                res.render('Dashboard', { qt: result, title: "Questions", page: "questions"});
+                convertedq2bDateFiled = moment(result.q2.q2bDateFiled).format('YYYY-MM-DD');
+                res.render('Dashboard', {convertedq2bDateFiled: convertedq2bDateFiled, qt: result, title: "Questions", page: "questions"});
                 // console.log(result,'eto ba nagpiprint')
             }
             
@@ -459,19 +460,59 @@ module.exports.questions_get = async (req, res) => {
             console.log(err)
         })
 }
+//post
+module.exports.questions_post = async (req, res) => {
+
+    const userId = req.body.userId;
+    const {q1a, q1b, q1bYesDetails}= req.body.q1;
+    const {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}= req.body.q2;
+    const {q3a, q3aYesDetails}= req.body.q3;
+    const {q4a, q4aYesDetails}= req.body.q4;
+    const {q5a, q5aYesDetails, q5b, q5bYesDetails}= req.body.q5;
+    const {q6a, q6aYesDetails}= req.body.q6;
+    const {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}= req.body.q7;
+    const userqt = await QT.exists({userId: userId});
+    if (userqt === null) {
+        //create new entry
+        try {
+            const qtcreate = await QT.create({userId, q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
+                q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
+                 q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}});
+            console.log(qtcreate);
+            res.status(200).json({status: 'Update Success'});
+        }
+        catch (err) {
+            res.status(200).json({status: 'Update Success'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+        try {
+            const qtupdate = await QT.updateOne({userId, q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
+                q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
+                 q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}});
+                console.log(qtupdate)
+                res.status(200).json({status: 'Update Success'});
+        }
+        catch (error){
+            console.log(error)
+            res.status(200).json({status: 'Update Failed'});
+        }
+    }    
+}
 
 //references
 module.exports.references_get = async (req, res) => {
     const id = req.params.id;
-    const userrf= await RF.findOne({userId: id})
-    await RF.findOne({userId: id})
+    const userrr= await RR.findOne({userId: id})
+    await RR.findOne({userId: id})
         .then(result => {
             // console.log(result)
             if (result === null) {
                 // console.log(result,'eto ba nagpiprint')
-                res.render('Dashboard', { rf: null, title: "References", page: "references"});
+                res.render('Dashboard', { rr: null, title: "References", page: "references"});
             } else {
-                res.render('Dashboard', { rf: result, title: "References", page: "references"});
+                res.render('Dashboard', { rr: result, title: "References", page: "references"});
                 // console.log(result,'eto ba nagpiprint')
             }
             
@@ -479,6 +520,37 @@ module.exports.references_get = async (req, res) => {
         .catch (err => {
             console.log(err)
         })
+}
+//post
+module.exports.references_post = async (req, res) => {
+
+    const userId = req.body.userId;
+    const rr = req.body.rr;
+    console.log('pumasok')
+    const userrr = await RR.exists({userId: userId});
+    if (userrr === null) {
+        //create new entry
+        try {
+            const rrcreate = await RR.create({userId, rr});
+            console.log(rrcreate);
+            res.status(200).json({status: 'Update Success'});
+        }
+        catch (err) {
+            res.status(200).json({status: 'Update Success'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+        try {
+            const rrupdate = await RR.updateOne({userId, ref: rr});
+                console.log(rrupdate)
+                res.status(200).json({status: 'Update Success'});
+        }
+        catch (error){
+            console.log(error)
+            res.status(200).json({status: 'Update Failed'});
+        }
+    }    
 }
 
 //service records
@@ -500,4 +572,37 @@ module.exports.servicerecords_get = async (req, res) => {
         .catch (err => {
             console.log(err)
         })
+}
+//post
+module.exports.servicerecords_post = async (req, res) => {
+
+    const userId = req.body.userId;
+    const govIssuedIdType = req.body.govIssuedIdType;
+    const govIssuedIdNumber = req.body.govIssuedIdNumber;
+    const DatePlaceIssued = req.body.DatePlaceIssued;
+    console.log('pumasok')
+    const usersr = await SR.exists({userId: userId});
+    if (usersr === null) {
+        //create new entry
+        try {
+            const srcreate = await SR.create({userId, govIssuedIdType, govIssuedIdNumber, DatePlaceIssued});
+            console.log(srcreate);
+            res.status(200).json({status: 'Update Success'});
+        }
+        catch (err) {
+            res.status(200).json({status: 'Update Success'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+        try {
+            const srupdate = await SR.updateOne({userId}, {govIssuedIdType, govIssuedIdNumber, DatePlaceIssued});
+                console.log(srupdate)
+                res.status(200).json({status: 'Update Success'});
+        }
+        catch (error){
+            console.log(error)
+            res.status(200).json({status: 'Update Failed'});
+        }
+    }    
 }

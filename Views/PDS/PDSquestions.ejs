@@ -3,21 +3,174 @@
     const children = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Questions</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">Questions: </label>
+
+                <label id="q1" for="q1" class="fw-semibold" >1. Are you related by Consanguinity or affinity to the appointing or recommending Authority, or to the Chief Bureau or Office or to the Person
+                    who has immediate supervision over you in the Office, Bureau or Department where you will be appointed,
+                </label>
+                <label for="q1a" >
+                    a. Within the Third Degree?
+                </label>
+                <select id="q1a" name="q1a">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q1.q1a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label for="q1b" >
+                    b. within the fourth degree (for Local Government Unit - Career Employees)?
+                </label>
+                <select id="q1b" name="q1b" value="" onchange="q1changed()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q1.q1b === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q1bYesDetailsL" for="q1bYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q1bYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q1.q1bYesDetails %><% } %>" >
+    
+                <label id="q2" for="q2"  class="fw-semibold" >2. </label> <br>
+                <label for="q2a" >
+                    a. Have you ever been found guilty of any administrative offense?
+                </label>
+                <select id="q2a" name="q2a" value="" onchange="q2achanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q2.q2a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q2aYesDetailsL" for="q2aYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q2aYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q2.q2aYesDetails %><% } %>" >
+    
+                <label for="q2b" >
+                    b. Have you been criminally charged before any court?
+                </label>
+                <select id="q2b" name="q2b" value="" onchange="q2bchanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q2.q2a === true) {%>selected<% } %> <% if (qt === null) {} else if(qt.q2.q2b === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q2bDateFiledLL" for="q2bDateFiled" >
+                    If Yes, Give Details:
+                </label>
+                <label style="display: none;" id="q2bDateFiledL" for="q2bDateFiled" >
+                    Date Filed:
+                </label>
+                <input type="date" style="display: none;" id="q2bDateFiled" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= convertedq2bDateFiled %><% } %>" >
+                <label style="display: none;" id="q2bStatusofCaseL" for="q2bStatusofCase" >
+                    Status of Case/s:
+                </label>
+                <input style="display: none;" id="q2bStatusofCase" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q2.q2bStatusofCase %><% } %>" >
+                
+                <label for="q3a"  class="fw-semibold" >
+                    3. Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation 
+by any court or tribunal?
+                </label>
+                <select id="q3a" name="q3a" value="" onchange="q3achanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q3.q3a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q3aYesDetailsL" for="q3aYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q3aYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q3.q3aYesDetails %><% } %>" >
+                
+                <label for="q4a"  class="fw-semibold" >
+                    4. Have you ever been separated from the service in any of the following modes: resignation, 
+retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased 
+out (abolition) in the public or private sector?
+                </label>
+                <select id="q4a" name="q4a" value="" onchange="q4achanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q4.q4a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q4aYesDetailsL" for="q4aYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q4aYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q4.q4aYesDetails %><% } %>" >
+                
             </div>
             <div class="col-lg-5 col-sm-10">
+
+                <label id="q5" for="q5"  class="fw-semibold" >5. </label><br>
+                <label for="q5a" >
+                    a. Have you ever been a candidate in a national or local election held within the last year (except 
+                    Barangay election)?
+                </label>
+                <select id="q5a" name="q5a" value="" onchange="q5achanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q5.q5a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q5aYesDetailsL" for="q5aYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q5aYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q5.q5aYesDetails %><% } %>" >
+                <label for="q5b" >
+                    b. Have you resigned from the government service during the three (3)-month period before the last 
+                    election to promote/actively campaign for a national or local candidate?
+                </label>
+                <select id="q5b" name="q5b" value="" onchange="q5bchanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q5.q5b === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q5bYesDetailsL" for="q5bYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q5bYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q5.q5bYesDetails %><% } %>" >
+    
+                <label for="q6a" class="fw-semibold"  >
+                    6. Have you acquired the status of an immigrant or permanent resident of another country?
+                </label>
+                <select id="q6a" name="q6a" value="" onchange="q6achanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q6.q6a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q6aYesDetailsL" for="q6aYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q6aYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q6.q6aYesDetails %><% } %>" >
+                
+                <label id="q7" for="q7"  class="fw-semibold" >7. Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 
+                    7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items:</label><br>
+                <label for="q7a" >
+                    a. Are you a member of any indigenous group?
+                </label>
+                <select id="q7a" name="q7a" value="" onchange="q7achanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q7.q7a === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q7aYesDetailsL" for="q7aYesDetails" >
+                    If Yes, Give Details:
+                </label>
+                <input style="display: none;" id="q7aYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q7.q7aYesDetails %><% } %>" >
+                <label for="q7b" >
+                    b. Are you a person with disability?
+                </label>
+                <select id="q7b" name="q7b" value="" onchange="q7bchanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q7.q7b === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q7bYesDetailsL" for="q7bYesDetails" >
+                    If Yes, Please Specify Id No.:
+                </label>
+                <input style="display: none;" id="q7bYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q7.q7bYesDetails %><% } %>" >
+                <label for="q7c" >
+                    c. Are you a solo parent?
+                </label>
+                <select id="q7c" name="q7c" value="" onchange="q7cchanged()">
+                    <option value="false">No</option>
+                    <option value="true" <% if (qt === null) {} else if(qt.q7.q7c === true) {%>selected<% } %>>Yes</option>
+                </select>
+                <label class="fw-semibold"  style="display: none;" id="q7cYesDetailsL" for="q7cYesDetails" >
+                    If Yes, Please Specify Id No.:
+                </label>
+                <input style="display: none;" id="q7cYesDetails" placeholder="Details" name="institutionalEmail" value="<% if (qt === null) {} else {%><%= qt.q7.q7cYesDetails %><% } %>" >
+    
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
         </div>
     </form>
@@ -25,5 +178,224 @@
     
 </div>
 <script >
-    
+    function q1changed() {
+        const q1bYesDetailsL = document.getElementById('q1bYesDetailsL');
+        const q1bYesDetails = document.getElementById('q1bYesDetails');
+        const q1b = document.getElementById('q1b');
+
+        if(q1b.value === 'true'){
+            q1bYesDetailsL.style.display = 'block';
+            q1bYesDetails.style.display = 'block';
+        }
+        else {
+            q1bYesDetailsL.style.display = 'none';
+            q1bYesDetails.style.display = 'none';
+        }
+    }q1changed()
+    function q2achanged() {
+        const q2aYesDetailsL = document.getElementById('q2aYesDetailsL');
+        const q2aYesDetails = document.getElementById('q2aYesDetails');
+        const q2a = document.getElementById('q2a');
+
+        if(q2a.value === 'true'){
+            q2aYesDetailsL.style.display = 'block';
+            q2aYesDetails.style.display = 'block';
+        }
+        else {
+            q2aYesDetailsL.style.display = 'none';
+            q2aYesDetails.style.display = 'none';
+        }
+    }q2achanged()
+    function q2bchanged() {
+        const q2bDateFiledLL = document.getElementById('q2bDateFiledLL');
+        const q2bDateFiledL = document.getElementById('q2bDateFiledL');
+        const q2bDateFiled = document.getElementById('q2bDateFiled');
+        const q2bStatusofCaseL = document.getElementById('q2bStatusofCaseL');
+        const q2bStatusofCase = document.getElementById('q2bStatusofCase');
+        const q2b = document.getElementById('q2b');
+
+        if(q2b.value === 'true'){
+            q2bDateFiledLL.style.display = 'block';
+            q2bDateFiledL.style.display = 'block';
+            q2bDateFiled.style.display = 'block';
+            q2bStatusofCaseL.style.display = 'block';
+            q2bStatusofCase.style.display = 'block';
+        }
+        else {
+            q2bDateFiledLL.style.display = 'none';
+            q2bDateFiledL.style.display = 'none';
+            q2bDateFiled.style.display = 'none';
+            q2bStatusofCaseL.style.display = 'none';
+            q2bStatusofCase.style.display = 'none';
+        }
+    }q2bchanged() 
+    function q3achanged() {
+        const q3aYesDetailsL = document.getElementById('q3aYesDetailsL');
+        const q3aYesDetails = document.getElementById('q3aYesDetails');
+        const q3a = document.getElementById('q3a');
+
+        if(q3a.value === 'true'){
+            q3aYesDetailsL.style.display = 'block';
+            q3aYesDetails.style.display = 'block';
+        }
+        else {
+            q3aYesDetailsL.style.display = 'none';
+            q3aYesDetails.style.display = 'none';
+        }
+    }q3achanged()
+    function q4achanged() {
+        const q4aYesDetailsL = document.getElementById('q4aYesDetailsL');
+        const q4aYesDetails = document.getElementById('q4aYesDetails');
+        const q4a = document.getElementById('q4a');
+
+        if(q4a.value === 'true'){
+            q4aYesDetailsL.style.display = 'block';
+            q4aYesDetails.style.display = 'block';
+        }
+        else {
+            q4aYesDetailsL.style.display = 'none';
+            q4aYesDetails.style.display = 'none';
+        }
+    }q4achanged()
+    function q5achanged() {
+        const q5aYesDetailsL = document.getElementById('q5aYesDetailsL');
+        const q5aYesDetails = document.getElementById('q5aYesDetails');
+        const q5a = document.getElementById('q5a');
+
+        if(q5a.value === 'true'){
+            q5aYesDetailsL.style.display = 'block';
+            q5aYesDetails.style.display = 'block';
+        }
+        else {
+            q5aYesDetailsL.style.display = 'none';
+            q5aYesDetails.style.display = 'none';
+        }
+    }q5achanged()
+    function q5bchanged() {
+        const q5bYesDetailsL = document.getElementById('q5bYesDetailsL');
+        const q5bYesDetails = document.getElementById('q5bYesDetails');
+        const q5b = document.getElementById('q5b');
+
+        if(q5b.value === 'true'){
+            q5bYesDetailsL.style.display = 'block';
+            q5bYesDetails.style.display = 'block';
+        }
+        else {
+            q5bYesDetailsL.style.display = 'none';
+            q5bYesDetails.style.display = 'none';
+        }
+    }q5bchanged() 
+    function q6achanged() {
+        const q6aYesDetailsL = document.getElementById('q6aYesDetailsL');
+        const q6aYesDetails = document.getElementById('q6aYesDetails');
+        const q6a = document.getElementById('q6a');
+
+        if(q6a.value === 'true'){
+            q6aYesDetailsL.style.display = 'block';
+            q6aYesDetails.style.display = 'block';
+        }
+        else {
+            q6aYesDetailsL.style.display = 'none';
+            q6aYesDetails.style.display = 'none';
+        }
+    }q6achanged()
+    function q7achanged() {
+        const q7aYesDetailsL = document.getElementById('q7aYesDetailsL');
+        const q7aYesDetails = document.getElementById('q7aYesDetails');
+        const q7a = document.getElementById('q7a');
+
+        if(q7a.value === 'true'){
+            q7aYesDetailsL.style.display = 'block';
+            q7aYesDetails.style.display = 'block';
+        }
+        else {
+            q7aYesDetailsL.style.display = 'none';
+            q7aYesDetails.style.display = 'none';
+        }
+    }q7achanged()
+    function q7bchanged() {
+        const q7bYesDetailsL = document.getElementById('q7bYesDetailsL');
+        const q7bYesDetails = document.getElementById('q7bYesDetails');
+        const q7b = document.getElementById('q7b');
+
+        if(q7b.value === 'true'){
+            q7bYesDetailsL.style.display = 'block';
+            q7bYesDetails.style.display = 'block';
+        }
+        else {
+            q7bYesDetailsL.style.display = 'none';
+            q7bYesDetails.style.display = 'none';
+        }
+    }q7bchanged() 
+    function q7cchanged() {
+        const q7cYesDetailsL = document.getElementById('q7cYesDetailsL');
+        const q7cYesDetails = document.getElementById('q7cYesDetails');
+        const q7c = document.getElementById('q7c');
+
+        if(q7c.value === 'true'){
+            q7cYesDetailsL.style.display = 'block';
+            q7cYesDetails.style.display = 'block';
+        }
+        else {
+            q7cYesDetailsL.style.display = 'none';
+            q7cYesDetails.style.display = 'none';
+        }
+    }q7cchanged()
+
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = form.userId.value;
+        const q1a = form.q1a.value;
+        const q1b = form.q1b.value;
+        const q1bYesDetails= form.q1bYesDetails.value;
+        const q2a = form.q2a.value;
+        const q2aYesDetails = form.q2aYesDetails.value;
+        const q2b = form.q2b.value;
+        const q2bDateFiled = form.q2bDateFiled.value;
+        const q2bStatusofCase = form.q2bStatusofCase.value;
+        const q3a = form.q3a.value;
+        const q3aYesDetails = form.q3aYesDetails.value;
+        const q4a = form.q4a.value;
+        const q4aYesDetails = form.q4aYesDetails.value;
+        const q5a = form.q5a.value;
+        const q5aYesDetails = form.q5aYesDetails.value;
+        const q5b = form.q5b.value;
+        const q5bYesDetails = form.q5bYesDetails.value;
+        const q6a = form.q6a.value;
+        const q6aYesDetails = form.q6aYesDetails.value;
+        const q7a = form.q7a.value;
+        const q7aYesDetails = form.q7aYesDetails.value;
+        const q7b = form.q7b.value;
+        const q7bYesDetails = form.q7bYesDetails.value;
+        const q7c = form.q7c.value;
+        const q7cYesDetails = form.q7cYesDetails.value;
+
+        
+        console.log({userId, q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
+        q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
+         q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}});
+        try{
+            const res = await fetch('/questions', {
+              method: 'POST',
+              body: JSON.stringify({userId, q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
+              q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
+               q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            if(data.errors){
+            }
+            if (data.status){
+              location.assign('/questions/<%=user._id%>');
+            }
+            
+          }
+          catch (err){
+          }
+      
+      })
+
 </script>

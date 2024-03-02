@@ -3,15 +3,11 @@
     const children = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Family Background</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -70,7 +66,7 @@
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="spouse">Childrens: </label>
-                <div id="referenceblock1"></div>
+                
                 
                 
                 <label class="" for="cFullName">Child's Full Name: </label>
@@ -78,6 +74,7 @@
                 <label class="" for="cBirthDate">Child's BirthDate: </label>
                 <input class="" id="cBirthDate" name="cBirthDate" placeholder="MM/DD/YYYY" >
                 <a class="btn" id="AddChild" onclick="addchild()">+ add</a>
+                <div id="referenceblock1" class="referenceblock"></div>
             </div>
         </div>
         <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
@@ -91,6 +88,11 @@
     const referenceblock = document.getElementById('referenceblock1');
    
     children.forEach((child, index) => {
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
         // Create h1 element for child's name
         var cFullNameblock = document.createElement("h1");
         cFullNameblock.textContent = child.cFullName;
@@ -107,18 +109,18 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(cFullNameblock);
-            referenceblock.removeChild(cBirthDateblock);
-            referenceblock.removeChild(deleteButton);
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             children.splice(index, 1);
         });
-    
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
+
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(cFullNameblock);
-        referenceblock.appendChild(cBirthDateblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(cFullNameblock);
+        cardbody.appendChild(cBirthDateblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
@@ -138,7 +140,12 @@ function addchild() {
         referenceblock.removeChild(referenceblock.firstChild);
     }
 
-    children.forEach(function(child, index) {
+    children.forEach((child, index) => {
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
         // Create h1 element for child's name
         var cFullNameblock = document.createElement("h1");
         cFullNameblock.textContent = child.cFullName;
@@ -155,18 +162,18 @@ function addchild() {
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(cFullNameblock);
-            referenceblock.removeChild(cBirthDateblock);
-            referenceblock.removeChild(deleteButton);
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             children.splice(index, 1);
         });
-    
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
+
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(cFullNameblock);
-        referenceblock.appendChild(cBirthDateblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(cFullNameblock);
+        cardbody.appendChild(cBirthDateblock);
+        cardbody.appendChild(deleteButton);
 
     
     });

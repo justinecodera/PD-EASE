@@ -3,19 +3,14 @@
     const voluntaryworks = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Voluntary Works</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="nameAddressOfOrganization">Voluntary Work: </label>
 
                 <label class="" for="nameAddressOfOrganization">Name & Adress of Ogranization: </label>
                 <input class="" id="nameAddressOfOrganization" name="nameAddressOfOrganization" placeholder="Write in full do not Abbreviate" value="" >
@@ -52,7 +47,7 @@
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="voluntaryworks">Voluntary Works</label>
-                <div id="referenceblock1"></div>
+                <div id="referenceblock1" class="referenceblock"></div>
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
         </div>
@@ -64,6 +59,11 @@
     const referenceblock = document.getElementById('referenceblock1');
    
     voluntaryworks.forEach((voluntarywork, index) => {
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+        
         // Create h1 element
         var nameAddressOfOrganizationblock = document.createElement("h1");
         nameAddressOfOrganizationblock.textContent = voluntarywork.nameAddressOfOrganization;
@@ -91,25 +91,22 @@
         
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
-            // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(nameAddressOfOrganizationblock);
-            referenceblock.removeChild(volunteeredFromblock);
-            referenceblock.removeChild(volunteeredToblock);
-            referenceblock.removeChild(volunteernumberOfHoursblock);
-            referenceblock.removeChild(positionNatureblock);
-            referenceblock.removeChild(deleteButton);
+            // Remove child's information and the delete button from the DOM=
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             voluntaryworks.splice(index);
         });
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
     
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(nameAddressOfOrganizationblock);
-        referenceblock.appendChild(volunteeredFromblock);
-        referenceblock.appendChild(volunteeredToblock);
-        referenceblock.appendChild(volunteernumberOfHoursblock);
-        referenceblock.appendChild(positionNatureblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(nameAddressOfOrganizationblock);
+        cardbody.appendChild(volunteeredFromblock);
+        cardbody.appendChild(volunteeredToblock);
+        cardbody.appendChild(volunteernumberOfHoursblock);
+        cardbody.appendChild(positionNatureblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
@@ -134,6 +131,11 @@
         }
     
         voluntaryworks.forEach((voluntarywork, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+            
             // Create h1 element
             var nameAddressOfOrganizationblock = document.createElement("h1");
             nameAddressOfOrganizationblock.textContent = voluntarywork.nameAddressOfOrganization;
@@ -161,25 +163,22 @@
             
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
-                // Remove child's information and the delete button from the DOM
-                referenceblock.removeChild(nameAddressOfOrganizationblock);
-                referenceblock.removeChild(volunteeredFromblock);
-                referenceblock.removeChild(volunteeredToblock);
-                referenceblock.removeChild(volunteernumberOfHoursblock);
-                referenceblock.removeChild(positionNatureblock);
-                referenceblock.removeChild(deleteButton);
+                // Remove child's information and the delete button from the DOM=
+                referenceblock.removeChild(cardblock);
                 
                 // Remove child's data from the 'children' array
                 voluntaryworks.splice(index);
             });
+            referenceblock.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
         
             // Append child's name, birthday, and delete button to reference block
-            referenceblock.appendChild(nameAddressOfOrganizationblock);
-            referenceblock.appendChild(volunteeredFromblock);
-            referenceblock.appendChild(volunteeredToblock);
-            referenceblock.appendChild(volunteernumberOfHoursblock);
-            referenceblock.appendChild(positionNatureblock);
-            referenceblock.appendChild(deleteButton);
+            cardbody.appendChild(nameAddressOfOrganizationblock);
+            cardbody.appendChild(volunteeredFromblock);
+            cardbody.appendChild(volunteeredToblock);
+            cardbody.appendChild(volunteernumberOfHoursblock);
+            cardbody.appendChild(positionNatureblock);
+            cardbody.appendChild(deleteButton);
     
         
         });

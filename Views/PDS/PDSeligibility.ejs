@@ -3,20 +3,14 @@
     const eligibilities = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Eligibility</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-
-                <label class=" formsubHeader" for="spouse">Eligibility</label>
                 
                 <label class="" for="license">CAREER SERVICE/ RA 1080 (BOARD/ BAR) UNDER SPECIAL LAWS/ CES/ cseE BARANGAY ELIGIBILITY / DRIVER'S LICENSE: </label>
                 <input class="" id="license" name="license" placeholder="license Name" value="<% if (eb === null) {} else {%><%= eb.cse.license %><%}%>" >
@@ -58,7 +52,7 @@
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="eligibilities">Eligibilities</label>
-                <div id="referenceblock1"></div>
+                <div id="referenceblock1" class="referenceblock"></div>
             </div>
         </div>
         
@@ -73,6 +67,11 @@
     const referenceblock = document.getElementById('referenceblock1');
    
     eligibilities.forEach((eligibility, index) => {
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+        
         // Create h1 element for license name
         var licenseblock = document.createElement("h1");
         licenseblock.textContent = eligibility.license;
@@ -105,26 +104,23 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(licenseblock);
-            referenceblock.removeChild(ratingblock);
-            referenceblock.removeChild(dateofexaminationblock);
-            referenceblock.removeChild(placeofexaminationblock);
-            referenceblock.removeChild(licensenumberblock);
-            referenceblock.removeChild(dateofvalidityblock);
-            referenceblock.removeChild(deleteButton);
+            
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             eligibilities.splice(index);
         });
-    
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
+
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(licenseblock);
-        referenceblock.appendChild(ratingblock);
-        referenceblock.appendChild(dateofexaminationblock);
-        referenceblock.appendChild(placeofexaminationblock);
-        referenceblock.appendChild(licensenumberblock);
-        referenceblock.appendChild(dateofvalidityblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(licenseblock);
+        cardbody.appendChild(ratingblock);
+        cardbody.appendChild(dateofexaminationblock);
+        cardbody.appendChild(placeofexaminationblock);
+        cardbody.appendChild(licensenumberblock);
+        cardbody.appendChild(dateofvalidityblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
@@ -151,6 +147,11 @@
         }
     
         eligibilities.forEach((eligibility, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+            
             // Create h1 element for license name
             var licenseblock = document.createElement("h1");
             licenseblock.textContent = eligibility.license;
@@ -175,34 +176,31 @@
             var dateofvalidityblock = document.createElement("p");
             dateofvalidityblock.textContent = eligibility.dateOfValidity;
         
-            // Create delete button for deleting this information
+            // Create delete button for deleting this child's information
             var deleteButton = document.createElement("a");
             deleteButton.className = 'btn deleteButton'; // Use className to assign a class
             deleteButton.textContent = "Delete";
             
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
-                // Remove information and the delete button from the DOM
-                referenceblock.removeChild(licenseblock);
-                referenceblock.removeChild(ratingblock);
-                referenceblock.removeChild(dateofexaminationblock);
-                referenceblock.removeChild(placeofexaminationblock);
-                referenceblock.removeChild(licensenumberblock);
-                referenceblock.removeChild(dateofvalidityblock);
-                referenceblock.removeChild(deleteButton);
+                // Remove child's information and the delete button from the DOM
                 
-                // Remove data from the array
+                referenceblock.removeChild(cardblock);
+                
+                // Remove child's data from the 'children' array
                 eligibilities.splice(index);
             });
-        
-            // Append 
-            referenceblock.appendChild(licenseblock);
-            referenceblock.appendChild(ratingblock);
-            referenceblock.appendChild(dateofexaminationblock);
-            referenceblock.appendChild(placeofexaminationblock);
-            referenceblock.appendChild(licensenumberblock);
-            referenceblock.appendChild(dateofvalidityblock);
-            referenceblock.appendChild(deleteButton);
+            referenceblock.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
+    
+            // Append child's name, birthday, and delete button to reference block
+            cardbody.appendChild(licenseblock);
+            cardbody.appendChild(ratingblock);
+            cardbody.appendChild(dateofexaminationblock);
+            cardbody.appendChild(placeofexaminationblock);
+            cardbody.appendChild(licensenumberblock);
+            cardbody.appendChild(dateofvalidityblock);
+            cardbody.appendChild(deleteButton);
     
         
         });

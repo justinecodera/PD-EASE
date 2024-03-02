@@ -223,7 +223,7 @@ const familyBackgroundSchema = new Schema({
         fMiddleName: {
             type: String
         },
-        sNameExtension: {
+        fNameExtension: {
             type: String
         }
     },
@@ -450,8 +450,7 @@ const questionsSchema = new Schema({
         required: true,
         unique: true
     },
-    q1: [
-        {
+    q1: {
             q1a: {
                 type: Boolean
             },
@@ -461,10 +460,8 @@ const questionsSchema = new Schema({
             q1bYesDetails: {
                 type: String
             }
-        }
-    ],
-    q2: [
-        {
+        },
+    q2: {
             q2a: {
                 type: Boolean
             },
@@ -480,30 +477,24 @@ const questionsSchema = new Schema({
             q2bStatusofCase: {
                 type: String
             }
-        }
-    ],
-    q3: [
-        {
+        },
+    q3: {
             q3a: {
                 type: Boolean
             },
             q3aYesDetails: {
                 type: String
             }
-        }
-    ],
-    q4: [
-        {
+        },
+    q4: {
             q4a: {
                 type: Boolean
             },
             q4aYesDetails: {
                 type: String
             }
-        }
-    ],
-    q5: [
-        {
+        },
+    q5: {
             q5a: {
                 type: Boolean
             },
@@ -516,20 +507,16 @@ const questionsSchema = new Schema({
             q5bYesDetails: {
                 type: String
             }
-        }
-    ],
-    q6: [
-        {
+        },
+    q6: {
             q6a: {
                 type: Boolean
             },
             q6aYesDetails: {
                 type: String
             }
-        }
-    ],
-    q7: [
-        {
+        },
+    q7: {
             q7a: {
                 type: Boolean
             },
@@ -549,7 +536,6 @@ const questionsSchema = new Schema({
                 type: String
             }
         }
-    ]
 });
 
 const referencesSchema = new Schema({
@@ -594,15 +580,15 @@ const serviceRecordsSchema = new Schema({
 
 
 
-const PI = mongoose.model('pi', personalInfoSchema);
-const FB = mongoose.model('fb', familyBackgroundSchema);
-const ED = mongoose.model('ed', educationSchema);
-const EB = mongoose.model('eb', eligibilitySchema);
-const WE = mongoose.model('we', workExperienceSchema);
-const VW = mongoose.model('vw', voluntaryWorkSchema);
-const TR = mongoose.model('tr', trainingSchema);
-const OI = mongoose.model('oi', otherInfoSchema);
-const QT = mongoose.model('qt', questionsSchema);
-const RF = mongoose.model('rf', referencesSchema);
-const SR = mongoose.model('sr', serviceRecordsSchema);
-module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RF, SR};
+const PI = mongoose.model('personalinfo', personalInfoSchema);
+const FB = mongoose.model('familybackground', familyBackgroundSchema);
+const ED = mongoose.model('education', educationSchema);
+const EB = mongoose.model('eligibility', eligibilitySchema);
+const WE = mongoose.model('workexperience', workExperienceSchema);
+const VW = mongoose.model('voluntarywork', voluntaryWorkSchema);
+const TR = mongoose.model('training', trainingSchema);
+const OI = mongoose.model('otherinfo', otherInfoSchema);
+const QT = mongoose.model('question', questionsSchema);
+const RR = mongoose.model('reference', referencesSchema);
+const SR = mongoose.model('servicerecord', serviceRecordsSchema);
+module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR};

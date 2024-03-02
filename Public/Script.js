@@ -1,12 +1,18 @@
 
 //sidebar toggle
-const hamBurger = document.querySelector(".toggle-btn");
+const togglebtn = document.querySelector(".toggle-btn");
 
-hamBurger.addEventListener("click", function () {
+togglebtn.addEventListener("click", function () {
   document.querySelector("#sidebar").classList.toggle("expand");
 });
 
  
+const sidebaritem = document.querySelector(".sidebar-nav");
+sidebaritem.addEventListener("click", function () {
+  document.querySelector("#sidebar").classList.add("expand");
+});
 
-
-
+const main = document.querySelector(".main");
+main.addEventListener("click", function () {
+  document.querySelector("#sidebar").classList.remove("expand");
+});

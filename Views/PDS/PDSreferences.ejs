@@ -1,23 +1,54 @@
 
 <script>
-    const children = [];
+    const references = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">References</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">References: </label>
+                <div id="limitWarning" style="display: none;">
+                    <h1>You can only add up to 3 references!</h1>
+                </div>
+                <div id="addreferenceblock">
+                
+                    <label class="" for="refName">Name: </label>
+                    <input class="" id="refName" name="refName" placeholder="Write in full do not Abbreviate" value="" >
+    
+                    <label class="" for="refAddress">Address: </label>
+                    <input class="" id="refAddress" name="refAddress" placeholder="Write in full do not Abbreviate" value="" >
+    
+                    <label class="" for="refTelNo">Telephone Number: </label>
+                    <input class="" id="refTelNo" name="refTelNo" placeholder="Write in full do not Abbreviate" value="" >
+    
+                    <a class="btn" id="AddChild" onclick="addreference()">+ add</a>
+                </div>
+                
             </div>
             <div class="col-lg-5 col-sm-10">
+                <% if(rr) {if (rr.ref === null) {} else {%><% for( var reference of rr.ref ) { %>
+                    <!-- add all the current childrens to the array -->
+
+                    <script data-refname="<%- reference.refName %>" data-refaddress="<%- reference.refAddress %>" 
+                        data-reftelno="<%- reference.refTelNo %>" >
+                        
+                        refName = document.currentScript.dataset.refname;
+                        refAddress = document.currentScript.dataset.refaddress;
+                        refTelNo = document.currentScript.dataset.reftelno;
+
+                        console.log({refName, refAddress, refTelNo})
+                        references.push( {refName, refAddress, refTelNo} );
+                    </script>
+
+                <% } %><%}}%>
+                <label class=" formsubHeader" for="references">References</label>
+                
+                <div id="referenceblock1" class="referenceblock" class="referenceblock"></div>
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
         </div>
     </form>
@@ -25,5 +56,144 @@
     
 </div>
 <script >
+    const referenceblock = document.getElementById('referenceblock1');
+    const limitWarning = document.getElementById('limitWarning');
+    const addreferenceblock = document.getElementById('addreferenceblock');
+    function limitTo3() {
+        
+        if(references.length >= 3){
+            addreferenceblock.style.display = 'none';
+            limitWarning.style.display = 'block';
+        }else {
+            addreferenceblock.style.display = 'block';
+            limitWarning.style.display = 'none';
+        }
+    }
+    references.forEach((reference, index) => {
+    var cardblock = document.createElement("div");
+    cardblock.className = "card";
+    var cardbody = document.createElement("div");
+    cardbody.className = "card-body";
+        // Create h1 element
+    var refNameblock = document.createElement("h1");
+    refNameblock.textContent = reference.refName;
+
+    // Create p element 
+    var refAddressblock = document.createElement("p");
+    refAddressblock.textContent = reference.refAddress;
+
+    // Create p element 
+    var refTelNoblock = document.createElement("p");
+    refTelNoblock.textContent = reference.refTelNo;
     
+        // Create delete button for deleting this child's information
+        var deleteButton = document.createElement("a");
+        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+        deleteButton.textContent = "Delete";
+        
+        // Add event listener to delete button
+        deleteButton.addEventListener("click", function() {
+            // Remove child's information and the delete button from the DOM
+            referenceblock.removeChild(cardblock);
+            
+            // Remove child's data from the 'children' array
+            references.splice(index);
+            limitTo3()
+        });
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
+        // Append child's name, birthday, and delete button to reference block
+        cardbody.appendChild(refNameblock);
+        cardbody.appendChild(refAddressblock);
+        cardbody.appendChild(refTelNoblock);
+        cardbody.appendChild(deleteButton);
+
+        limitTo3()
+    });
+    
+    function addreference() {
+        
+        const refName = document.getElementById('refName');
+        const refAddress = document.getElementById('refAddress');
+        const refTelNo = document.getElementById('refTelNo');
+        const referenceblock = document.getElementById('referenceblock1');
+       
+    
+        references.push({refName: refName.value, refAddress: refAddress.value, refTelNo: refTelNo.value});
+            console.log(references, 'hello')
+    
+        while (referenceblock.firstChild) {
+            referenceblock.removeChild(referenceblock.firstChild);
+        }
+    
+        references.forEach((reference, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+                // Create h1 element
+            var refNameblock = document.createElement("h1");
+            refNameblock.textContent = reference.refName;
+        
+            // Create p element 
+            var refAddressblock = document.createElement("p");
+            refAddressblock.textContent = reference.refAddress;
+        
+            // Create p element 
+            var refTelNoblock = document.createElement("p");
+            refTelNoblock.textContent = reference.refTelNo;
+            
+                // Create delete button for deleting this child's information
+                var deleteButton = document.createElement("a");
+                deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+                deleteButton.textContent = "Delete";
+                
+                // Add event listener to delete button
+                deleteButton.addEventListener("click", function() {
+                    // Remove child's information and the delete button from the DOM
+                    referenceblock.removeChild(cardblock);
+                    
+                    // Remove child's data from the 'children' array
+                    references.splice(index);
+                    limitTo3()
+                });
+                referenceblock.appendChild(cardblock);
+                cardblock.appendChild(cardbody);
+                // Append child's name, birthday, and delete button to reference block
+                cardbody.appendChild(refNameblock);
+                cardbody.appendChild(refAddressblock);
+                cardbody.appendChild(refTelNoblock);
+                cardbody.appendChild(deleteButton);
+        
+                limitTo3()
+            });
+            
+    
+    }
+
+    
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = form.userId.value;
+         
+    
+        console.log({userId, references} );
+        try{
+            const res = await fetch('/references', {
+              method: 'POST',
+              body: JSON.stringify({userId, rr: references}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/references/<%=user._id%>');
+                }
+          }
+          catch (err){
+          }
+      
+      })
 </script>

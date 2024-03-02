@@ -136,16 +136,22 @@ body {
     overflow-x:hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
+    margin-bottom: 5rem;
 }
 
 #sidebar {
     width: 70px;
     min-width: 70px;
+    height: 100vh;
     z-index: 1000;
     transition: all .25s ease-in-out;
     background-color: #1F2D3D;
     display: flex;
     flex-direction: column;
+    position: fixed;
+    overflow-y: scroll;
+       -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 #sidebar.expand {
@@ -183,6 +189,7 @@ body {
 .sidebar-nav {
     padding: 2rem 0;
     flex: 1 1 auto;
+    
 }
 
 a.sidebar-link {
@@ -257,6 +264,7 @@ a.sidebar-link:hover {
     height: 2.5rem;
     font-size: 1rem;
     margin-bottom: 1rem;
+    
 }
 .pds-form select option {
     border: none;
@@ -273,12 +281,48 @@ a.sidebar-link:hover {
     font-weight: bold;
     margin-bottom: .5rem;
 }
+.pds-form label.formHeader {
+    color: #3f3f3f;
+    font-size: 1.5rem;
+    display: block;
+    font-weight: bold;
+    margin-bottom: .5rem;
+    text-align: center;
+}
+.pds-form button.form-btn {
+    width: 5rem;
+    margin-right: 1rem;
+}
+.form-btn-print {
+    width: 5rem;
+}
 .required {
     color: red;
     display: inline;
 }
 
 
-.blockHeader {
-    
+/* instance blocks */
+.referenceblock {
+}
+.referenceblock .card {
+    margin-top: 1rem;
+    width: 80%;
+}
+.referenceblock .card .card-body p {
+    margin: 0;
+    font-size: .8rem;
+    margin-left: 1rem;
+}
+.referenceblock .card .card-body h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+.referenceblock .card .card-body a {
+    background-color: #d11a2a;
+    color: white;
+    font-size: .8rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
 }

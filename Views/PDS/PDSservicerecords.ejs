@@ -1,23 +1,28 @@
 
-<script>
-    const children = [];
-</script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Service Records</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">Service Records: </label>
+                <label class="" for="govIssuedIdType">Government Issued ID (i.e.Passport, GSIS, SSS, PRC, Driver's License, etc.)                               
+                    PLEASE INDICATE ID Number and Date of Issuance</label>
+                <label class="" for="govIssuedIdType">Government Issued Id:  <p class="required">*</p></label>
+                <input class="" id="govIssuedIdType" name="govIssuedIdType" placeholder="i.e.Passport, GSIS, SSS, PRC, Driver's License, etc." value="<% if (sr === null) {} else {%><%= sr.govIssuedIdType %><% } %>" required>
+                 
+                <label class="" for="govIssuedIdNumber">ID/License/Passport No.:  <p class="required">*</p></label>
+                <input class="" id="govIssuedIdNumber" name="govIssuedIdNumber" placeholder="ID/License/Passport No." value="<% if (sr === null) {} else {%><%= sr.govIssuedIdNumber %><% } %>" required>
+                 
+                <label class="" for="DatePlaceIssued">Date/Place of Issuance:  <p class="required">*</p></label>
+                <input class="" id="DatePlaceIssued" name="DatePlaceIssued" placeholder="Date(DD/MM/YYYY)/Place of Issuance" value="<% if (sr === null) {} else {%><%= sr.DatePlaceIssued %><% } %>" required>
+                 
             </div>
             <div class="col-lg-5 col-sm-10">
+                
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
         </div>
     </form>
@@ -25,5 +30,33 @@
     
 </div>
 <script >
-    
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = form.userId.value;
+        const govIssuedIdType = form.govIssuedIdType.value;
+        const govIssuedIdNumber = form.govIssuedIdNumber.value;
+        const DatePlaceIssued = form.DatePlaceIssued.value;
+        
+        console.log({userId, govIssuedIdType, govIssuedIdNumber, DatePlaceIssued});
+        try{
+            const res = await fetch('/servicerecords', {
+              method: 'POST',
+              body: JSON.stringify({userId, govIssuedIdType, govIssuedIdNumber, DatePlaceIssued}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            if(data.errors){
+            }
+            if (data.status){
+              location.assign('/servicerecords/<%=user._id%>');
+            }
+            
+          }
+          catch (err){
+          }
+      
+      })
 </script>

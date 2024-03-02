@@ -3,19 +3,14 @@
     const workexperiences = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Work Experiences</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">Work Experience: </label>
 
                 <label class=" formsubHeader" for="spouse">Inclusive Dates: </label>
                 <label class="" for="workedFrom">From: </label>
@@ -34,8 +29,10 @@
                 <label class="" for="statusOfAppointment">Status of Appointment: </label>
                 <input class="" id="statusOfAppointment" name="statusOfAppointment" placeholder="Write in full do not Abbreviate" value="" >
                 <label class="" for="govtService">Gov't Service?(y/n): </label><br>
-                <input class="" type="checkbox" id="govtService" name="govtService" placeholder="Write in full do not Abbreviate" value="" ><br>
-                <a class="btn" id="AddChild" onclick="addworkexperience()">+ add</a>
+                <select id="govtService" name="govtService">
+                    <option value="false">No</option>
+                    <option value="true" >Yes</option>
+                </select><a class="btn" id="AddChild" onclick="addworkexperience()">+ add</a>
             </div>
             <div class="col-lg-5 col-sm-10">
                 <% if(we) {if (we.we === null) {} else {%><% for( var workexperience of we.we ) { %>
@@ -61,7 +58,7 @@
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="workexperiences">Work Experiences</label>
-                <div id="referenceblock1"></div>
+                <div id="referenceblock1" class="referenceblock"></div>
             </div>
         </div>
         <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
@@ -73,6 +70,11 @@
     const referenceblock = document.getElementById('referenceblock1');
    
     workexperiences.forEach((workexperience, index) => {
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
         // Create h1 element
         var positionTitleblock = document.createElement("h1");
         positionTitleblock.textContent = workexperience.positionTitle;
@@ -113,30 +115,24 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(positionTitleblock);
-            referenceblock.removeChild(workedFromblock);
-            referenceblock.removeChild(workedToblock);
-            referenceblock.removeChild(daocblock);
-            referenceblock.removeChild(monthlySalaryblock);
-            referenceblock.removeChild(salaryJobPayGradeblock);
-            referenceblock.removeChild(statusOfAppointmentblock);
-            referenceblock.removeChild(govtServiceblock);
-            referenceblock.removeChild(deleteButton);
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             workexperiences.splice(index);
         });
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
     
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(positionTitleblock);
-        referenceblock.appendChild(workedFromblock);
-        referenceblock.appendChild(workedToblock);
-        referenceblock.appendChild(daocblock);
-        referenceblock.appendChild(monthlySalaryblock);
-        referenceblock.appendChild(salaryJobPayGradeblock);
-        referenceblock.appendChild(statusOfAppointmentblock);
-        referenceblock.appendChild(govtServiceblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(positionTitleblock);
+        cardbody.appendChild(workedFromblock);
+        cardbody.appendChild(workedToblock);
+        cardbody.appendChild(daocblock);
+        cardbody.appendChild(monthlySalaryblock);
+        cardbody.appendChild(salaryJobPayGradeblock);
+        cardbody.appendChild(statusOfAppointmentblock);
+        cardbody.appendChild(govtServiceblock);
+        cardbody.appendChild(deleteButton);
 
     
     });

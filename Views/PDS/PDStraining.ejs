@@ -3,19 +3,14 @@
     const trainings = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Trainings</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">Trainings: </label>
 
                 <label class="" for="lditPrograms">Title of Learning and Development Interventions/Training Programs: </label>
                 <input class="" id="lditPrograms" name="lditPrograms" placeholder="Write in full do not Abbreviate" value="" >
@@ -61,7 +56,7 @@
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="trainings">Learning and Development Interventions/Training Programs</label>
-                <div id="referenceblock1"></div>
+                <div id="referenceblock1" class="referenceblock"></div>
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
         </div>
@@ -73,6 +68,11 @@
     const referenceblock = document.getElementById('referenceblock1');
    
     trainings.forEach((training, index) => {
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
         // Create h1 element
         var lditProgramsblock = document.createElement("h1");
         lditProgramsblock.textContent = training.lditPrograms;
@@ -106,26 +106,22 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(lditProgramsblock);
-            referenceblock.removeChild(trainedFromblock);
-            referenceblock.removeChild(trainedToblock);
-            referenceblock.removeChild(trainingnumberOfHoursblock);
-            referenceblock.removeChild(typeOfIdblock);
-            referenceblock.removeChild(conductedSponsoredByblock);
-            referenceblock.removeChild(deleteButton);
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             trainings.splice(index);
         });
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
     
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(lditProgramsblock);
-        referenceblock.appendChild(trainedFromblock);
-        referenceblock.appendChild(trainedToblock);
-        referenceblock.appendChild(trainingnumberOfHoursblock);
-        referenceblock.appendChild(typeOfIdblock);
-        referenceblock.appendChild(conductedSponsoredByblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(lditProgramsblock);
+        cardbody.appendChild(trainedFromblock);
+        cardbody.appendChild(trainedToblock);
+        cardbody.appendChild(trainingnumberOfHoursblock);
+        cardbody.appendChild(typeOfIdblock);
+        cardbody.appendChild(conductedSponsoredByblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
@@ -150,6 +146,11 @@
         }
     
         trainings.forEach((training, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+    
             // Create h1 element
             var lditProgramsblock = document.createElement("h1");
             lditProgramsblock.textContent = training.lditPrograms;
@@ -183,26 +184,22 @@
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
                 // Remove child's information and the delete button from the DOM
-                referenceblock.removeChild(lditProgramsblock);
-                referenceblock.removeChild(trainedFromblock);
-                referenceblock.removeChild(trainedToblock);
-                referenceblock.removeChild(trainingnumberOfHoursblock);
-                referenceblock.removeChild(typeOfIdblock);
-                referenceblock.removeChild(conductedSponsoredByblock);
-                referenceblock.removeChild(deleteButton);
+                referenceblock.removeChild(cardblock);
                 
                 // Remove child's data from the 'children' array
                 trainings.splice(index);
             });
+            referenceblock.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
         
             // Append child's name, birthday, and delete button to reference block
-            referenceblock.appendChild(lditProgramsblock);
-            referenceblock.appendChild(trainedFromblock);
-            referenceblock.appendChild(trainedToblock);
-            referenceblock.appendChild(trainingnumberOfHoursblock);
-            referenceblock.appendChild(typeOfIdblock);
-            referenceblock.appendChild(conductedSponsoredByblock);
-            referenceblock.appendChild(deleteButton);
+            cardbody.appendChild(lditProgramsblock);
+            cardbody.appendChild(trainedFromblock);
+            cardbody.appendChild(trainedToblock);
+            cardbody.appendChild(trainingnumberOfHoursblock);
+            cardbody.appendChild(typeOfIdblock);
+            cardbody.appendChild(conductedSponsoredByblock);
+            cardbody.appendChild(deleteButton);
     
         
         });

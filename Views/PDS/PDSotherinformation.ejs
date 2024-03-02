@@ -5,21 +5,16 @@
     const recognitions = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class="mt-1 pds-form" >
+        <label class=" formHeader" for="PD-EASE">Other Informations</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">Other Information: </label>
 
-                <div id="referenceblock1"></div>
+                <div id="referenceblock1" class="referenceblock"></div>
                 <label class="" for="specialSkillsHobbies">Special Skills and Hobbies: </label>
                 <input class="" id="specialSkillsHobbies" name="specialSkillsHobbies" placeholder="" value="" >
                 <a class="btn" id="AddChild" onclick="addhobbies()">+ add</a>
@@ -88,7 +83,11 @@
     const referenceblock3 = document.getElementById('referenceblock3');
    
     hobbies.forEach((hobby, index) => {
-    
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
         // Create p element 
         var specialSkillsHobbiesblock = document.createElement("p");
         specialSkillsHobbiesblock.textContent = hobby;
@@ -101,22 +100,28 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock1.removeChild(specialSkillsHobbiesblock);
-            referenceblock1.removeChild(deleteButton);
+            referenceblock1.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             hobbies.splice(index);
         });
-    
+        referenceblock1.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
+
         // Append child's name, birthday, and delete button to reference block
-        referenceblock1.appendChild(specialSkillsHobbiesblock);
-        referenceblock1.appendChild(deleteButton);
+        cardbody.appendChild(specialSkillsHobbiesblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
 
     memberships.forEach((recognition, index) => {
-    
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
+
         // Create p element 
         var membershipAssocOrgblock = document.createElement("p");
         membershipAssocOrgblock.textContent = recognition;
@@ -129,22 +134,27 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock2.removeChild(membershipAssocOrgblock);
-            referenceblock2.removeChild(deleteButton);
+            referenceblock2.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             memberships.splice(index);
         });
+        referenceblock2.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
     
         // Append child's name, birthday, and delete button to reference block
-        referenceblock2.appendChild(membershipAssocOrgblock);
-        referenceblock2.appendChild(deleteButton);
+        cardbody.appendChild(membershipAssocOrgblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
 
     recognitions.forEach((membership, index) => {
-    
+        var cardblock = document.createElement("div");
+        cardblock.className = "card";
+        var cardbody = document.createElement("div");
+        cardbody.className = "card-body";
+
         // Create p element 
         var nonAcadDistRecogblock = document.createElement("p");
         nonAcadDistRecogblock.textContent = membership;
@@ -157,16 +167,17 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock3.removeChild(nonAcadDistRecogblock);
-            referenceblock3.removeChild(deleteButton);
+            referenceblock3.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             recognitions.splice(index);
         });
-    
+        referenceblock3.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
+
         // Append child's name, birthday, and delete button to reference block
-        referenceblock3.appendChild(nonAcadDistRecogblock);
-        referenceblock3.appendChild(deleteButton);
+        cardbody.appendChild(nonAcadDistRecogblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
@@ -185,6 +196,10 @@
         }
     
         hobbies.forEach((hobby, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
     
             // Create p element 
             var specialSkillsHobbiesblock = document.createElement("p");
@@ -198,16 +213,17 @@
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
                 // Remove child's information and the delete button from the DOM
-                referenceblock1.removeChild(specialSkillsHobbiesblock);
-                referenceblock1.removeChild(deleteButton);
+                referenceblock1.removeChild(cardblock);
                 
                 // Remove child's data from the 'children' array
                 hobbies.splice(index);
             });
-        
+            referenceblock1.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
+    
             // Append child's name, birthday, and delete button to reference block
-            referenceblock1.appendChild(specialSkillsHobbiesblock);
-            referenceblock1.appendChild(deleteButton);
+            cardbody.appendChild(specialSkillsHobbiesblock);
+            cardbody.appendChild(deleteButton);
     
         
         });
@@ -227,6 +243,11 @@
         }
     
         memberships.forEach((recognition, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+    
     
             // Create p element 
             var membershipAssocOrgblock = document.createElement("p");
@@ -240,16 +261,17 @@
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
                 // Remove child's information and the delete button from the DOM
-                referenceblock2.removeChild(membershipAssocOrgblock);
-                referenceblock2.removeChild(deleteButton);
+                referenceblock2.removeChild(cardblock);
                 
                 // Remove child's data from the 'children' array
                 memberships.splice(index);
             });
+            referenceblock2.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
         
             // Append child's name, birthday, and delete button to reference block
-            referenceblock2.appendChild(membershipAssocOrgblock);
-            referenceblock2.appendChild(deleteButton);
+            cardbody.appendChild(membershipAssocOrgblock);
+            cardbody.appendChild(deleteButton);
     
         
         });
@@ -268,11 +290,15 @@
             referenceblock3.removeChild(referenceblock3.firstChild);
         }
     
-        recognitions.forEach((recognition, index) => {
+        recognitions.forEach((membership, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
     
             // Create p element 
             var nonAcadDistRecogblock = document.createElement("p");
-            nonAcadDistRecogblock.textContent = recognition;
+            nonAcadDistRecogblock.textContent = membership;
     
             // Create delete button for deleting this child's information
             var deleteButton = document.createElement("a");
@@ -282,16 +308,17 @@
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
                 // Remove child's information and the delete button from the DOM
-                referenceblock3.removeChild(nonAcadDistRecogblock);
-                referenceblock3.removeChild(deleteButton);
+                referenceblock3.removeChild(cardblock);
                 
                 // Remove child's data from the 'children' array
                 recognitions.splice(index);
             });
-        
+            referenceblock3.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
+    
             // Append child's name, birthday, and delete button to reference block
-            referenceblock3.appendChild(nonAcadDistRecogblock);
-            referenceblock3.appendChild(deleteButton);
+            cardbody.appendChild(nonAcadDistRecogblock);
+            cardbody.appendChild(deleteButton);
     
         
         });

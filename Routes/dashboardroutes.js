@@ -28,9 +28,9 @@ router.post('/workexperience', requireAuth, dashboardController.workexperience_p
 router.post('/voluntarywork', requireAuth, dashboardController.voluntarywork_post);
 router.post('/training', requireAuth, dashboardController.training_post);
 router.post('/otherinfo', requireAuth, dashboardController.otherinfo_post);
-// router.post('/questions', requireAuth, dashboardController.questions_post);
-// router.post('/references', requireAuth, dashboardController.references_post);
-// router.post('/servicerecords', requireAuth, dashboardController.servicerecords_post);
+router.post('/questions', requireAuth, dashboardController.questions_post);
+router.post('/references', requireAuth, dashboardController.references_post);
+router.post('/servicerecords', requireAuth, dashboardController.servicerecords_post);
 
 
 

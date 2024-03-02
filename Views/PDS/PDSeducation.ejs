@@ -3,19 +3,14 @@
     const educations = [];
 </script>
 <div class="row align-items-center">
-    <form class="m-1 mx-3 pds-form" >
-        <div class="row">
-            <div class="col-lg-9 col-md-7 col-sm-5"></div>
-            <div class="col">
-                
-                <button class="btn btn-primary " type="submit">Save</button>
-                <button class="btn btn-danger disabled" >Print</button></div>
-                
-            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <form class=" mt-1 pds-form" >
+        <label class=" formHeader" for="spouse">Education</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
-                <label class=" formsubHeader" for="spouse">Education: </label>
 
                 <label class="" for="schooLevel">Education Level: </label>
                 <select class="" id="schooLevel" name="schooLevel" value="" required>
@@ -73,7 +68,7 @@
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="educations">Education</label>
-                <div id="referenceblock1"></div>
+                <div id="referenceblock1" class="referenceblock"></div>
             </div>
         </div>
         <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
@@ -85,6 +80,10 @@
     const referenceblock = document.getElementById('referenceblock1');
    
     educations.forEach((education, index) => {
+    var cardblock = document.createElement("div");
+    cardblock.className = "card";
+    var cardbody = document.createElement("div");
+    cardbody.className = "card-body";
         // Create h1 element
     var schooLevelblock = document.createElement("h1");
     schooLevelblock.textContent = education.schooLevel;
@@ -125,30 +124,23 @@
         // Add event listener to delete button
         deleteButton.addEventListener("click", function() {
             // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(schooLevelblock);
-            referenceblock.removeChild(schoolNameblock);
-            referenceblock.removeChild(basicEduDegCorblock);
-            referenceblock.removeChild(attendanceFromblock);
-            referenceblock.removeChild(attendanceToblock);
-            referenceblock.removeChild(highestLevelblock);
-            referenceblock.removeChild(yearGraduatedblock);
-            referenceblock.removeChild(honorsRecievedblock);
-            referenceblock.removeChild(deleteButton);
+            referenceblock.removeChild(cardblock);
             
             // Remove child's data from the 'children' array
             educations.splice(index);
         });
-    
+        referenceblock.appendChild(cardblock);
+        cardblock.appendChild(cardbody);
         // Append child's name, birthday, and delete button to reference block
-        referenceblock.appendChild(schooLevelblock);
-        referenceblock.appendChild(schoolNameblock);
-        referenceblock.appendChild(basicEduDegCorblock);
-        referenceblock.appendChild(attendanceFromblock);
-        referenceblock.appendChild(attendanceToblock);
-        referenceblock.appendChild(highestLevelblock);
-        referenceblock.appendChild(yearGraduatedblock);
-        referenceblock.appendChild(honorsRecievedblock);
-        referenceblock.appendChild(deleteButton);
+        cardbody.appendChild(schooLevelblock);
+        cardbody.appendChild(schoolNameblock);
+        cardbody.appendChild(basicEduDegCorblock);
+        cardbody.appendChild(attendanceFromblock);
+        cardbody.appendChild(attendanceToblock);
+        cardbody.appendChild(highestLevelblock);
+        cardbody.appendChild(yearGraduatedblock);
+        cardbody.appendChild(honorsRecievedblock);
+        cardbody.appendChild(deleteButton);
 
     
     });
@@ -178,74 +170,71 @@
         }
     
         educations.forEach((education, index) => {
-
-            // Create h1 element
-        var schooLevelblock = document.createElement("h1");
-        schooLevelblock.textContent = education.schooLevel;
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+                // Create h1 element
+            var schooLevelblock = document.createElement("h1");
+            schooLevelblock.textContent = education.schooLevel;
         
-        // Create p element 
-        var schoolNameblock = document.createElement("p");
-        schoolNameblock.textContent = education.schoolName;
-
-        // Create p element 
-        var basicEduDegCorblock = document.createElement("p");
-        basicEduDegCorblock.textContent = education.basicEduDegCor;
-    
-        // Create p element 
-        var attendanceFromblock = document.createElement("p");
-        attendanceFromblock.textContent = education.attendanceFrom;
-    
-        // Create p element 
-        var attendanceToblock = document.createElement("p");
-        attendanceToblock.textContent = education.attendanceTo;
-    
-        // Create p element 
-        var highestLevelblock = document.createElement("p");
-        highestLevelblock.textContent = education.highestLevel;
-    
-        // Create p element 
-        var yearGraduatedblock = document.createElement("p");
-        yearGraduatedblock.textContent = education.yearGraduated;
-
-        // Create p element 
-        var honorsRecievedblock = document.createElement("p");
-        honorsRecievedblock.textContent = education.honorsRecieved;
+            // Create p element 
+            var schoolNameblock = document.createElement("p");
+            schoolNameblock.textContent = education.schoolName;
         
-            // Create delete button for deleting this child's information
-            var deleteButton = document.createElement("a");
-            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-            deleteButton.textContent = "Delete";
+            // Create p element 
+            var basicEduDegCorblock = document.createElement("p");
+            basicEduDegCorblock.textContent = education.basicEduDegCor;
+        
+            // Create p element 
+            var attendanceFromblock = document.createElement("p");
+            attendanceFromblock.textContent = education.attendanceFrom;
+        
+            // Create p element 
+            var attendanceToblock = document.createElement("p");
+            attendanceToblock.textContent = education.attendanceTo;
+        
+            // Create p element 
+            var highestLevelblock = document.createElement("p");
+            highestLevelblock.textContent = education.highestLevel;
+        
+            // Create p element 
+            var yearGraduatedblock = document.createElement("p");
+            yearGraduatedblock.textContent = education.yearGraduated;
+        
+            // Create p element 
+            var honorsRecievedblock = document.createElement("p");
+            honorsRecievedblock.textContent = education.honorsRecieved;
             
-            // Add event listener to delete button
-            deleteButton.addEventListener("click", function() {
-                // Remove child's information and the delete button from the DOM
-                referenceblock.removeChild(schooLevelblock);
-                referenceblock.removeChild(schoolNameblock);
-                referenceblock.removeChild(basicEduDegCorblock);
-                referenceblock.removeChild(attendanceFromblock);
-                referenceblock.removeChild(attendanceToblock);
-                referenceblock.removeChild(highestLevelblock);
-                referenceblock.removeChild(yearGraduatedblock);
-                referenceblock.removeChild(honorsRecievedblock);
-                referenceblock.removeChild(deleteButton);
+                // Create delete button for deleting this child's information
+                var deleteButton = document.createElement("a");
+                deleteButton.className = 'btn deleteButton'; // Use className to assign a class
+                deleteButton.textContent = "Delete";
                 
-                // Remove child's data from the 'children' array
-                educations.splice(index);
+                // Add event listener to delete button
+                deleteButton.addEventListener("click", function() {
+                    // Remove child's information and the delete button from the DOM
+                    referenceblock.removeChild(cardblock);
+                    
+                    // Remove child's data from the 'children' array
+                    educations.splice(index);
+                });
+                referenceblock.appendChild(cardblock);
+                cardblock.appendChild(cardbody);
+                // Append child's name, birthday, and delete button to reference block
+                cardbody.appendChild(schooLevelblock);
+                cardbody.appendChild(schoolNameblock);
+                cardbody.appendChild(basicEduDegCorblock);
+                cardbody.appendChild(attendanceFromblock);
+                cardbody.appendChild(attendanceToblock);
+                cardbody.appendChild(highestLevelblock);
+                cardbody.appendChild(yearGraduatedblock);
+                cardbody.appendChild(honorsRecievedblock);
+                cardbody.appendChild(deleteButton);
+        
+            
             });
         
-            // Append child's name, birthday, and delete button to reference block
-            referenceblock.appendChild(schooLevelblock);
-            referenceblock.appendChild(schoolNameblock);
-            referenceblock.appendChild(basicEduDegCorblock);
-            referenceblock.appendChild(attendanceFromblock);
-            referenceblock.appendChild(attendanceToblock);
-            referenceblock.appendChild(highestLevelblock);
-            referenceblock.appendChild(yearGraduatedblock);
-            referenceblock.appendChild(honorsRecievedblock);
-            referenceblock.appendChild(deleteButton);
-    
-        
-        });
     
     }
 
