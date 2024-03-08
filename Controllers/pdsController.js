@@ -1197,7 +1197,6 @@ module.exports.printPDS_get = async (req, res) => {
     const filePath = './PDF/'+id+'.pdf'; // Specify the file path here
 
     fillPDF(filePath, id);
-    res.download(filePath, 'java.pdf');
-    res.redirect('/');
+    res.download(filePath, 'java.pdf')
    // Download the modified PDF
 }
