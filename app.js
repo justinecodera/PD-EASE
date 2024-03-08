@@ -7,6 +7,7 @@ const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 //routes conection//
 const authRoutes = require('./Routes/authroutes');
 const dashboardRoutes = require('./Routes/dashboardroutes');
+const pdsroutes = require('./Routes/pdsroutes');
 
 //models//
 const Users = require('./Models/users');
@@ -17,7 +18,7 @@ const app = express();
 //mongodb connection//
 const dbURI = 'mongodb+srv://coderajustine30:july302002jj@pd-ease.k76jchy.mongodb.net/PD-EASE?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
-    .then((result) => app.listen(3000))
+    .then((result) => app.listen(5000))
     .catch((err) => console.log(err));
     
 // register view engine//
@@ -41,9 +42,10 @@ app.use(authRoutes);
 //dashboard
 app.use(dashboardRoutes);
 
-
-
+//print pds
+app.use(pdsroutes);
 
 //404//
 app.use((req, res) =>{  res.status(404).render('404.ejs');  });
 
+module.exports = app; 

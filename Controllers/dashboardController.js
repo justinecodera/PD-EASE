@@ -31,7 +31,7 @@ module.exports.personalinformation_get = async (req, res) => {
 module.exports.personalinformation_post = async (req, res) => {
 
     const {userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
-        weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
+        weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo, celNo,
         citizenship} = req.body;
     const {dcType, dcCountry} = req.body.dualCitizenship;
     const {raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode} = req.body.residentialAddress;
@@ -41,7 +41,7 @@ module.exports.personalinformation_post = async (req, res) => {
         //create new entry
         try {
             const picreate = await PI.create({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
-                weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
+                weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo, celNo,
                 citizenship, dualCitizenship: {dcType, dcCountry}, residentialAddress: {raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode}, 
                 permanentAddress: {paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}});
             console.log(picreate);

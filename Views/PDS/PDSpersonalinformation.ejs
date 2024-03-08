@@ -28,18 +28,18 @@
                 <input class="" id="placeOfBirth" name="placeOfBirth" placeholder="Place of Birth" value="<% if (pi === null) {} else {%><%= pi.placeOfBirth %><% } %>" required>
                     
                 <label class="" for="sex">Sex:  <p class="required">*</p></label>
-                <select class="" id="sex" name="sex" value="<% if (pi === null) {} else {%><%= pi.sex %><% } %>" required>
-                    <option value="Male" default>Male</option>
-                    <option value="Female">Female</option>
+                <select class="" id="sex" name="sex" required>
+                    <option value="Male" <% if (pi !== null && pi.sex === "male") { %>selected<% } %>>Male</option>
+                    <option value="Female" <% if (pi !== null && pi.sex === "female") { %>selected<% } %>>Female</option>
                 </select>
                     
                 <label class="" for="civilStatus">Civil Status:  <p class="required">*</p></label>
                 <select class="" id="civilStatus" name="civilStatus" value="<% if (pi === null) {} else {%><%= pi.civilStatus %><% } %>" required>
-                    <option value="Single">Single</option>
-                    <option value="Married">Married</option>
-                    <option value="Widowed">Widowed</option>
-                    <option value="Separated">Separated</option>
-                    <option value="Other">Other</option>
+                    <option value="Single" <% if (pi !== null && pi.civilStatus === "single") { %>selected<% } %>>Single</option>
+                    <option value="Married" <% if (pi !== null && pi.civilStatus === "married") { %>selected<% } %>>Married</option>
+                    <option value="Widowed" <% if (pi !== null && pi.civilStatus === "widowed") { %>selected<% } %>>Widowed</option>
+                    <option value="Separated" <% if (pi !== null && pi.civilStatus === "separated") { %>selected<% } %>>Separated</option>
+                    <option value="Other" <% if (pi !== null && pi.civilStatus === "other") { %>selected<% } %>>Other</option>
                 </select>
                     
                 <label class="" for="height">Height (m):   <p class="required">*</p></label>
@@ -72,6 +72,9 @@
                 <label class="" for="telNo">Telephone Number: </label>
                 <input class="" id="telNo" name="telNo" placeholder="Telephone Number" value="<% if (pi === null) {} else {%><%= pi.telNo %><% } %>" >
                 
+                <label class="" for="celNo">Cellphone Number: </label>
+                <input class="" id="celNo" name="celNo" placeholder="Telephone Number" value="<% if (pi === null) {} else {%><%= pi.celNo %><% } %>" >
+                
                 <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
                 <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required>
     
@@ -79,270 +82,268 @@
             <div class="col-lg-5 col-sm-10">
     
                 <label class="" for="citizenship">Citizenship:  <p class="required">*</p></label>
-                <select class="" id="citizenship" name="citizenship" value="<%= user.citizenship %>" onchange="handleCitizenshipSelection()"  required>
-                    <option value="Filipino" default>Filipino</option>
-                    <option value="Dual Citizenship">Dual Citizenship</option>
+                <select class="" id="citizenship" name="citizenship" onchange="handleCitizenshipSelection()"  required>
+                    <option value="Filipino" <% if (pi !== null && pi.citizenship === "filipino") { %>selected<% } %>>Filipino</option>
+                    <option value="Dual Citizenship" <% if (pi !== null && pi.citizenship === "dual citizenship") { %>selected<% } %>>Dual Citizenship</option>
                 </select>
-                <label id="dcTypeL" for="dcType" style="display: none;" >Dual Citizenship Type</label>
-                <select id="dcType" name="dcType" style="display: none;" value="<% if (pi === null) {} else {%><%= pi.dcType %><% } %>">
-                    <option value="">Select an Option...</option>
-                    <option value="By Birth">By Birth</option>
-                    <option value="By Naturalization">By Naturalization</option>
+                <label id="dcTypeL" for="dcType"  >Dual Citizenship Type</label>
+                <select id="dcType" name="dcType" >
+                    <option value="By Birth" <% if (pi !== null && pi.dualCitizenship.dcType === "By Birth") { %>selected<% } %>>By Birth</option>
+                    <option value="By Naturalization" <% if (pi !== null && pi.dualCitizenship.dcType === "By Naturalization") { %>selected<% } %>>By Naturalization</option>
                 </select>
 
                 <label for="dcCountry" id="dcCountryL" style="display: none;">Pls. Indicate Country</label>
-                <select id="dcCountry" name="dcCountry" style="display: none;"  value="<% if (pi === null) {} else {%><%= pi.dcCountry %><% } %>">
-                    <option value="">Select a country...</option>
-                    <option value="AF">Afghanistan</option>
-                    <option value="AX">Åland Islands</option>
-                    <option value="AL">Albania</option>
-                    <option value="DZ">Algeria</option>
-                    <option value="AS">American Samoa</option>
-                    <option value="AD">Andorra</option>
-                    <option value="AO">Angola</option>
-                    <option value="AI">Anguilla</option>
-                    <option value="AQ">Antarctica</option>
-                    <option value="AG">Antigua and Barbuda</option>
-                    <option value="AR">Argentina</option>
-                    <option value="AM">Armenia</option>
-                    <option value="AW">Aruba</option>
-                    <option value="AU">Australia</option>
-                    <option value="AT">Austria</option>
-                    <option value="AZ">Azerbaijan</option>
-                    <option value="BS">Bahamas</option>
-                    <option value="BH">Bahrain</option>
-                    <option value="BD">Bangladesh</option>
-                    <option value="BB">Barbados</option>
-                    <option value="BY">Belarus</option>
-                    <option value="BE">Belgium</option>
-                    <option value="BZ">Belize</option>
-                    <option value="BJ">Benin</option>
-                    <option value="BM">Bermuda</option>
-                    <option value="BT">Bhutan</option>
-                    <option value="BO">Bolivia (Plurinational State of)</option>
-                    <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
-                    <option value="BA">Bosnia and Herzegovina</option>
-                    <option value="BW">Botswana</option>
-                    <option value="BV">Bouvet Island</option>
-                    <option value="BR">Brazil</option>
-                    <option value="IO">British Indian Ocean Territory</option>
-                    <option value="BN">Brunei Darussalam</option>
-                    <option value="BG">Bulgaria</option>
-                    <option value="BF">Burkina Faso</option>
-                    <option value="BI">Burundi</option>
-                    <option value="CV">Cabo Verde</option>
-                    <option value="KH">Cambodia</option>
-                    <option value="CM">Cameroon</option>
-                    <option value="CA">Canada</option>
-                    <option value="KY">Cayman Islands</option>
-                    <option value="CF">Central African Republic</option>
-                    <option value="TD">Chad</option>
-                    <option value="CL">Chile</option>
-                    <option value="CN">China</option>
-                    <option value="CX">Christmas Island</option>
-                    <option value="CC">Cocos (Keeling) Islands</option>
-                    <option value="CO">Colombia</option>
-                    <option value="KM">Comoros</option>
-                    <option value="CG">Congo</option>
-                    <option value="CD">Congo (Democratic Republic of the)</option>
-                    <option value="CK">Cook Islands</option>
-                    <option value="CR">Costa Rica</option>
-                    <option value="CI">Côte d'Ivoire</option>
-                    <option value="HR">Croatia</option>
-                    <option value="CU">Cuba</option>
-                    <option value="CW">Curaçao</option>
-                    <option value="CY">Cyprus</option>
-                    <option value="CZ">Czech Republic</option>
-                    <option value="DK">Denmark</option>
-                    <option value="DJ">Djibouti</option>
-                    <option value="DM">Dominica</option>
-                    <option value="DO">Dominican Republic</option>
-                    <option value="EC">Ecuador</option>
-                    <option value="EG">Egypt</option>
-                    <option value="SV">El Salvador</option>
-                    <option value="GQ">Equatorial Guinea</option>
-                    <option value="ER">Eritrea</option>
-                    <option value="EE">Estonia</option>
-                    <option value="ET">Ethiopia</option>
-                    <option value="FK">Falkland Islands (Malvinas)</option>
-                    <option value="FO">Faroe Islands</option>
-                    <option value="FJ">Fiji</option>
-                    <option value="FI">Finland</option>
-                    <option value="FR">France</option>
-                    <option value="GF">French Guiana</option>
-                    <option value="PF">French Polynesia</option>
-                    <option value="TF">French Southern Territories</option>
-                    <option value="GA">Gabon</option>
-                    <option value="GM">Gambia</option>
-                    <option value="GE">Georgia</option>
-                    <option value="DE">Germany</option>
-                    <option value="GH">Ghana</option>
-                    <option value="GI">Gibraltar</option>
-                    <option value="GR">Greece</option>
-                    <option value="GL">Greenland</option>
-                    <option value="GD">Grenada</option>
-                    <option value="GP">Guadeloupe</option>
-                    <option value="GU">Guam</option>
-                    <option value="GT">Guatemala</option>
-                    <option value="GG">Guernsey</option>
-                    <option value="GN">Guinea</option>
-                    <option value="GW">Guinea-Bissau</option>
-                    <option value="GY">Guyana</option>
-                    <option value="HT">Haiti</option>
-                    <option value="HM">Heard Island and McDonald Islands</option>
-                    <option value="VA">Holy See</option>
-                    <option value="HN">Honduras</option>
-                    <option value="HK">Hong Kong</option>
-                    <option value="HU">Hungary</option>
-                    <option value="IS">Iceland</option>
-                    <option value="IN">India</option>
-                    <option value="ID">Indonesia</option>
-                    <option value="IR">Iran (Islamic Republic of)</option>
-                    <option value="IQ">Iraq</option>
-                    <option value="IE">Ireland</option>
-                    <option value="IM">Isle of Man</option>
-                    <option value="IL">Israel</option>
-                    <option value="IT">Italy</option>
-                    <option value="JM">Jamaica</option>
-                    <option value="JP">Japan</option>
-                    <option value="JE">Jersey</option>
-                    <option value="JO">Jordan</option>
-                    <option value="KZ">Kazakhstan</option>
-                    <option value="KE">Kenya</option>
-                    <option value="KI">Kiribati</option>
-                    <option value="KP">Korea (Democratic People's Republic of)</option>
-                    <option value="KR">Korea (Republic of)</option>
-                    <option value="KW">Kuwait</option>
-                    <option value="KG">Kyrgyzstan</option>
-                    <option value="LA">Lao People's Democratic Republic</option>
-                    <option value="LV">Latvia</option>
-                    <option value="LB">Lebanon</option>
-                    <option value="LS">Lesotho</option>
-                    <option value="LR">Liberia</option>
-                    <option value="LY">Libya</option>
-                    <option value="LI">Liechtenstein</option>
-                    <option value="LT">Lithuania</option>
-                    <option value="LU">Luxembourg</option>
-                    <option value="MO">Macao</option>
-                    <option value="MK">Macedonia (the former Yugoslav Republic of)</option>
-                    <option value="MG">Madagascar</option>
-                    <option value="MW">Malawi</option>
-                    <option value="MY">Malaysia</option>
-                    <option value="MV">Maldives</option>
-                    <option value="ML">Mali</option>
-                    <option value="MT">Malta</option>
-                    <option value="MH">Marshall Islands</option>
-                    <option value="MQ">Martinique</option>
-                    <option value="MR">Mauritania</option>
-                    <option value="MU">Mauritius</option>
-                    <option value="YT">Mayotte</option>
-                    <option value="MX">Mexico</option>
-                    <option value="FM">Micronesia (Federated States of)</option>
-                    <option value="MD">Moldova (Republic of)</option>
-                    <option value="MC">Monaco</option>
-                    <option value="MN">Mongolia</option>
-                    <option value="ME">Montenegro</option>
-                    <option value="MS">Montserrat</option>
-                    <option value="MA">Morocco</option>
-                    <option value="MZ">Mozambique</option>
-                    <option value="MM">Myanmar</option>
-                    <option value="NA">Namibia</option>
-                    <option value="NR">Nauru</option>
-                    <option value="NP">Nepal</option>
-                    <option value="NL">Netherlands</option>
-                    <option value="NC">New Caledonia</option>
-                    <option value="NZ">New Zealand</option>
-                    <option value="NI">Nicaragua</option>
-                    <option value="NE">Niger</option>
-                    <option value="NG">Nigeria</option>
-                    <option value="NU">Niue</option>
-                    <option value="NF">Norfolk Island</option>
-                    <option value="MP">Northern Mariana Islands</option>
-                    <option value="NO">Norway</option>
-                    <option value="OM">Oman</option>
-                    <option value="PK">Pakistan</option>
-                    <option value="PW">Palau</option>
-                    <option value="PS">Palestine, State of</option>
-                    <option value="PA">Panama</option>
-                    <option value="PG">Papua New Guinea</option>
-                    <option value="PY">Paraguay</option>
-                    <option value="PE">Peru</option>
-                    <option value="PH">Philippines</option>
-                    <option value="PN">Pitcairn</option>
-                    <option value="PL">Poland</option>
-                    <option value="PT">Portugal</option>
-                    <option value="PR">Puerto Rico</option>
-                    <option value="QA">Qatar</option>
-                    <option value="RE">Réunion</option>
-                    <option value="RO">Romania</option>
-                    <option value="RU">Russian Federation</option>
-                    <option value="RW">Rwanda</option>
-                    <option value="BL">Saint Barthélemy</option>
-                    <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-                    <option value="KN">Saint Kitts and Nevis</option>
-                    <option value="LC">Saint Lucia</option>
-                    <option value="MF">Saint Martin (French part)</option>
-                    <option value="PM">Saint Pierre and Miquelon</option>
-                    <option value="VC">Saint Vincent and the Grenadines</option>
-                    <option value="WS">Samoa</option>
-                    <option value="SM">San Marino</option>
-                    <option value="ST">Sao Tome and Principe</option>
-                    <option value="SA">Saudi Arabia</option>
-                    <option value="SN">Senegal</option>
-                    <option value="RS">Serbia</option>
-                    <option value="SC">Seychelles</option>
-                    <option value="SL">Sierra Leone</option>
-                    <option value="SG">Singapore</option>
-                    <option value="SX">Sint Maarten (Dutch part)</option>
-                    <option value="SK">Slovakia</option>
-                    <option value="SI">Slovenia</option>
-                    <option value="SB">Solomon Islands</option>
-                    <option value="SO">Somalia</option>
-                    <option value="ZA">South Africa</option>
-                    <option value="GS">South Georgia and the South Sandwich Islands</option>
-                    <option value="SS">South Sudan</option>
-                    <option value="ES">Spain</option>
-                    <option value="LK">Sri Lanka</option>
-                    <option value="SD">Sudan</option>
-                    <option value="SR">Suriname</option>
-                    <option value="SJ">Svalbard and Jan Mayen</option>
-                    <option value="SZ">Swaziland</option>
-                    <option value="SE">Sweden</option>
-                    <option value="CH">Switzerland</option>
-                    <option value="SY">Syrian Arab Republic</option>
-                    <option value="TW">Taiwan, Province of China[a]</option>
-                    <option value="TJ">Tajikistan</option>
-                    <option value="TZ">Tanzania, United Republic of</option>
-                    <option value="TH">Thailand</option>
-                    <option value="TL">Timor-Leste</option>
-                    <option value="TG">Togo</option>
-                    <option value="TK">Tokelau</option>
-                    <option value="TO">Tonga</option>
-                    <option value="TT">Trinidad and Tobago</option>
-                    <option value="TN">Tunisia</option>
-                    <option value="TR">Turkey</option>
-                    <option value="TM">Turkmenistan</option>
-                    <option value="TC">Turks and Caicos Islands</option>
-                    <option value="TV">Tuvalu</option>
-                    <option value="UG">Uganda</option>
-                    <option value="UA">Ukraine</option>
-                    <option value="AE">United Arab Emirates</option>
-                    <option value="GB">United Kingdom of Great Britain and Northern Ireland</option>
-                    <option value="US">United States of America</option>
-                    <option value="UM">United States Minor Outlying Islands</option>
-                    <option value="UY">Uruguay</option>
-                    <option value="UZ">Uzbekistan</option>
-                    <option value="VU">Vanuatu</option>
-                    <option value="VE">Venezuela (Bolivarian Republic of)</option>
-                    <option value="VN">Viet Nam</option>
-                    <option value="VG">Virgin Islands (British)</option>
-                    <option value="VI">Virgin Islands (U.S.)</option>
-                    <option value="WF">Wallis and Futuna</option>
-                    <option value="EH">Western Sahara</option>
-                    <option value="YE">Yemen</option>
-                    <option value="ZM">Zambia</option>
-                    <option value="ZW">Zimbabwe</option>
-                  </select>
+                <select id="dcCountry" name="dcCountry" style="display: none;">
+                    <option value="" >Select a country...</option>
+                    <option value="Afghanistan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Afghanistan") { %>selected<% } %>>Afghanistan</option>
+                    <option value="Åland Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Åland Islands") { %>selected<% } %>>Åland Islands</option>
+                    <option value="Albania" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Albania") { %>selected<% } %>>Albania</option>
+                    <option value="Algeria" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Algeria") { %>selected<% } %>>Algeria</option>
+                    <option value="American Samoa" <% if (pi !== null && pi.dualCitizenship.dcCountry === "American Samoa") { %>selected<% } %>>American Samoa</option>
+                    <option value="Andorra" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Andorra") { %>selected<% } %>>Andorra</option>
+                    <option value="Angola" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Angola") { %>selected<% } %>>Angola</option>
+                    <option value="Anguilla" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Anguilla") { %>selected<% } %>>Anguilla</option>
+                    <option value="Antarctica" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Antarctica") { %>selected<% } %>>Antarctica</option>
+                    <option value="Antigua and Barbuda" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Antigua and Barbuda") { %>selected<% } %>>Antigua and Barbuda</option>
+                    <option value="Argentina" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Argentina") { %>selected<% } %>>Argentina</option>
+                    <option value="Armenia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Armenia") { %>selected<% } %>>Armenia</option>
+                    <option value="Aruba" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Aruba") { %>selected<% } %>>Aruba</option>
+                    <option value="Australia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Australia") { %>selected<% } %>>Australia</option>
+                    <option value="Austria" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Austria") { %>selected<% } %>>Austria</option>
+                    <option value="Azerbaijan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Azerbaijan") { %>selected<% } %>>Azerbaijan</option>
+                    <option value="Bahamas" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bahamas") { %>selected<% } %>>Bahamas</option>
+                    <option value="Bahrain" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bahrain") { %>selected<% } %>>Bahrain</option>
+                    <option value="Bangladesh" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bangladesh") { %>selected<% } %>>Bangladesh</option>
+                    <option value="Barbados" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Barbados") { %>selected<% } %>>Barbados</option>
+                    <option value="Belarus" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Belarus") { %>selected<% } %>>Belarus</option>
+                    <option value="Belgium" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Belgium") { %>selected<% } %>>Belgium</option>
+                    <option value="Belize" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Belize") { %>selected<% } %>>Belize</option>
+                    <option value="Benin" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Benin") { %>selected<% } %>>Benin</option>
+                    <option value="Bermuda" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bermuda") { %>selected<% } %>>Bermuda</option>
+                    <option value="Bhutan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bhutan") { %>selected<% } %>>Bhutan</option>
+                    <option value="Bolivia (Plurinational State of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bolivia (Plurinational State of)") { %>selected<% } %>>Bolivia (Plurinational State of)</option>
+                    <option value="Bonaire, Sint Eustatius and Saba" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bonaire, Sint Eustatius and Saba") { %>selected<% } %>>Bonaire, Sint Eustatius and Saba</option>
+                    <option value="Bosnia and Herzegovina" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bosnia and Herzegovina") { %>selected<% } %>>Bosnia and Herzegovina</option>
+                    <option value="Botswana" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Botswana") { %>selected<% } %>>Botswana</option>
+                    <option value="Bouvet Island" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bouvet Island") { %>selected<% } %>>Bouvet Island</option>
+                    <option value="Brazil" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Brazil") { %>selected<% } %>>Brazil</option>
+                    <option value="British Indian Ocean Territory" <% if (pi !== null && pi.dualCitizenship.dcCountry === "British Indian Ocean Territory") { %>selected<% } %>>British Indian Ocean Territory</option>
+                    <option value="Brunei Darussalam" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Brunei Darussalam") { %>selected<% } %>>Brunei Darussalam</option>
+                    <option value="Bulgaria" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Bulgaria") { %>selected<% } %>>Bulgaria</option>
+                    <option value="Burkina Faso" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Burkina Faso") { %>selected<% } %>>Burkina Faso</option>
+                    <option value="Burundi" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Burundi") { %>selected<% } %>>Burundi</option>
+                    <option value="Cabo Verde" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cabo Verde") { %>selected<% } %>>Cabo Verde</option>
+                    <option value="Cambodia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cambodia") { %>selected<% } %>>Cambodia</option>
+                    <option value="Cameroon" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cameroon") { %>selected<% } %>>Cameroon</option>
+                    <option value="Canada" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Canada") { %>selected<% } %>>Canada</option>
+                    <option value="Cayman Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cayman Islands") { %>selected<% } %>>Cayman Islands</option>
+                    <option value="Central African Republic" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Central African Republic") { %>selected<% } %>>Central African Republic</option>
+                    <option value="Chad" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Chad") { %>selected<% } %>>Chad</option>
+                    <option value="Chile" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Chile") { %>selected<% } %>>Chile</option>
+                    <option value="China" <% if (pi !== null && pi.dualCitizenship.dcCountry === "China") { %>selected<% } %>>China</option>
+                    <option value="Christmas Island" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Christmas Island") { %>selected<% } %>>Christmas Island</option>
+                    <option value="Cocos (Keeling) Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cocos (Keeling) Islands") { %>selected<% } %>>Cocos (Keeling) Islands</option>
+                    <option value="Colombia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Colombia") { %>selected<% } %>>Colombia</option>
+                    <option value="Comoros" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Comoros") { %>selected<% } %>>Comoros</option>
+                    <option value="Congo" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Congo") { %>selected<% } %>>Congo</option>
+                    <option value="Congo (Democratic Republic of the)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Congo (Democratic Republic of the)") { %>selected<% } %>>Congo (Democratic Republic of the)</option>
+                    <option value="Cook Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cook Islands") { %>selected<% } %>>Cook Islands</option>
+                    <option value="Costa Rica" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Costa Rica") { %>selected<% } %>>Costa Rica</option>
+                    <option value="Côte d'Ivoire" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Côte d'Ivoire") { %>selected<% } %>>Côte d'Ivoire</option>
+                    <option value="Croatia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Croatia") { %>selected<% } %>>Croatia</option>
+                    <option value="Cuba" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cuba") { %>selected<% } %>>Cuba</option>
+                    <option value="Curaçao" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Curaçao") { %>selected<% } %>>Curaçao</option>
+                    <option value="Cyprus" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Cyprus") { %>selected<% } %>>Cyprus</option>
+                    <option value="Czech Republic" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Czech Republic") { %>selected<% } %>>Czech Republic</option>
+                    <option value="Denmark" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Denmark") { %>selected<% } %>>Denmark</option>
+                    <option value="Djibouti" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Djibouti") { %>selected<% } %>>Djibouti</option>
+                    <option value="Dominica" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Dominica") { %>selected<% } %>>Dominica</option>
+                    <option value="Dominican Republic" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Dominican Republic") { %>selected<% } %>>Dominican Republic</option>
+                    <option value="Ecuador" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Ecuador") { %>selected<% } %>>Ecuador</option>
+                    <option value="Egypt" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Egypt") { %>selected<% } %>>Egypt</option>
+                    <option value="El Salvador" <% if (pi !== null && pi.dualCitizenship.dcCountry === "El Salvador") { %>selected<% } %>>El Salvador</option>
+                    <option value="Equatorial Guinea" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Equatorial Guinea") { %>selected<% } %>>Equatorial Guinea</option>
+                    <option value="Eritrea" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Eritrea") { %>selected<% } %>>Eritrea</option>
+                    <option value="Estonia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Estonia") { %>selected<% } %>>Estonia</option>
+                    <option value="Ethiopia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Ethiopia") { %>selected<% } %>>Ethiopia</option>
+                    <option value="Falkland Islands (Malvinas)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Falkland Islands (Malvinas)") { %>selected<% } %>>Falkland Islands (Malvinas)</option>
+                    <option value="Faroe Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Faroe Islands") { %>selected<% } %>>Faroe Islands</option>
+                    <option value="Fiji" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Fiji") { %>selected<% } %>>Fiji</option>
+                    <option value="Finland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Finland") { %>selected<% } %>>Finland</option>
+                    <option value="France" <% if (pi !== null && pi.dualCitizenship.dcCountry === "France") { %>selected<% } %>>France</option>
+                    <option value="French Guiana" <% if (pi !== null && pi.dualCitizenship.dcCountry === "French Guiana") { %>selected<% } %>>French Guiana</option>
+                    <option value="French Polynesia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "French Polynesia") { %>selected<% } %>>French Polynesia</option>
+                    <option value="French Southern Territories" <% if (pi !== null && pi.dualCitizenship.dcCountry === "French Southern Territories") { %>selected<% } %>>French Southern Territories</option>
+                    <option value="Gabon" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Gabon") { %>selected<% } %>>Gabon</option>
+                    <option value="Gambia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Gambia") { %>selected<% } %>>Gambia</option>
+                    <option value="Georgia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Georgia") { %>selected<% } %>>Georgia</option>
+                    <option value="Germany" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Germany") { %>selected<% } %>>Germany</option>
+                    <option value="Ghana" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Ghana") { %>selected<% } %>>Ghana</option>
+                    <option value="Gibraltar" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Gibraltar") { %>selected<% } %>>Gibraltar</option>
+                    <option value="Greece" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Greece") { %>selected<% } %>>Greece</option>
+                    <option value="Greenland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Greenland") { %>selected<% } %>>Greenland</option>
+                    <option value="Grenada" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Grenada") { %>selected<% } %>>Grenada</option>
+                    <option value="Guadeloupe" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guadeloupe") { %>selected<% } %>>Guadeloupe</option>
+                    <option value="Guam" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guam") { %>selected<% } %>>Guam</option>
+                    <option value="Guatemala" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guatemala") { %>selected<% } %>>Guatemala</option>
+                    <option value="Guernsey" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guernsey") { %>selected<% } %>>Guernsey</option>
+                    <option value="Guinea" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guinea") { %>selected<% } %>>Guinea</option>
+                    <option value="Guinea-Bissau" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guinea-Bissau") { %>selected<% } %>>Guinea-Bissau</option>
+                    <option value="Guyana" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Guyana") { %>selected<% } %>>Guyana</option>
+                    <option value="Haiti" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Haiti") { %>selected<% } %>>Haiti</option>
+                    <option value="Heard Island and McDonald Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Heard Island and McDonald Islands") { %>selected<% } %>>Heard Island and McDonald Islands</option>
+                    <option value="Holy See" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Holy See") { %>selected<% } %>>Holy See</option>
+                    <option value="Honduras" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Honduras") { %>selected<% } %>>Honduras</option>
+                    <option value="Hong Kong" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Hong Kong") { %>selected<% } %>>Hong Kong</option>
+                    <option value="Hungary" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Hungary") { %>selected<% } %>>Hungary</option>
+                    <option value="Iceland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Iceland") { %>selected<% } %>>Iceland</option>
+                    <option value="India" <% if (pi !== null && pi.dualCitizenship.dcCountry === "India") { %>selected<% } %>>India</option>
+                    <option value="Indonesia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Indonesia") { %>selected<% } %>>Indonesia</option>
+                    <option value="Iran (Islamic Republic of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Iran (Islamic Republic of)") { %>selected<% } %>>Iran (Islamic Republic of)</option>
+                    <option value="Iraq" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Iraq") { %>selected<% } %>>Iraq</option>
+                    <option value="Ireland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Ireland") { %>selected<% } %>>Ireland</option>
+                    <option value="Isle of Man" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Isle of Man") { %>selected<% } %>>Isle of Man</option>
+                    <option value="Israel" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Israel") { %>selected<% } %>>Israel</option>
+                    <option value="Italy" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Italy") { %>selected<% } %>>Italy</option>
+                    <option value="Jamaica" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Jamaica") { %>selected<% } %>>Jamaica</option>
+                    <option value="Japan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Japan") { %>selected<% } %>>Japan</option>
+                    <option value="Jersey" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Jersey") { %>selected<% } %>>Jersey</option>
+                    <option value="Jordan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Jordan") { %>selected<% } %>>Jordan</option>
+                    <option value="Kazakhstan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Kazakhstan") { %>selected<% } %>>Kazakhstan</option>
+                    <option value="Kenya" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Kenya") { %>selected<% } %>>Kenya</option>
+                    <option value="Kiribati" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Kiribati") { %>selected<% } %>>Kiribati</option>
+                    <option value="Korea (Democratic People's Republic of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Korea (Democratic People's Republic of)") { %>selected<% } %>>Korea (Democratic People's Republic of)</option>
+                    <option value="Korea (Republic of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Korea (Republic of)") { %>selected<% } %>>Korea (Republic of)</option>
+                    <option value="Kuwait" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Kuwait") { %>selected<% } %>>Kuwait</option>
+                    <option value="Kyrgyzstan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Kyrgyzstan") { %>selected<% } %>>Kyrgyzstan</option>
+                    <option value="Lao People's Democratic Republic" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Lao People's Democratic Republic") { %>selected<% } %>>Lao People's Democratic Republic</option>
+                    <option value="Latvia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Latvia") { %>selected<% } %>>Latvia</option>
+                    <option value="Lebanon" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Lebanon") { %>selected<% } %>>Lebanon</option>
+                    <option value="Lesotho" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Lesotho") { %>selected<% } %>>Lesotho</option>
+                    <option value="Liberia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Liberia") { %>selected<% } %>>Liberia</option>
+                    <option value="Libya" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Libya") { %>selected<% } %>>Libya</option>
+                    <option value="Liechtenstein" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Liechtenstein") { %>selected<% } %>>Liechtenstein</option>
+                    <option value="Lithuania" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Lithuania") { %>selected<% } %>>Lithuania</option>
+                    <option value="Luxembourg" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Luxembourg") { %>selected<% } %>>Luxembourg</option>
+                    <option value="Macao" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Macao") { %>selected<% } %>>Macao</option>
+                    <option value="Macedonia (the former Yugoslav Republic of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Macedonia (the former Yugoslav Republic of)") { %>selected<% } %>>Macedonia (the former Yugoslav Republic of)</option>
+                    <option value="Madagascar" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Madagascar") { %>selected<% } %>>Madagascar</option>
+                    <option value="Malawi" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Malawi") { %>selected<% } %>>Malawi</option>
+                    <option value="Malaysia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Malaysia") { %>selected<% } %>>Malaysia</option>
+                    <option value="Maldives" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Maldives") { %>selected<% } %>>Maldives</option>
+                    <option value="Mali" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mali") { %>selected<% } %>>Mali</option>
+                    <option value="Malta" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Malta") { %>selected<% } %>>Malta</option>
+                    <option value="Marshall Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Marshall Islands") { %>selected<% } %>>Marshall Islands</option>
+                    <option value="Martinique" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Martinique") { %>selected<% } %>>Martinique</option>
+                    <option value="Mauritania" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mauritania") { %>selected<% } %>>Mauritania</option>
+                    <option value="Mauritius" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mauritius") { %>selected<% } %>>Mauritius</option>
+                    <option value="Mayotte" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mayotte") { %>selected<% } %>>Mayotte</option>
+                    <option value="Mexico" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mexico") { %>selected<% } %>>Mexico</option>
+                    <option value="Micronesia (Federated States of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Micronesia (Federated States of)") { %>selected<% } %>>Micronesia (Federated States of)</option>
+                    <option value="Moldova (Republic of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Moldova (Republic of)") { %>selected<% } %>>Moldova (Republic of)</option>
+                    <option value="Monaco" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Monaco") { %>selected<% } %>>Monaco</option>
+                    <option value="Mongolia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mongolia") { %>selected<% } %>>Mongolia</option>
+                    <option value="Montenegro" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Montenegro") { %>selected<% } %>>Montenegro</option>
+                    <option value="Montserrat" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Montserrat") { %>selected<% } %>>Montserrat</option>
+                    <option value="Morocco" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Morocco") { %>selected<% } %>>Morocco</option>
+                    <option value="Mozambique" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Mozambique") { %>selected<% } %>>Mozambique</option>
+                    <option value="Myanmar" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Myanmar") { %>selected<% } %>>Myanmar</option>
+                    <option value="Namibia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Namibia") { %>selected<% } %>>Namibia</option>
+                    <option value="Nauru" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Nauru") { %>selected<% } %>>Nauru</option>
+                    <option value="Nepal" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Nepal") { %>selected<% } %>>Nepal</option>
+                    <option value="Netherlands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Netherlands") { %>selected<% } %>>Netherlands</option>
+                    <option value="New Caledonia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "New Caledonia") { %>selected<% } %>>New Caledonia</option>
+                    <option value="New Zealand" <% if (pi !== null && pi.dualCitizenship.dcCountry === "New Zealand") { %>selected<% } %>>New Zealand</option>
+                    <option value="Nicaragua" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Nicaragua") { %>selected<% } %>>Nicaragua</option>
+                    <option value="Niger" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Niger") { %>selected<% } %>>Niger</option>
+                    <option value="Nigeria" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Nigeria") { %>selected<% } %>>Nigeria</option>
+                    <option value="Niue" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Niue") { %>selected<% } %>>Niue</option>
+                    <option value="Norfolk Island" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Norfolk Island") { %>selected<% } %>>Norfolk Island</option>
+                    <option value="Northern Mariana Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Northern Mariana Islands") { %>selected<% } %>>Northern Mariana Islands</option>
+                    <option value="Norway" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Norway") { %>selected<% } %>>Norway</option>
+                    <option value="Oman" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Oman") { %>selected<% } %>>Oman</option>
+                    <option value="Pakistan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Pakistan") { %>selected<% } %>>Pakistan</option>
+                    <option value="Palau" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Palau") { %>selected<% } %>>Palau</option>
+                    <option value="Palestine, State of" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Palestine, State of") { %>selected<% } %>>Palestine, State of</option>
+                    <option value="Panama" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Panama") { %>selected<% } %>>Panama</option>
+                    <option value="Papua New Guinea" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Papua New Guinea") { %>selected<% } %>>Papua New Guinea</option>
+                    <option value="Paraguay" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Paraguay") { %>selected<% } %>>Paraguay</option>
+                    <option value="Peru" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Peru") { %>selected<% } %>>Peru</option>
+                    <option value="Philippines" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Philippines") { %>selected<% } %>>Philippines</option>
+                    <option value="Pitcairn" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Pitcairn") { %>selected<% } %>>Pitcairn</option>
+                    <option value="Poland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Poland") { %>selected<% } %>>Poland</option>
+                    <option value="Portugal" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Portugal") { %>selected<% } %>>Portugal</option>
+                    <option value="Puerto Rico" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Puerto Rico") { %>selected<% } %>>Puerto Rico</option>
+                    <option value="Qatar" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Qatar") { %>selected<% } %>>Qatar</option>
+                    <option value="Réunion" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Réunion") { %>selected<% } %>>Réunion</option>
+                    <option value="Romania" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Romania") { %>selected<% } %>>Romania</option>
+                    <option value="Russian Federation" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Russian Federation") { %>selected<% } %>>Russian Federation</option>
+                    <option value="Rwanda" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Rwanda") { %>selected<% } %>>Rwanda</option>
+                    <option value="Saint Barthélemy" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Barthélemy") { %>selected<% } %>>Saint Barthélemy</option>
+                    <option value="Saint Helena, Ascension and Tristan da Cunha" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Helena, Ascension and Tristan da Cunha") { %>selected<% } %>>Saint Helena, Ascension and Tristan da Cunha</option>
+                    <option value="Saint Kitts and Nevis" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Kitts and Nevis") { %>selected<% } %>>Saint Kitts and Nevis</option>
+                    <option value="Saint Lucia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Lucia") { %>selected<% } %>>Saint Lucia</option>
+                    <option value="Saint Martin (French part)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Martin (French part)") { %>selected<% } %>>Saint Martin (French part)</option>
+                    <option value="Saint Pierre and Miquelon" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Pierre and Miquelon") { %>selected<% } %>>Saint Pierre and Miquelon</option>
+                    <option value="Saint Vincent and the Grenadines" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saint Vincent and the Grenadines") { %>selected<% } %>>Saint Vincent and the Grenadines</option>
+                    <option value="Samoa" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Samoa") { %>selected<% } %>>Samoa</option>
+                    <option value="San Marino" <% if (pi !== null && pi.dualCitizenship.dcCountry === "San Marino") { %>selected<% } %>>San Marino</option>
+                    <option value="Sao Tome and Principe" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Sao Tome and Principe") { %>selected<% } %>>Sao Tome and Principe</option>
+                    <option value="Saudi Arabia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Saudi Arabia") { %>selected<% } %>>Saudi Arabia</option>
+                    <option value="Senegal" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Senegal") { %>selected<% } %>>Senegal</option>
+                    <option value="Serbia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Serbia") { %>selected<% } %>>Serbia</option>
+                    <option value="Seychelles" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Seychelles") { %>selected<% } %>>Seychelles</option>
+                    <option value="Sierra Leone" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Sierra Leone") { %>selected<% } %>>Sierra Leone</option>
+                    <option value="Singapore" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Singapore") { %>selected<% } %>>Singapore</option>
+                    <option value="Sint Maarten (Dutch part)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Sint Maarten (Dutch part)") { %>selected<% } %>>Sint Maarten (Dutch part)</option>
+                    <option value="Slovakia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Slovakia") { %>selected<% } %>>Slovakia</option>
+                    <option value="Slovenia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Slovenia") { %>selected<% } %>>Slovenia</option>
+                    <option value="Solomon Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Solomon Islands") { %>selected<% } %>>Solomon Islands</option>
+                    <option value="Somalia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Somalia") { %>selected<% } %>>Somalia</option>
+                    <option value="South Africa" <% if (pi !== null && pi.dualCitizenship.dcCountry === "South Africa") { %>selected<% } %>>South Africa</option>
+                    <option value="South Georgia and the South Sandwich Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "South Georgia and the South Sandwich Islands") { %>selected<% } %>>South Georgia and the South Sandwich Islands</option>
+                    <option value="South Sudan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "South Sudan") { %>selected<% } %>>South Sudan</option>
+                    <option value="Spain" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Spain") { %>selected<% } %>>Spain</option>
+                    <option value="Sri Lanka" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Sri Lanka") { %>selected<% } %>>Sri Lanka</option>
+                    <option value="Sudan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Sudan") { %>selected<% } %>>Sudan</option>
+                    <option value="Suriname" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Suriname") { %>selected<% } %>>Suriname</option>
+                    <option value="Svalbard and Jan Mayen" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Svalbard and Jan Mayen") { %>selected<% } %>>Svalbard and Jan Mayen</option>
+                    <option value="Swaziland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Swaziland") { %>selected<% } %>>Swaziland</option>
+                    <option value="Sweden" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Sweden") { %>selected<% } %>>Sweden</option>
+                    <option value="Switzerland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Switzerland") { %>selected<% } %>>Switzerland</option>
+                    <option value="Syrian Arab Republic" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Syrian Arab Republic") { %>selected<% } %>>Syrian Arab Republic</option>
+                    <option value="Taiwan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Taiwan") { %>selected<% } %>>Taiwan</option>
+                    <option value="Tajikistan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Tajikistan") { %>selected<% } %>>Tajikistan</option>
+                    <option value="Tanzania, United Republic of" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Tanzania, United Republic of") { %>selected<% } %>>Tanzania, United Republic of</option>
+                    <option value="Thailand" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Thailand") { %>selected<% } %>>Thailand</option>
+                    <option value="Timor-Leste" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Timor-Leste") { %>selected<% } %>>Timor-Leste</option>
+                    <option value="Togo" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Togo") { %>selected<% } %>>Togo</option>
+                    <option value="Tokelau" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Tokelau") { %>selected<% } %>>Tokelau</option>
+                    <option value="Tonga" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Tonga") { %>selected<% } %>>Tonga</option>
+                    <option value="Trinidad and Tobago" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Trinidad and Tobago") { %>selected<% } %>>Trinidad and Tobago</option>
+                    <option value="Tunisia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Tunisia") { %>selected<% } %>>Tunisia</option>
+                    <option value="Turkey" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Turkey") { %>selected<% } %>>Turkey</option>
+                    <option value="Turkmenistan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Turkmenistan") { %>selected<% } %>>Turkmenistan</option>
+                    <option value="Turks and Caicos Islands" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Turks and Caicos Islands") { %>selected<% } %>>Turks and Caicos Islands</option>
+                    <option value="Tuvalu" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Tuvalu") { %>selected<% } %>>Tuvalu</option>
+                    <option value="Uganda" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Uganda") { %>selected<% } %>>Uganda</option>
+                    <option value="Ukraine" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Ukraine") { %>selected<% } %>>Ukraine</option>
+                    <option value="United Arab Emirates" <% if (pi !== null && pi.dualCitizenship.dcCountry === "United Arab Emirates") { %>selected<% } %>>United Arab Emirates</option>
+                    <option value="United Kingdom of Great Britain and Northern Ireland" <% if (pi !== null && pi.dualCitizenship.dcCountry === "United Kingdom of Great Britain and Northern Ireland") { %>selected<% } %>>United Kingdom of Great Britain and Northern Ireland</option>
+                    <option value="United States of America" <% if (pi !== null && pi.dualCitizenship.dcCountry === "United States of America") { %>selected<% } %>>United States of America</option>
+                    <option value="Uruguay" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Uruguay") { %>selected<% } %>>Uruguay</option>
+                    <option value="Uzbekistan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Uzbekistan") { %>selected<% } %>>Uzbekistan</option>
+                    <option value="Vanuatu" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Vanuatu") { %>selected<% } %>>Vanuatu</option>
+                    <option value="Venezuela (Bolivarian Republic of)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Venezuela (Bolivarian Republic of)") { %>selected<% } %>>Venezuela (Bolivarian Republic of)</option>
+                    <option value="Viet Nam" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Viet Nam") { %>selected<% } %>>Viet Nam</option>
+                    <option value="Virgin Islands (British)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Virgin Islands (British)") { %>selected<% } %>>Virgin Islands (British)</option>
+                    <option value="Virgin Islands (U.S.)" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Virgin Islands (U.S.)") { %>selected<% } %>>Virgin Islands (U.S.)</option>
+                    <option value="Wallis and Futuna" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Wallis and Futuna") { %>selected<% } %>>Wallis and Futuna</option>
+                    <option value="Western Sahara" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Western Sahara") { %>selected<% } %>>Western Sahara</option>
+                    <option value="Yemen" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Yemen") { %>selected<% } %>>Yemen</option>
+                    <option value="Zambia" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Zambia") { %>selected<% } %>>Zambia</option>
+                    <option value="Zimbabwe" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Zimbabwe") { %>selected<% } %>>Zimbabwe</option>
+                    </select>
                 <label class=" formsubHeader" for="Residential Address">Residential Address:  <p class="required">*</p></label>
     
                 <label class="" for="raHBLN">House/Block/Lot No.:  <p class="required">*</p></label>
@@ -421,6 +422,7 @@
         const tinId = form.tinId.value;
         const agencyEmployeeId = form.agencyEmployeeId.value;
         const telNo = form.telNo.value;
+        const celNo = form.telNo.value;
         const citizenship = form.citizenship.value;
         const dcType = form.dcType.value;
         const dcCountry = form.dcCountry.value;
@@ -443,24 +445,24 @@
             citizenship, dcType, dcCountry, raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode,
             paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode});
         try{
-            const res = await fetch('/personalinformation', {
-              method: 'POST',
-              body: JSON.stringify({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
-                                    weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
-                                    citizenship, dualCitizenship:{dcType, dcCountry}, residentialAddress:{raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode},
-                                    permanentAddress:{paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}}),
-              headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await res.json();
-            if(data.errors){
-            }
-            if (data.status){
-              location.assign('/personalinformation/<%=user._id%>');
-            }
-            
-          }
-          catch (err){
-          }
+                const res = await fetch('/personalinformation', {
+                  method: 'POST',
+                  body: JSON.stringify({userId, middleName, nameExtension, birthDate, placeOfBirth, sex, civilStatus, height, 
+                                        weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo, celNo, 
+                                        citizenship, dualCitizenship:{dcType, dcCountry}, residentialAddress:{raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode},
+                                        permanentAddress:{paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}}),
+                  headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/personalinformation/<%=user._id%>');
+                }
+                
+              }
+              catch (err){
+              }
       
       })
 
@@ -483,4 +485,5 @@
             dcCountryL.style.display = 'none';
         }
     }
+    handleCitizenshipSelection()
 </script>

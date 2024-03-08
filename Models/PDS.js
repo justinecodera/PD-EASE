@@ -177,6 +177,11 @@ const personalInfoSchema = new Schema({
         required: true,
         lowercase: true
     },
+    celNo: {
+        type: String,
+        required: true,
+        lowercase: true
+    },
 }, {timestamps: true});
 
 //family background schema
@@ -228,13 +233,13 @@ const familyBackgroundSchema = new Schema({
         }
     },
     mother: {
-        mLastname: {
+        mLastName: {
             type: String
         },
-        mFirstname: {
+        mFirstName: {
             type: String
         },
-        mMiddlename: {
+        mMiddleName: {
             type: String
         }
     },

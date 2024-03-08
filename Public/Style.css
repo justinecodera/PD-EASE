@@ -157,6 +157,7 @@ body {
 #sidebar.expand {
     width: 260px;
     min-width: 260px;
+    transition: 0.6s;
 }
 
 .toggle-btn {
@@ -325,4 +326,8 @@ a.sidebar-link:hover {
     font-size: .8rem;
     margin-left: 1rem;
     margin-top: 1rem;
+}
+
+.px-custom {
+    padding: 0 5rem;
 }
