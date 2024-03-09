@@ -1,4 +1,5 @@
 const User = require('../Models/users');
+const UserOtpVerification = require('../Models/userVerificationOTP');
 const jwt = require('jsonwebtoken');
 
 //handle errors
@@ -49,17 +50,21 @@ module.exports.signup_get = (req, res) => {
 module.exports.signup_post = async (req, res) => {
     const {firstname, lastname, institutionalEmail, password } = req.body;
     try {
-        const user = await User.create({firstname, lastname, institutionalEmail, password });
+        const user = await User.create({firstname, lastname, institutionalEmail, password, verified: false})
+        .then((result) => {
+            sendOTPVerificationEmail();
+        });
 
     
-        const token = createToken(user._id);
-        // console.log(token);
-        res.cookie('PEEDS', token, {httpOnly: true});
-        res.status(201).json({user: user._id});
+        // magrurun lang dapat to pag verified na email
+        // const token = createToken(user._id);
+        // // console.log(token);
+        // res.cookie('PEEDS', token, {httpOnly: true});
+        // res.status(201).json({user: user._id});
     }
     catch (err){
-        // const errors = handleErrors(err);
-        // console.log(res.json({ errors }));
+        const errors = handleErrors(err);
+        console.log(res.json({ errors }));
         console.log(err.message)
     }
 
@@ -94,4 +99,12 @@ module.exports.login_post = async (req, res) => {
 module.exports.logout_get = (req, res) => {
     res.cookie('PEEDS', '', {maxAge: 1});
     res.redirect('/login');
+}
+
+const sendOTPVerificationEmail = async () => {
+    try {
+        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+    } catch (error) {
+        
+    }
 }

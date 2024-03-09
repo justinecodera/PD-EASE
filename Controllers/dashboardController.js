@@ -1,11 +1,28 @@
 const { isEmpty } = require('validator');
 const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR} = require('../Models/PDS');
-const User = require('../Models/PDS');
+const User = require('../Models/users');
 const moment = require('moment');
+const pdsS = require('../Models/tracker');
 
 
-module.exports.dashboard_get = (req, res) => {
-    res.render('Dashboard', { title: 'Dashboard', page: 'home'});
+module.exports.dashboard_get = async (req, res) => {
+    const userid = req.params.id;
+    const userdata = await User.findById(userid);
+    const piData = await PI.findOne({userId: userid});
+    const fbData = await FB.findOne({userId: userid});
+    const edData = await ED.findOne({userId: userid});
+    const ebData = await EB.findOne({userId: userid});
+    const weData = await WE.findOne({userId: userid});
+    const vwData = await VW.findOne({userId: userid});
+    const trData = await TR.findOne({userId: userid});
+    const oiData = await OI.findOne({userId: userid});
+    const qtData = await QT.findOne({userId: userid});
+    const rrData = await RR.findOne({userId: userid});
+    const srData = await SR.findOne({userId: userid});
+    const pdsSData = await pdsS.findOne({userId: userid});
+
+
+    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData,  pdssubmitted: pdsSData});
 }
 
 //personal info

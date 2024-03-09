@@ -11,7 +11,7 @@
   </div>
   <ul class="sidebar-nav">
       <li class="sidebar-item">
-          <a href="/" class="sidebar-link">
+          <a href="/<%=user._id%>" class="sidebar-link">
               <i class="lni lni-home"></i>
               <span>Home</span>
           </a>
@@ -22,12 +22,6 @@
               <span>Profile</span>
           </a>
       </li>
-      <li class="sidebar-item">
-        <a href="/pds/<%=user._id%>" class="sidebar-link">
-            <i class="lni lni-printer"></i>
-            <span>Print PDS</span>
-        </a>
-    </li>
       <li class="sidebar-item">
           <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
               data-bs-target="#PDS" aria-expanded="false" aria-controls="PDS">

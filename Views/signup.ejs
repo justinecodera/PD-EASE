@@ -42,7 +42,7 @@
                         <input class="inputsignup" type="password" id="password" name="password" required>
 
                         <label for="retypePassword">Re-type Password:</label>
-                        <input class="inputsignup" type="password" required>
+                        <input class="inputsignup" type="password" id="retypePassword" name="retypePassword"  required>
 
                         <div class="form-check d-flex justify-content-center mt-3">
                             <input class="form-check-input EULAcheck" type="checkbox" value="" id="flexCheckDefault">
@@ -88,6 +88,7 @@
           const lastname = signupform.lastname.value;
           const institutionalEmail = signupform.institutionalEmail.value;
           const password = signupform.password.value;
+          const retypePassword = signupform.retypePassword.value;
 
           //reset errors 
               institutionalEmailError.textContent = '';
@@ -96,22 +97,27 @@
               lastnameError.textContent = '';
 
           try{
-            const res = await fetch('/signup', {
-              method: 'POST',
-              body: JSON.stringify({firstname, lastname, institutionalEmail, password}),
-              headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await res.json();
-            console.log(data);
-            if(data.errors){
-              firstnameError.textContent = data.errors.firstname;
-              lastnameError.textContent = data.errors.lastname;
-              institutionalEmailError.textContent = data.errors.institutionalEmail;
-              passwordError.textContent = data.errors.password;
+            if(retypePassword === password) {
+              const res = await fetch('/signup', {
+                method: 'POST',
+                body: JSON.stringify({firstname, lastname, institutionalEmail, password}),
+                headers: { 'Content-Type': 'application/json' }
+              });
+              const data = await res.json();
+              console.log(data);
+              if(data.errors){
+                firstnameError.textContent = data.errors.firstname;
+                lastnameError.textContent = data.errors.lastname;
+                institutionalEmailError.textContent = data.errors.institutionalEmail;
+                passwordError.textContent = data.errors.password;
+              }
+              if (data.user){
+                location.assign('/');
+              }
+            }else {
+              passwordError.textContent = 'Passwords dont match!';
             }
-            if (data.user){
-              location.assign('/');
-            }
+            
           }
           catch (err){
           }

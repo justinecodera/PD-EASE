@@ -331,3 +331,10 @@ a.sidebar-link:hover {
 .px-custom {
     padding: 0 5rem;
 }
+
+.lni-checkmark-circle {
+    color: green;
+}
+.lni-cross-circle {
+    color: red;
+}

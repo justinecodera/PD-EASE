@@ -4,6 +4,12 @@ const bcrypt = require('bcrypt');
 
 const Schema = mongoose.Schema;
 
+function validateEmailDomain(email) {
+    // Regular expression to match email addresses with "@rtu.edu.ph" domain
+    const regex = /^[a-zA-Z0-9._%+-]+@rtu\.edu\.ph$/;
+    return regex.test(email);
+}
+
 const usersSchema = new Schema({
     firstname: {
         type: String,
@@ -18,13 +24,17 @@ const usersSchema = new Schema({
         required: [true, 'Please enter an Email'],
         unique: true,
         lowercase: true,
-        validate: [isEmail, 'Please Enter a Valid Email']
+        validate: [
+            { validator: isEmail, msg: 'Please Enter a Valid Email' },
+            { validator: validateEmailDomain, msg: 'Email domain must be @rtu.edu.ph' }
+        ]
     },
     password: {
         type: String,
         required: [true, 'Please enter a Password'],
         minlength: [6, 'minimum password length is 6 characters']
-    }
+    },
+    verified: Boolean
 }, {timestamps: true});
 
 //fire a function before doc is saved to db

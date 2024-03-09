@@ -1,10 +1,12 @@
 const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR} = require('../Models/PDS');
+const pdsS = require('../Models/tracker');
 const User = require('../Models/users');
 const moment = require('moment');
 const pdflib = require('pdf-lib');
 const {readFile, writeFile} = require('fs/promises')
 
 async function fillPDF(filename, userid) {
+    console.log("error");
     const userdata = await User.findById(userid);
     const piData = await PI.findOne({userId: userid});
     const fbData = await FB.findOne({userId: userid});
@@ -687,118 +689,122 @@ async function fillPDF(filename, userid) {
 
         //fill PDF
 
-        //personal information
-        lastname.setText(userdata.lastname);
-        firstname.setText(userdata.firstname);
-        middleName.setText(piData.middleName);
-        nameExtension.setText(piData.nameExtension);
-        birthDate.setText(moment(piData.birthDate).format('YYYY-MM-DD'));
-        placeOfBirth.setText(piData.placeOfBirth);
-        if(piData.sex === 'male'){
-            male.check();
-        }else if(piData.sex === 'female'){
-            female.check();
-        }
-        switch (piData.civilStatus) {
-            case 'single':
-                single.check();
-                break;
-            case 'married':
-                married.check();
-                break;
-            case 'widowed':
-                widowed.check();
-                break;
-            case 'separated':
-                separated.check();
-                break;
-            case 'other':
-                others.check();
-                break;
-        
-            default:
-                break;
-        }
-        
-        height.setText(JSON.stringify(piData.height));
-        weight.setText(JSON.stringify(piData.height));
-        bloodType.setText(piData.bloodType);
-        gsisId.setText(piData.gsisId);
-        pagibigId.setText(piData.pagibigId);
-        philhealthId.setText(piData.philhealthId);
-        sssId.setText(piData.sssId);
-        tinId.setText(piData.tinId);
-        agencyEmployeeId.setText(piData.agencyEmployeeId);
-
-        if (piData.citizenship === 'filipino'){
-            filipino.check();
-            console.log(piData.dualCitizenship.dcType)
-        } else if (piData.citizenship === 'dual citizenship') {
-            dualCitizenship.check();
-            if (piData.dualCitizenship.dcType === 'By Birth'){
-                byBirth.check();
-            } else if (piData.dualCitizenship.dcType  === 'By Naturalization') {
-                byNaturalization.check();
+        //personal 
+        if(piData != null){
+         
+            lastname.setText(userdata.lastname != null ? userdata.lastname : "");
+            firstname.setText(userdata.firstname != null ? userdata.firstname : "");
+            middleName.setText(piData.middleName != null ? piData.middleName : "");
+            nameExtension.setText(piData.nameExtension != null ? piData.nameExtension : "");
+            birthDate.setText(piData.birthDate != null ? moment(piData.birthDate).format('YYYY-MM-DD') : "");
+            placeOfBirth.setText(piData.placeOfBirth != null ? piData.placeOfBirth : "");
+            if (piData.sex === 'male') {
+                male.check();
+            } else if (piData.sex === 'female') {
+                female.check();
             }
-            dcCountry.setText(piData.dualCitizenship.dcCountry);
-        }   
-        raHBLN.setText(piData.residentialAddress.raHBLN);
-        raStrt.setText(piData.residentialAddress.raStrt);
-        raSubVil.setText(piData.residentialAddress.raSubVil);
-        raBarangay.setText(piData.residentialAddress.raBarangay);
-        raCity.setText(piData.residentialAddress.raCity);
-        raProvince.setText(piData.residentialAddress.raProvince);
-        raZipCode.setText(piData.residentialAddress.raZipCode);
+            
+            switch (piData.civilStatus) {
+                case 'single':
+                    single.check();
+                    break;
+                case 'married':
+                    married.check();
+                    break;
+                case 'widowed':
+                    widowed.check();
+                    break;
+                case 'separated':
+                    separated.check();
+                    break;
+                case 'other':
+                    others.check();
+                    break;
+                default:
+                    break;
+            }
+            
+            height.setText(piData.height != null ? JSON.stringify(piData.height) : "");
+            weight.setText(piData.height != null ? JSON.stringify(piData.height) : "");
+            bloodType.setText(piData.bloodType != null ? piData.bloodType : "");
+            gsisId.setText(piData.gsisId != null ? piData.gsisId : "");
+            pagibigId.setText(piData.pagibigId != null ? piData.pagibigId : "");
+            philhealthId.setText(piData.philhealthId != null ? piData.philhealthId : "");
+            sssId.setText(piData.sssId != null ? piData.sssId : "");
+            tinId.setText(piData.tinId != null ? piData.tinId : "");
+            agencyEmployeeId.setText(piData.agencyEmployeeId != null ? piData.agencyEmployeeId : "");
+            
+            if (piData.citizenship === 'filipino') {
+                filipino.check();
+                console.log(piData.dualCitizenship.dcType);
+            } else if (piData.citizenship === 'dual citizenship') {
+                dualCitizenship.check();
+                if (piData.dualCitizenship.dcType === 'By Birth') {
+                    byBirth.check();
+                } else if (piData.dualCitizenship.dcType === 'By Naturalization') {
+                    byNaturalization.check();
+                }
+                dcCountry.setText(piData.dualCitizenship.dcCountry != null ? piData.dualCitizenship.dcCountry : "");
+            }
+            raHBLN.setText(piData.residentialAddress.raHBLN != null ? piData.residentialAddress.raHBLN : "");
+            raStrt.setText(piData.residentialAddress.raStrt != null ? piData.residentialAddress.raStrt : "");
+            raSubVil.setText(piData.residentialAddress.raSubVil != null ? piData.residentialAddress.raSubVil : "");
+            raBarangay.setText(piData.residentialAddress.raBarangay != null ? piData.residentialAddress.raBarangay : "");
+            raCity.setText(piData.residentialAddress.raCity != null ? piData.residentialAddress.raCity : "");
+            raProvince.setText(piData.residentialAddress.raProvince != null ? piData.residentialAddress.raProvince : "");
+            raZipCode.setText(piData.residentialAddress.raZipCode != null ? piData.residentialAddress.raZipCode : "");
+            
+            paHBLN.setText(piData.permanentAddress.paHBLN != null ? piData.permanentAddress.paHBLN : "");
+            paStrt.setText(piData.permanentAddress.paStrt != null ? piData.permanentAddress.paStrt : "");
+            paSubVil.setText(piData.permanentAddress.paSubVil != null ? piData.permanentAddress.paSubVil : "");
+            paBarangay.setText(piData.permanentAddress.paBarangay != null ? piData.permanentAddress.paBarangay : "");
+            paCity.setText(piData.permanentAddress.paCity != null ? piData.permanentAddress.paCity : "");
+            paProvince.setText(piData.permanentAddress.paProvince != null ? piData.permanentAddress.paProvince : "");
+            paZipCode.setText(piData.permanentAddress.paZipCode != null ? piData.permanentAddress.paZipCode : "");
+            
+            telNo.setText(piData.telNo != null ? piData.telNo : "");
+            celNo.setText(piData.celNo != null ? piData.celNo : "");
+            institutionalEmail.setText(userdata.institutionalEmail != null ? userdata.institutionalEmail : "");
 
-        paHBLN.setText(piData.permanentAddress.paHBLN);
-        paStrt.setText(piData.permanentAddress.paStrt);
-        paSubVil.setText(piData.permanentAddress.paSubVil);
-        paBarangay.setText(piData.permanentAddress.paBarangay);
-        paCity.setText(piData.permanentAddress.paCity);
-        paProvince.setText(piData.permanentAddress.paProvince);
-        paZipCode.setText(piData.permanentAddress.paZipCode);
-
-        telNo.setText(piData.telNo);
-        celNo.setText(piData.celNo);
-        institutionalEmail.setText(userdata.institutionalEmail);
-
-
+   
+    }
         //family background
-        sLastName.setText(fbData.spouse.sLastName);
-        sFirstName.setText(fbData.spouse.sFirstName);
-        sNameExtension.setText(fbData.spouse.sNameExtension);
-        sMiddleName.setText(fbData.spouse.sMiddleName);
-        sOccupation.setText(fbData.spouse.sOccupation);
-        sEmployerBusinessName.setText(fbData.spouse.sEmployerBusinessName);
-        sBusinessAdress.setText(fbData.spouse.sBusinessAdress);
-        sTelNo.setText(fbData.spouse.sTelNo);
-
-        fLastName.setText(fbData.father.fLastName);
-        fFirstName.setText(fbData.father.fFirstName);
-        fMiddleName.setText(fbData.father.fMiddleName);
-        fNameExtension.setText(fbData.father.fNameExtension);
-
-        mLastName.setText(fbData.mother.mLastName);
-        mFirstName.setText(fbData.mother.mFirstName);
-        mMiddleName.setText(fbData.mother.mMiddleName);
-
-        fbData.children.forEach((child, index) => {
-            const fieldName = `cFullName${index + 1}`;
-        
-            if (child.cFullName !== undefined && child.cFullName !== null) {
-                pdsform.getField(fieldName).setText(child.cFullName);
-            }
-        });
-
-        fbData.children.forEach((child, index) => {
-            const fieldName = `cBirthDate${index + 1}`;
-        
-            if (child.cBirthDate !== undefined && child.cBirthDate !== null) {
-                pdsform.getField(fieldName).setText(moment(child.cBirthDate).format('YYYY-MM-DD'));
-            }
-        });
-
+        if(fbData != null){
+            sLastName.setText(fbData.spouse.sLastName ? fbData.spouse.sLastName : '');
+            sFirstName.setText(fbData.spouse.sFirstName ? fbData.spouse.sFirstName : '');
+            sNameExtension.setText(fbData.spouse.sNameExtension ? fbData.spouse.sNameExtension : '');
+            sMiddleName.setText(fbData.spouse.sMiddleName ? fbData.spouse.sMiddleName : '');
+            sOccupation.setText(fbData.spouse.sOccupation ? fbData.spouse.sOccupation : '');
+            sEmployerBusinessName.setText(fbData.spouse.sEmployerBusinessName ? fbData.spouse.sEmployerBusinessName : '');
+            sBusinessAdress.setText(fbData.spouse.sBusinessAdress ? fbData.spouse.sBusinessAdress : '');
+            sTelNo.setText(fbData.spouse.sTelNo ? fbData.spouse.sTelNo : '');
+            
+            fLastName.setText(fbData.father.fLastName ? fbData.father.fLastName : '');
+            fFirstName.setText(fbData.father.fFirstName ? fbData.father.fFirstName : '');
+            fMiddleName.setText(fbData.father.fMiddleName ? fbData.father.fMiddleName : '');
+            fNameExtension.setText(fbData.father.fNameExtension ? fbData.father.fNameExtension : '');
+            
+            mLastName.setText(fbData.mother.mLastName ? fbData.mother.mLastName : '');
+            mFirstName.setText(fbData.mother.mFirstName ? fbData.mother.mFirstName : '');
+            mMiddleName.setText(fbData.mother.mMiddleName ? fbData.mother.mMiddleName : '');
+            
+            fbData.children.forEach((child, index) => {
+                const fieldName = `cFullName${index + 1}`;
+                if (child.cFullName !== undefined && child.cFullName !== null) {
+                    pdsform.getField(fieldName).setText(child.cFullName);
+                }
+            });
+            
+            fbData.children.forEach((child, index) => {
+                const fieldName = `cBirthDate${index + 1}`;
+                if (child.cBirthDate !== undefined && child.cBirthDate !== null) {
+                    pdsform.getField(fieldName).setText(moment(child.cBirthDate).format('YYYY-MM-DD'));
+                }
+            });
+    }
         //education
+        
+        if(edData != null){
         const mappings = [
             { level: 'Elementary', schoolName: schoolName1, basicEduDegCor: basicEduDegCor1, attendanceFrom: attendanceFrom1, attendanceTo: attendanceTo1, highestLevel: highestLevel1, yearGraduated: yearGraduated1, honorsRecieved: honorsRecieved1 },
             { level: 'Secondary', schoolName: schoolName2, basicEduDegCor: basicEduDegCor2, attendanceFrom: attendanceFrom2, attendanceTo: attendanceTo2, highestLevel: highestLevel2, yearGraduated: yearGraduated2, honorsRecieved: honorsRecieved2 },
@@ -810,24 +816,25 @@ async function fillPDF(filename, userid) {
         mappings.forEach(mapping => {
             edData.ed.some((education, index) => {
                 if (education.schooLevel === mapping.level) {
-                    mapping.schoolName.setFontSize(6)
-                    mapping.schoolName.setText(education.schoolName);
-                    mapping.basicEduDegCor.setFontSize(6)
-                    mapping.basicEduDegCor.setText(education.basicEduDegCor);
-                    mapping.attendanceFrom.setFontSize(4.5)
-                    mapping.attendanceFrom.setText(education.attendanceFrom);
-                    mapping.attendanceTo.setFontSize(4.5)
-                    mapping.attendanceTo.setText(education.attendanceTo);
-                    mapping.highestLevel.setText(education.highestLevel);
-                    mapping.yearGraduated.setText(education.yearGraduated);
-                    mapping.honorsRecieved.setFontSize(5)
-                    mapping.honorsRecieved.setText(education.honorsRecieved);
+                    mapping.schoolName.setFontSize(6);
+                    mapping.schoolName.setText(education.schoolName ? education.schoolName : '');
+                    mapping.basicEduDegCor.setFontSize(6);
+                    mapping.basicEduDegCor.setText(education.basicEduDegCor ? education.basicEduDegCor : '');
+                    mapping.attendanceFrom.setFontSize(4.5);
+                    mapping.attendanceFrom.setText(education.attendanceFrom ? education.attendanceFrom : '');
+                    mapping.attendanceTo.setFontSize(4.5);
+                    mapping.attendanceTo.setText(education.attendanceTo ? education.attendanceTo : '');
+                    mapping.highestLevel.setText(education.highestLevel ? education.highestLevel : '');
+                    mapping.yearGraduated.setText(education.yearGraduated ? education.yearGraduated : '');
+                    mapping.honorsRecieved.setFontSize(5);
+                    mapping.honorsRecieved.setText(education.honorsRecieved ? education.honorsRecieved : '');
                     return true; // Stop iteration once found
                 }
             });
         });
-
+    }
         //civil service
+        if(ebData != null){
         const eligibilityMappings = [
             { 
                 license: license1, 
@@ -892,19 +899,20 @@ async function fillPDF(filename, userid) {
             const eligibility = ebData.cse[i];
             const mapping = eligibilityMappings[i];
             if (mapping && eligibility) {
-                mapping.license.setText(eligibility.license);
-                mapping.rating.setText(eligibility.rating);
-                mapping.dateOfExamination.setText(moment(eligibility.dateOfExamination).format('YYYY-MM-DD'));
+                mapping.license.setText(eligibility.license ? eligibility.license : '');
+                mapping.rating.setText(eligibility.rating ? eligibility.rating : '');
+                mapping.dateOfExamination.setText(eligibility.dateOfExamination ? moment(eligibility.dateOfExamination).format('YYYY-MM-DD') : '');
                 mapping.placeOfExamination.setFontSize(8);
-                mapping.placeOfExamination.setText(eligibility.placeOfExamination);
+                mapping.placeOfExamination.setText(eligibility.placeOfExamination ? eligibility.placeOfExamination : '');
                 mapping.licenseNumber.setFontSize(5);
-                mapping.licenseNumber.setText(eligibility.licenseNumber);
+                mapping.licenseNumber.setText(eligibility.licenseNumber ? eligibility.licenseNumber : '');
                 mapping.dateOfValidity.setFontSize(5);
-                mapping.dateOfValidity.setText(moment(eligibility.dateOfValidity).format('YYYY-MM-DD'));
+                mapping.dateOfValidity.setText(eligibility.dateOfValidity ? moment(eligibility.dateOfValidity).format('YYYY-MM-DD') : '');
             }
         }
-
+    }
         //work experience
+        if(weData != null){
         const workExperienceMappings = [
             { workedFrom: workedFrom1, workedTo: workedTo1, positionTitle: positionTitle1, daoc: daoc1, monthlySalary: monthlySalary1, salaryJobPayGrade: salaryJobPayGrade1, statusOfAppointment: statusOfAppointment1, govtService: govtService1 },
             { workedFrom: workedFrom2, workedTo: workedTo2, positionTitle: positionTitle2, daoc: daoc2, monthlySalary: monthlySalary2, salaryJobPayGrade: salaryJobPayGrade2, statusOfAppointment: statusOfAppointment2, govtService: govtService2 },
@@ -941,17 +949,17 @@ async function fillPDF(filename, userid) {
             const mapping = workExperienceMappings[i];
             if (mapping && workExperience) {
                 mapping.workedFrom.setFontSize(5);
-                mapping.workedFrom.setText(moment(workExperience.workedFrom).format('YYYY-MM-DD'));
+                mapping.workedFrom.setText(workExperience.workedFrom ? moment(workExperience.workedFrom).format('YYYY-MM-DD') : '');
                 mapping.workedTo.setFontSize(5);
-                mapping.workedTo.setText(moment(workExperience.workedTo).format('YYYY-MM-DD'));
-                mapping.positionTitle.setText(workExperience.positionTitle);
+                mapping.workedTo.setText(workExperience.workedTo ? moment(workExperience.workedTo).format('YYYY-MM-DD') : '');
+                mapping.positionTitle.setText(workExperience.positionTitle ? workExperience.positionTitle : '');
                 mapping.daoc.setFontSize(7);
-                mapping.daoc.setText(workExperience.daoc);
+                mapping.daoc.setText(workExperience.daoc ? workExperience.daoc : '');
                 mapping.monthlySalary.setFontSize(6);
-                mapping.monthlySalary.setText(JSON.stringify(workExperience.monthlySalary));
+                mapping.monthlySalary.setText(workExperience.monthlySalary ? JSON.stringify(workExperience.monthlySalary) : '');
                 mapping.salaryJobPayGrade.setFontSize(6);
-                mapping.salaryJobPayGrade.setText(workExperience.salaryJobPayGrade);
-                mapping.statusOfAppointment.setText(workExperience.statusOfAppointment);
+                mapping.salaryJobPayGrade.setText(workExperience.salaryJobPayGrade ? workExperience.salaryJobPayGrade : '');
+                mapping.statusOfAppointment.setText(workExperience.statusOfAppointment ? workExperience.statusOfAppointment : '');
                 if (workExperience.govtService === true) {
                     mapping.govtService.setText('Y');
                 } else if (workExperience.govtService === false) {
@@ -959,9 +967,11 @@ async function fillPDF(filename, userid) {
                 }
             }
         }
+    }
 
 
         //volunteer work
+        if(vwData != null){
         const volunteerWorkMappings = [
             { nameAddressOfOrganization: nameAddressOfOrganization1, volunteeredFrom: volunteeredFrom1, volunteeredTo: volunteeredTo1, volunteernumberOfHours: volunteernumberOfHours1, positionNature: positionNature1 },
             { nameAddressOfOrganization: nameAddressOfOrganization2, volunteeredFrom: volunteeredFrom2, volunteeredTo: volunteeredTo2, volunteernumberOfHours: volunteernumberOfHours2, positionNature: positionNature2 },
@@ -976,17 +986,19 @@ async function fillPDF(filename, userid) {
             const volunteerWork = vwData.vw[i];
             const mapping = volunteerWorkMappings[i];
             if (mapping && volunteerWork) {
-                mapping.nameAddressOfOrganization.setText(volunteerWork.nameAddressOfOrganization);
+                mapping.nameAddressOfOrganization.setText(volunteerWork.nameAddressOfOrganization ? volunteerWork.nameAddressOfOrganization : '');
                 mapping.volunteeredFrom.setFontSize(6);
-                mapping.volunteeredFrom.setText(moment(volunteerWork.volunteeredFrom).format('YYYY-MM-DD'));
+                mapping.volunteeredFrom.setText(volunteerWork.volunteeredFrom ? moment(volunteerWork.volunteeredFrom).format('YYYY-MM-DD') : '');
                 mapping.volunteeredTo.setFontSize(6);
-                mapping.volunteeredTo.setText(moment(volunteerWork.volunteeredTo).format('YYYY-MM-DD'));
-                mapping.volunteernumberOfHours.setText(JSON.stringify(volunteerWork.volunteernumberOfHours));
-                mapping.positionNature.setText(volunteerWork.positionNature);
+                mapping.volunteeredTo.setText(volunteerWork.volunteeredTo ? moment(volunteerWork.volunteeredTo).format('YYYY-MM-DD') : '');
+                mapping.volunteernumberOfHours.setText(volunteerWork.volunteernumberOfHours ? JSON.stringify(volunteerWork.volunteernumberOfHours) : '');
+                mapping.positionNature.setText(volunteerWork.positionNature ? volunteerWork.positionNature : '');
             }
         }
+    }
 
         //trainings
+        if(trData != null){
         const lditTrainingMappings = [
             { lditPrograms: lditPrograms1, trainedFrom: trainedFrom1, trainedTo: trainedTo1, trainingnumberOfHours: trainingnumberOfHours1, typeOfLD: typeOfLD1, conductedSponsoredBy: conductedSponsoredBy1 },
             { lditPrograms: lditPrograms2, trainedFrom: trainedFrom2, trainedTo: trainedTo2, trainingnumberOfHours: trainingnumberOfHours2, typeOfLD: typeOfLD2, conductedSponsoredBy: conductedSponsoredBy2 },
@@ -1015,16 +1027,17 @@ async function fillPDF(filename, userid) {
             const training = trData.ldit[i];
             const mapping = lditTrainingMappings[i];
             if (mapping && training) {
-                mapping.lditPrograms.setText(training.lditPrograms);
-                mapping.trainedFrom.setText(moment(training.trainedFrom).format('YYYY-MM-DD'));
-                mapping.trainedTo.setText(moment(training.trainedTo).format('YYYY-MM-DD'));
-                mapping.trainingnumberOfHours.setText(JSON.stringify(training.trainingnumberOfHours));
-                mapping.typeOfLD.setText(training.typeOfLD);
-                mapping.conductedSponsoredBy.setText(training.conductedSponsoredBy);
+                mapping.lditPrograms.setText(training.lditPrograms ? training.lditPrograms : '');
+                mapping.trainedFrom.setText(training.trainedFrom ? moment(training.trainedFrom).format('YYYY-MM-DD') : '');
+                mapping.trainedTo.setText(training.trainedTo ? moment(training.trainedTo).format('YYYY-MM-DD') : '');
+                mapping.trainingnumberOfHours.setText(training.trainingnumberOfHours ? JSON.stringify(training.trainingnumberOfHours) : '');
+                mapping.typeOfLD.setText(training.typeOfLD ? training.typeOfLD : '');
+                mapping.conductedSponsoredBy.setText(training.conductedSponsoredBy ? training.conductedSponsoredBy : '');
             }
         }
-
+    }
         //other information
+        if(oiData != null){
         const specialSkillsHobbiesMappings = [
             { specialSkillsHobbies: specialSkillsHobbies1 },
             { specialSkillsHobbies: specialSkillsHobbies2 },
@@ -1038,7 +1051,7 @@ async function fillPDF(filename, userid) {
             const mapping = specialSkillsHobbiesMappings[i];
             const specialSkillsHobbiesData = oiData.specialSkillsHobbies[i];
             if (mapping && specialSkillsHobbiesData) {
-                mapping.specialSkillsHobbies.setText(specialSkillsHobbiesData);
+                mapping.specialSkillsHobbies.setText(specialSkillsHobbiesData ? specialSkillsHobbiesData : '');
             }
         }
         const nonAcadDistRecogMappings = [
@@ -1054,7 +1067,7 @@ async function fillPDF(filename, userid) {
             const mapping = nonAcadDistRecogMappings[i];
             const nonAcadDistRecogData = oiData.nonAcadDistRecog[i];
             if (mapping && nonAcadDistRecogData) {
-                mapping.nonAcadDistRecog.setText(nonAcadDistRecogData);
+                mapping.nonAcadDistRecog.setText(nonAcadDistRecogData ? nonAcadDistRecogData : '');
             }
         }
 
@@ -1071,91 +1084,96 @@ async function fillPDF(filename, userid) {
             const mapping = membershipAssocOrgMappings[i];
             const membershipAssocOrgData = oiData.membershipAssocOrg[i];
             if (mapping && membershipAssocOrgData) {
-                mapping.membershipAssocOrg.setText(membershipAssocOrgData);
+                mapping.membershipAssocOrg.setText(membershipAssocOrgData ? membershipAssocOrgData : '');
             }
         }
+    }
         //questions
-        if(qtData.q1.q1a === true){
-            q1ayes.check()
-        }else if(qtData.q1.q1a === false){
-            q1ano.check()
-        }
-        if(qtData.q1.q1b === true){
-            q1byes.check()
-            q1bYesDetails.setText(qtData.q1.q1bYesDetails)
-        }else if(qtData.q1.q1b === false){
-            q1bno.check()
+        if(qtData != null){
+        if (qtData.q1.q1a === true) {
+            q1ayes.check();
+        } else if (qtData.q1.q1a === false) {
+            q1ano.check();
         }
         
-        if(qtData.q2.q2a === true){
-            q2ayes.check()
-            q2aYesDetails.setText(qtData.q2.q2aYesDetails)
-        }else if(qtData.q2.q2a === false){
-            q2ano.check()
-        }
-        if(qtData.q2.q2b === true){
-            q2byes.check()
-            q2bDateFiled.setText(qtData.q2.q2bDateFiled)
-            q2bStatusofCase.setText(qtData.q2.q2bStatusofCase)
-        }else if(qtData.q2.q2b === false){
-            q2bno.check()
-        }
-
-        if(qtData.q3.q3a === true){
-            q3ayes.check()
-            q3aYesDetails.setText(qtData.q3.q3aYesDetails)
-        }else if(qtData.q3.q3a === false){
-            q3ano.check()
+        if (qtData.q1.q1b === true) {
+            q1byes.check();
+            q1bYesDetails.setText(qtData.q1.q1bYesDetails || '');
+        } else if (qtData.q1.q1b === false) {
+            q1bno.check();
         }
         
-        if(qtData.q4.q4a === true){
-            q4ayes.check()
-        }else if(qtData.q4.q4a === false){
-            q4aYesDetails.setText(qtData.q4.q4aYesDetails)
-            q4ano.check()
+        if (qtData.q2.q2a === true) {
+            q2ayes.check();
+            q2aYesDetails.setText(qtData.q2.q2aYesDetails || '');
+        } else if (qtData.q2.q2a === false) {
+            q2ano.check();
+        }
+        if (qtData.q2.q2b === true) {
+            q2byes.check();
+            q2bDateFiled.setText(qtData.q2.q2bDateFiled || '');
+            q2bStatusofCase.setText(qtData.q2.q2bStatusofCase || '');
+        } else if (qtData.q2.q2b === false) {
+            q2bno.check();
         }
         
-        if(qtData.q5.q5a === true){
-            q5ayes.check()
-            q5aYesDetails.setText(qtData.q5.q5aYesDetails)
-        }else if(qtData.q5.q5a === false){
-            q5ano.check()
+        if (qtData.q3.q3a === true) {
+            q3ayes.check();
+            q3aYesDetails.setText(qtData.q3.q3aYesDetails || '');
+        } else if (qtData.q3.q3a === false) {
+            q3ano.check();
         }
-        if(qtData.q5.q5b === true){
-            q5byes.check()
-            q5bYesDetails.setText(qtData.q5.q5bYesDetails)
-        }else if(qtData.q5.q5b === false){
-            q5bno.check()
+        
+        if (qtData.q4.q4a === true) {
+            q4ayes.check();
+        } else if (qtData.q4.q4a === false) {
+            q4aYesDetails.setText(qtData.q4.q4aYesDetails || '');
+            q4ano.check();
+        }
+        
+        if (qtData.q5.q5a === true) {
+            q5ayes.check();
+            q5aYesDetails.setText(qtData.q5.q5aYesDetails || '');
+        } else if (qtData.q5.q5a === false) {
+            q5ano.check();
+        }
+        if (qtData.q5.q5b === true) {
+            q5byes.check();
+            q5bYesDetails.setText(qtData.q5.q5bYesDetails || '');
+        } else if (qtData.q5.q5b === false) {
+            q5bno.check();
         }
         
         if (qtData.q6.q6a === true) {
             q6ayes.check();
-            q6aYesDetails.setText(qtData.q6.q6aYesDetails);
+            q6aYesDetails.setText(qtData.q6.q6aYesDetails || '');
         } else if (qtData.q6.q6a === false) {
             q6ano.check();
         }
-
+        
         if (qtData.q7.q7a === true) {
             q7ayes.check();
-            q7aYesDetails.setText(qtData.q7.q7aYesDetails);
+            q7aYesDetails.setText(qtData.q7.q7aYesDetails || '');
         } else if (qtData.q7.q7a === false) {
             q7ano.check();
         }
         if (qtData.q7.q7b === true) {
             q7byes.check();
-            q7bYesDetails.setText(qtData.q7.q7bYesDetails);
+            q7bYesDetails.setText(qtData.q7.q7bYesDetails || '');
         } else if (qtData.q7.q7b === false) {
             q7bno.check();
         }
         if (qtData.q7.q7c === true) {
             q7cyes.check();
-            q7cYesDetails.setText(qtData.q7.q7cYesDetails);
+            q7cYesDetails.setText(qtData.q7.q7cYesDetails || '');
         } else if (qtData.q7.q7c === false) {
             q7cno.check();
         }
+    }
         
         
         //references
+        if(rrData != null){
         const referenceMappings = [
             { refName: refName1, refAddress: refAddress1, refTelNo: refTelNo1 },
             { refName: refName2, refAddress: refAddress2, refTelNo: refTelNo2 },
@@ -1166,18 +1184,19 @@ async function fillPDF(filename, userid) {
             const reference = rrData.ref[i];
             const mapping = referenceMappings[i];
             if (mapping && reference) {
-                mapping.refName.setText(reference.refName);
-                mapping.refAddress.setText(reference.refAddress);
-                mapping.refTelNo.setText(reference.refTelNo);
+                mapping.refName.setText(reference.refName || '');
+                mapping.refAddress.setText(reference.refAddress || '');
+                mapping.refTelNo.setText(reference.refTelNo || '');
             }
         }
-
+    }
 
         //service records
-        govIssuedIdType.setText(srData.govIssuedIdType);
-        govIssuedIdNumber.setText(srData.govIssuedIdNumber);
-        datePlaceIssued.setText(srData.DatePlaceIssued);
-
+        if(srData != null){
+        govIssuedIdType.setText(srData.govIssuedIdType || '');
+        govIssuedIdNumber.setText(srData.govIssuedIdNumber || '' );
+        datePlaceIssued.setText(srData.DatePlaceIssued || '');
+        }
 
         const filledPDS = await unfilledPDS.save({ returnFilename: 'your_filename.pdf' })
         writeFile(filename, filledPDS, (err) => {
@@ -1192,11 +1211,35 @@ async function fillPDF(filename, userid) {
     }
 }
 
-module.exports.printPDS_get = async (req, res) => {
-    const id = req.params.id;
-    const filePath = './PDF/'+id+'.pdf'; // Specify the file path here
+module.exports.submitPDS_post = async (req, res) => {
+    const userId = req.body.userId;
+    const filePath = './PDF/'+userId+'.pdf'; // Specify the file path here
 
-    fillPDF(filePath, id);
-    res.download(filePath, 'java.pdf')
+    
+    const pdssubmission = await pdsS.exists({userId: userId});
+    if (pdssubmission === null) {
+        //create new entry
+        try {
+            const pdsScreate = await pdsS.create({userId, status: 'Pending', comment: ''});
+            await fillPDF(filePath, userId);
+            console.log(pdsScreate);
+            res.status(200).json({status: 'Submit Success'});
+        }
+        catch (err) {
+            res.status(200).json({status: 'Submit Failed'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+        
+            console.log(error)
+            res.status(200).json({status: 'Submit Failed'});
+    }
+}
+
+module.exports.printPDS_get = async (req, res) => {
+    const userId = req.params.id;
+    const filePath = './PDF/'+userId+'.pdf';
+    res.download(filePath, 'Personal Data Sheet.pdf');
    // Download the modified PDF
 }

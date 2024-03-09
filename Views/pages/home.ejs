@@ -11,18 +11,39 @@ class="row justify-content-center align-items-center g-2"
         <div class="col-lg-6">
             <div class="card" style="width: 100%;">
                 <ul class="list-group list-group-flush" >
-                    <li class="list-group-item " style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Personal Information</span>  <span><i class="lni lni-printer mx-2"></i><a href="#" class="">Edit</a></span> 
+                    <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Personal Information</span>  <span><% if (pi !== null ) { %><% if (pi !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } %><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/personalinformation/<%=user._id%>" class="">Edit</a></span> 
                     </li>
-                  <li class="list-group-item">Education Information</li>
-                  <li class="list-group-item">Family Background</li>
-                  <li class="list-group-item">Civil Service Eligibility</li>
-                  <li class="list-group-item">Work Experience</li>
-                  <li class="list-group-item">Voluntary Work</li>
-                  <li class="list-group-item">Development/Training Programs </li>
-                  <li class="list-group-item">Other Informations</li>
-                  <li class="list-group-item">Questions</li>
-                  <li class="list-group-item">Service Records</li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Education Information</span>  <span><% if (ed !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/familybackground/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Family Background</span>  <span><% if (fb !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% }else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/education/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Civil Service Eligibility</span>  <span><% if (eb !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/eligibility/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Work Experience</span>  <span><% if (we !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/workexperience/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Voluntary Work</span>  <span><% if (vw !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/voluntarywork/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Development/Training Programs</span>   <span><% if (tr !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/training/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Other Informations</span>  <span><% if (oi !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/otherinfo/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Questions</span>  <span><% if (qt !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/questions/<%=user._id%>" class="">Edit</a></span> 
+                </li>
+                <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>References</span>  <span><% if (rr !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/references/<%=user._id%>" class="">Edit</a></span> 
+              </li>
+                  <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Service Records</span>  <span><% if (sr !== null ) { %><i class="lni lni-checkmark-circle mx-2"></i><% } else{%><i class="lni lni-cross-circle mx-2"></i><%} %><a href="/servicerecords/<%=user._id%>" class="">Edit</a></span> 
+                </li>
                 </ul>
               </div>
         </div>
@@ -30,16 +51,19 @@ class="row justify-content-center align-items-center g-2"
         <div class="col-lg-6">
             <div class="card mb-3">
                 <div class="card-header">
-                  PDS Status
+                  Submitted PDS's
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">PDS not yet submitted</h5>
-                  <p class="card-text">Please submit your PDS on or before (date)</p>
+                  <h5 class="card-title">You have not submitted a PDS</h5>
+                  <p class="card-text">1. Fill up your Personal Data Sheet</p>
+                  <p class="card-text">2. After Filling up, click submit to notify UCHRDM-STAR that you are about to submit your PDS</p>
+                  <p class="card-text">3. print your PDS and submit the hardcopy to UCHRDM-STAR on or before (date)</p>
+                  <p class="card-text">Dont forget to bring your pen for your signatures</p>
                 </div>
             </div>
             <div class="card p-4 mb-3" style="width: 100%;">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#" class="btn btn-light">Submit PDS</a> <a href="/printPDS/<%=user._id%>" class="btn btn-light">Print PDS</a></li>
+                  <li class="list-group-item" ><a href="" class="btn btn-light submitpds">Submit PDS</a> <%if(pdssubmitted !== null) {%><a href="/printPDS/<%=user._id%>" class="btn btn-light">Print PDS</a><%}%></li>
                 </ul>
             </div>
             
@@ -47,5 +71,30 @@ class="row justify-content-center align-items-center g-2"
 </div>
 </div>
 </div>
-<script >
+<script data-userid="<%=user._id%>">
+  const submitPDS = document.querySelector('.submitpds');
+  const userId = document.currentScript.dataset.userid;
+  
+  submitPDS.addEventListener('click', async (e) => { 
+    e.preventDefault();
+    
+    
+        try{
+          console.log(userId)
+            const res = await fetch('/submitPDS', {
+              method: 'POST',
+              body: JSON.stringify({userId}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/<%=user._id%>');
+                }
+          }
+          catch (err){
+          }
+      
+  })
 </script>
