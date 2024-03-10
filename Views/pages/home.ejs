@@ -63,7 +63,7 @@ class="row justify-content-center align-items-center g-2"
             </div>
             <div class="card p-4 mb-3" style="width: 100%;">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item" ><a href="" class="btn btn-light submitpds">Submit PDS</a> <a href="/printPDS/<%=user._id%>" class="btn btn-light">Print PDS</a></li>
+                  <li class="list-group-item" ><a href="" class="btn btn-light submitpds">Submit PDS</a> <%if(pdsSData !== null) {%><a href="/printPDS/<%=user._id%>" class="btn btn-light">Print PDS</a><%}%></li>
                 </ul>
             </div>
             

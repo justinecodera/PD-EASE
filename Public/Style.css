@@ -309,7 +309,7 @@ a.sidebar-link:hover {
     font-weight: bold;
     margin-bottom: .5rem;
 }
-.pds-form label.formHeader {
+label.formHeader {
     color: #3f3f3f;
     font-size: 1.5rem;
     display: block;
@@ -365,3 +365,27 @@ a.sidebar-link:hover {
 .lni-cross-circle {
     color: red;
 }
+
+/* //forums */
+.forumpost {
+    vertical-align: middle;
+    width: 60%; /* Occupy full width */
+    margin-bottom: 10px; /* Spacing between input field and button */
+    height: 10rem;
+    background-color: #f2f2f2;
+    border-radius: 2px;
+    border: .1rem none #313131;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-btn {
+    width: 60%; /* Occupy full width */
+}
+
+.formHeader {
+    font-size: 1.5rem; /* Adjust header font size */
+    font-weight: bold; /* Bold header text */
+}
+
+

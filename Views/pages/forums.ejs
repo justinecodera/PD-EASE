@@ -1,0 +1,66 @@
+
+
+<div class="container">
+    <div class="row align-items-center">
+        <form class="mt-1" >
+            
+            <label class="formHeader" for="spouse">Forums</label>
+            <div class="row justify-content-center">
+                    
+                    <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+                    <input class="form-control forumpost" width="100%" id="forumpost" name="forumpost" placeholder="What's on your mind" value="" required>
+                    <button class="btn btn-primary form-btn" type="submit">Post</button>
+               
+            </div>
+            
+        </form>
+    </div>
+    <section class="container post-section mt-3">
+        <h2 class="mb-3">Posts</h2>
+        <hr>
+        <div class="forum-posts">
+            <!-- Forum posts will be displayed here -->
+            <div class="post">
+                <div class="post-header">
+                    <span class="post-author">John Doe</span>
+                    <span class="post-date">March 10, 2024</span>
+                </div>
+                <div class="post-content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis non quam tincidunt rhoncus.
+                </div>
+            </div>
+            <hr>
+            <!-- More posts can be added here -->
+        </div>
+    </section>
+</div>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = form.userId.value;
+        const employmentStatus = form.employmentStatus.value;
+        const campus = form.campus.value;
+        try{
+                const res = await fetch('/profile', {
+                  method: 'POST',
+                  body: JSON.stringify({userId, employmentStatus, campus}),
+                  headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/profile/<%=user._id%>');
+                }
+                
+              }
+              catch (err){
+              }
+      
+      })
+
+</script>

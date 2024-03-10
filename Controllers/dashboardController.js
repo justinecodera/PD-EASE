@@ -1,5 +1,5 @@
 const { isEmpty } = require('validator');
-const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR} = require('../Models/PDS');
+const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile} = require('../Models/PDS');
 const User = require('../Models/users');
 const moment = require('moment');
 const pdsS = require('../Models/tracker');
@@ -22,7 +22,7 @@ module.exports.dashboard_get = async (req, res) => {
     const pdsSData = await pdsS.findOne({userId: userid});
 
 
-    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData});
+    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData, pdsSData: pdsSData});
 }
 
 //personal info
@@ -622,4 +622,71 @@ module.exports.servicerecords_post = async (req, res) => {
             res.status(200).json({status: 'Update Failed'});
         }
     }    
+}
+
+//profile
+module.exports.profile_get = async (req, res) => {
+    const id = req.params.id;
+    await profile.findOne({userId: id})
+        .then(result => {
+            console.log(result)
+            if (result === null) {
+                console.log(result,'eto ba nagpiprint')
+                res.render('Dashboard', {profile: null, title: "Profile", page: "profile"});
+            } else {
+                res.render('Dashboard', {profile: result, title: "Profile", page: "profile"});
+                console.log(result,'eto ba nagpiprint')
+            }
+            
+        })
+        .catch (err => {
+            console.log(err)
+        })
+}
+module.exports.profile_post = async (req, res) => {
+
+    const {userId, employmentStatus, campus} = req.body;
+    const userprofile = await profile.exists({userId: userId});
+    if (userprofile === null) {
+        //create new entry
+        try {
+            const profilecreate = await profile.create({userId, employmentStatus, campus});
+            console.log(profilecreate);
+            res.status(200).json({status: 'Update Success'});
+        }
+        catch (err) {
+            res.status(200).json({status: 'Update Success'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+        try {
+            const profileupdate = await profile.updateOne({userId, employmentStatus, campus});
+                console.log(profileupdate)
+                res.status(200).json({status: 'Update Success'});
+        }
+        catch (error){
+            console.log(error)
+            res.status(200).json({status: 'Update Failed'});
+        }
+    }    
+}
+
+module.exports.forums_get = async (req, res) => {
+    const id = req.params.id;
+    await profile.findOne({userId: id})
+        .then(result => {
+            console.log(result)
+            if (result === null) {
+                console.log(result,'eto ba nagpiprint')
+                res.render('Dashboard', {profile: null, title: "Forums", page: "forums"});
+            } else {
+                res.render('Dashboard', {profile: result, title: "Forums", page: "forums"});
+                console.log(result,'eto ba nagpiprint')
+            }
+            
+        })
+        .catch (err => {
+            console.log(err)
+        })
 }

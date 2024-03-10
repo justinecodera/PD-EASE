@@ -33,5 +33,12 @@ router.post('/references', requireAuth, dashboardController.references_post);
 router.post('/servicerecords', requireAuth, dashboardController.servicerecords_post);
 
 
+//routes profile
+router.get('/profile/:id', requireAuth, dashboardController.profile_get);
+router.post('/profile', requireAuth, dashboardController.profile_post);
+
+// forums routes
+router.get('/forums/:id', requireAuth, dashboardController.forums_get);
+
 
 module.exports = router;

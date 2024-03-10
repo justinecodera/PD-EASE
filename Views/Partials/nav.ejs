@@ -17,7 +17,7 @@
           </a>
       </li>
       <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
+          <a href="/profile/<%=user._id%>" class="sidebar-link">
               <i class="lni lni-user"></i>
               <span>Profile</span>
           </a>
@@ -65,20 +65,11 @@
           </ul>
       </li>
       <li class="sidebar-item">
-          <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-              data-bs-target="#transaction" aria-expanded="false" aria-controls="transaction">
-              <i class="lni lni-agenda"></i>
-              <span>Transactions</span>
-          </a>
-          <ul id="transaction" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-              <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">Status</a>
-              </li>
-              <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">History</a>
-              </li>
-          </ul>
-      </li>
+        <a href="/forums/<%=user._id%>" class="sidebar-link">
+            <i class="lni lni-user"></i>
+            <span>Forums</span>
+        </a>
+    </li>
   </ul>
   <div class="sidebar-footer">
       <a href="/logout" class="sidebar-link">

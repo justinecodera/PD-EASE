@@ -1,0 +1,77 @@
+
+
+<div class="row align-items-center">
+    <form class="mt-1 pds-form" >
+        <label class="formHeader" for="spouse">Personal Information</label>
+        <div class="row justify-content-end">
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-sm-10">  
+                <label class="" for="lastName">Surname: <p class="required">*</p></label>
+                <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>" disabled required>
+                    
+                <label class="" for="firstName">First Name:  <p class="required">*</p></label>
+                <input class="" id="firstName" name="firstName" placeholder="First Name" value="<%= user.firstname %>" disabled required>
+
+                <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
+                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required>
+    
+                <label class="" for="campus">Campus:  <p class="required">*</p></label>
+                <select id="campus" name="campus" >
+                    <option value="">Select Campus</option>
+                    <option value="Pasig" <% if (profile !== null && profile.campus === "Pasig") { %>selected<% } %>>Pasig</option>
+                    <option value="Boni" <% if (profile !== null && profile.campus === "Boni") { %>selected<% } %>>Boni</option>
+                </select>
+
+                <label class="" for="employmentStatus">Employment Status:  <p class="required">*</p></label>
+                <select id="employmentStatus" name="employmentStatus" >
+                    <option value="">Select Employment Status</option>
+                    <option value="Purely Admin" <% if (profile !== null && profile.employmentStatus === "Purely Admin") { %>selected<% } %>>Purely Admin</option>
+                    <option value="Quasi Admin" <% if (profile !== null && profile.employmentStatus === "Quasi Admin") { %>selected<% } %>>Quasi Admin</option>
+                    <option value="30 Hours" <% if (profile !== null && profile.employmentStatus === "30 Hours") { %>selected<% } %>>30 Hours</option>
+                    <option value="Part Time" <% if (profile !== null && profile.employmentStatus === "Part Time") { %>selected<% } %>>Part Time</option>
+                </select>
+
+            </div>
+            <div class="col-lg-5 col-sm-10">
+    
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+            </div>
+            
+        </div>
+        
+    </form>
+    
+</div>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = form.userId.value;
+        const employmentStatus = form.employmentStatus.value;
+        const campus = form.campus.value;
+        try{
+                const res = await fetch('/profile', {
+                  method: 'POST',
+                  body: JSON.stringify({userId, employmentStatus, campus}),
+                  headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/profile/<%=user._id%>');
+                }
+                
+              }
+              catch (err){
+              }
+      
+      })
+
+</script>

@@ -34,8 +34,10 @@ const usersSchema = new Schema({
         required: [true, 'Please enter a Password'],
         minlength: [6, 'minimum password length is 6 characters']
     },
-    verified: Boolean
+    verified: Boolean,
+    
 }, {timestamps: true});
+
 
 //fire a function before doc is saved to db
 usersSchema.pre('save', async function (next){
@@ -58,4 +60,5 @@ usersSchema.statics.login = async function(institutionalEmail, password) {
 }
 
 const User = mongoose.model('User', usersSchema);
+
 module.exports = User;

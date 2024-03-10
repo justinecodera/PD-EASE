@@ -583,6 +583,20 @@ const serviceRecordsSchema = new Schema({
     }
 });
 
+const profileData = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    employmentStatus: {
+        type: String
+    },
+    campus: {
+        type: String
+    }
+})
 
 
 const PI = mongoose.model('personalinfo', personalInfoSchema);
@@ -596,4 +610,5 @@ const OI = mongoose.model('otherinfo', otherInfoSchema);
 const QT = mongoose.model('question', questionsSchema);
 const RR = mongoose.model('reference', referencesSchema);
 const SR = mongoose.model('servicerecord', serviceRecordsSchema);
-module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR};
+const profile = mongoose.model('profile', profileData);
+module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile};
