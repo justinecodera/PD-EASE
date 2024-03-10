@@ -1232,6 +1232,7 @@ module.exports.submitPDS_post = async (req, res) => {
     } else {
         //update existing entry
             const pdsSupdate = await pdsS.update({userId, status: 'Pending', comment: ''});
+            await fillPDF(filePath, userId);
             console.log(error)
             res.status(200).json({status: 'Submit Failed'});
     }
