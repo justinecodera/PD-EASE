@@ -598,6 +598,19 @@ const profileData = new Schema({
     }
 })
 
+const forumpostsSchema = new Schema({
+    userId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'users',
+        required: true,
+        unique: true
+    },
+    post:[{
+        text: {
+            type: String
+        }
+    }]
+})
 
 const PI = mongoose.model('personalinfo', personalInfoSchema);
 const FB = mongoose.model('familybackground', familyBackgroundSchema);
@@ -611,4 +624,5 @@ const QT = mongoose.model('question', questionsSchema);
 const RR = mongoose.model('reference', referencesSchema);
 const SR = mongoose.model('servicerecord', serviceRecordsSchema);
 const profile = mongoose.model('profile', profileData);
-module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile};
+const forumposts = mongoose.model('forumposts', forumpostsSchema);
+module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile, forumposts};

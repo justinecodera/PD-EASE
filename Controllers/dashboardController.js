@@ -1,5 +1,5 @@
 const { isEmpty } = require('validator');
-const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile} = require('../Models/PDS');
+const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile, forumposts} = require('../Models/PDS');
 const User = require('../Models/users');
 const moment = require('moment');
 const pdsS = require('../Models/tracker');
@@ -674,14 +674,16 @@ module.exports.profile_post = async (req, res) => {
 
 module.exports.forums_get = async (req, res) => {
     const id = req.params.id;
+    const forumposts = await forumposts.findOne({userId: id})
     await profile.findOne({userId: id})
         .then(result => {
             console.log(result)
             if (result === null) {
+                
                 console.log(result,'eto ba nagpiprint')
-                res.render('Dashboard', {profile: null, title: "Forums", page: "forums"});
+                res.render('Dashboard', {profile: null, forumposts: null,  title: "Forums", page: "forums"});
             } else {
-                res.render('Dashboard', {profile: result, title: "Forums", page: "forums"});
+                res.render('Dashboard', {profile: result, forumposts: forumposts, title: "Forums", page: "forums"});
                 console.log(result,'eto ba nagpiprint')
             }
             
@@ -689,4 +691,31 @@ module.exports.forums_get = async (req, res) => {
         .catch (err => {
             console.log(err)
         })
+}
+module.exports.forums_post = async (req, res) => {
+    const {userId, employmentStatus, campus} = req.body;
+    const userprofile = await profile.exists({userId: userId});
+    if (userprofile === null) {
+        //create new entry
+        try {
+            const profilecreate = await profile.create({userId, employmentStatus, campus});
+            console.log(profilecreate);
+            res.status(200).json({status: 'Update Success'});
+        }
+        catch (err) {
+            res.status(200).json({status: 'Update Success'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+        try {
+            const profileupdate = await profile.updateOne({userId, employmentStatus, campus});
+                console.log(profileupdate)
+                res.status(200).json({status: 'Update Success'});
+        }
+        catch (error){
+            console.log(error)
+            res.status(200).json({status: 'Update Failed'});
+        }
+    }    
 }
