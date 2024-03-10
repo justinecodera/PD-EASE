@@ -4,7 +4,7 @@ const { requireAuth } = require('../middleware/authMiddleware');
 
 const router = Router();
 
-
+router.get('/', requireAuth, dashboardController.dashboard_get);
 router.get('/:id', requireAuth, dashboardController.dashboard_get);
 // //get routes for pds manager
 router.get('/personalinformation/:id', requireAuth, dashboardController.personalinformation_get);

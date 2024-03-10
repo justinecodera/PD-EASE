@@ -22,7 +22,7 @@ module.exports.dashboard_get = async (req, res) => {
     const pdsSData = await pdsS.findOne({userId: userid});
 
 
-    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData,  pdssubmitted: pdsSData});
+    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData});
 }
 
 //personal info

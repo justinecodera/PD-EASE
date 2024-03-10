@@ -1,10 +1,9 @@
 const User = require('../Models/users');
-const UserOtpVerification = require('../Models/userVerificationOTP');
 const jwt = require('jsonwebtoken');
 
 //handle errors
 const handleErrors = (err) => {
-    console.log('start', err.message, err.code, 'end');
+    // console.log('start', err.message, err.code, 'end');
     let errors = {institutionalEmail: '',password: '', };
 
     //incorrect email
@@ -36,8 +35,8 @@ const handleErrors = (err) => {
 //create a token function
 const maxAge = 1 * 24 * 60 * 60;
 const createToken = (id) => {
-    console.log('hello');
-    console.log(id);
+    // console.log('hello');
+    // console.log(id);
 
     return jwt.sign({ id }, 'sikretong malupet pwede pabulong', {
        
@@ -51,16 +50,16 @@ module.exports.signup_post = async (req, res) => {
     const {firstname, lastname, institutionalEmail, password } = req.body;
     try {
         const user = await User.create({firstname, lastname, institutionalEmail, password, verified: false})
-        .then((result) => {
-            sendOTPVerificationEmail();
-        });
+        // .then((result) => {
+        //     sendOTPVerificationEmail();
+        // });
 
     
         // magrurun lang dapat to pag verified na email
-        // const token = createToken(user._id);
-        // // console.log(token);
-        // res.cookie('PEEDS', token, {httpOnly: true});
-        // res.status(201).json({user: user._id});
+        const token = createToken(user._id);
+        // console.log(token);
+        res.cookie('PEEDS', token, {httpOnly: true});
+        res.status(201).json({user: user._id});
     }
     catch (err){
         const errors = handleErrors(err);
@@ -101,10 +100,10 @@ module.exports.logout_get = (req, res) => {
     res.redirect('/login');
 }
 
-const sendOTPVerificationEmail = async () => {
-    try {
-        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-    } catch (error) {
+// const sendOTPVerificationEmail = async () => {
+//     try {
+//         const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+//     } catch (error) {
         
-    }
-}
+//     }
+// }

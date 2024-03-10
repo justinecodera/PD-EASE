@@ -31,22 +31,46 @@ body {
 }
 
 /* login */
+
 .date-time {
+    color: white;
     position: absolute;
     top: 70px;
     right: 20px;
 }
-.Hero{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: black;
-    margin: 0;
+.Hero {
+    position: relative;
+    padding: 0;
 }
 
+.background-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/rtu.png');
+    background-size: cover;
+    background-position: center;
+}
 
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value (last parameter) to control darkness */
+}
+
+.hero-text {
+    font-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 1; /* Ensure text appears above overlay */
+}
 .login-info{
     width: 25rem;
     text-align: right;
@@ -267,6 +291,7 @@ a.sidebar-link:hover {
     margin-bottom: 1rem;
     
 }
+
 .pds-form select option {
     border: none;
 }
@@ -274,7 +299,9 @@ a.sidebar-link:hover {
 .pds-form label {
     color: #3f3f3f;
     font-size: .8rem;
+    display: block;
 }
+
 .pds-form label.formsubHeader {
     color: #3f3f3f;
     font-size: 1.2rem;

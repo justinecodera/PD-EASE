@@ -19,7 +19,7 @@ const app = express();
 const dbURI = 'mongodb+srv://coderajustine30:july302002jj@pd-ease.k76jchy.mongodb.net/PD-EASE?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
     .then((result) => app.listen(5000))
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err.message));
     
 // register view engine//
 app.set('view engine', 'ejs');
