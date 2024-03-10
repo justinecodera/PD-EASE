@@ -1263,9 +1263,9 @@ module.exports.submitPDS_post = async (req, res) => {
 module.exports.printPDS_get = async (req, res) => {
     const userId = req.params.id;
     const pdfData = await PDF.findOne({userId: userId});
-    res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
+        res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
         res.setHeader('Content-type', 'application/pdf');
-        res.send(pdfData.pdf_data.buffer);
+        res.send(pdfData.pdf_data);
     // const filePath = './PDF/'+userId+'.pdf';
     // res.download(filePath, 'Personal Data Sheet.pdf');
    // Download the modified PDF
