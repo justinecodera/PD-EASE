@@ -4,8 +4,14 @@ const User = require('../Models/users');
 const moment = require('moment');
 const pdsS = require('../Models/tracker');
 
-
 module.exports.dashboard_get = async (req, res) => {
+    
+
+
+    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: null, fb: null, ed: null, eb: null, we: null, vw: null, tr: null, oi: null, qt: null, rr: null, sr: null, pdsSData: null});
+}
+
+module.exports.dashboardpost_get = async (req, res) => {
     const userid = req.params.id;
     const userdata = await User.findById(userid);
     const piData = await PI.findOne({userId: userid});
