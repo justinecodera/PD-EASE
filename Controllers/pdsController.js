@@ -1,8 +1,9 @@
-const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR} = require('../Models/PDS');
+const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, PDF} = require('../Models/PDS');
 const pdsS = require('../Models/tracker');
 const User = require('../Models/users');
 const moment = require('moment');
 const pdflib = require('pdf-lib');
+const fs = require('fs')
 const {readFile, writeFile} = require('fs/promises')
 
 async function fillPDF(filename, userid) {
@@ -1198,14 +1199,36 @@ async function fillPDF(filename, userid) {
         datePlaceIssued.setText(srData.DatePlaceIssued || '');
         }
 
-        const filledPDS = await unfilledPDS.save({ returnFilename: 'your_filename.pdf' })
-        writeFile(filename, filledPDS, (err) => {
-            if (err) {
-                console.error('Error saving PDF:', err);
-                return;
+        const filledPDS = await unfilledPDS.save()
+        const filledPDSBuffer = Buffer.from(filledPDS);
+
+        const userpdf = await PDF.exists({userId: userid});
+        if (userpdf === null) {
+            //create new entry
+            try {
+                const pdfcreate = await PDF.create({userId: userid, pdf_data: filledPDSBuffer});
+                console.log(pdfcreate);
             }
-            console.log('PDF saved successfully!');
-        });
+            catch (err) {
+                console.log(err)
+            }
+        } else {
+            //update existing entry
+            try {
+                const pdfupdate = await PDF.updateOne({userId: userid}, {pdf_data: filledPDSBuffer});
+                    console.log(pdfupdate)
+            }
+            catch (error){
+                console.log(error)
+            }
+        }
+        // writeFile(filename, filledPDS, (err) => {
+        //     if (err) {
+        //         console.error('Error saving PDF:', err);
+        //         return;
+        //     }
+        //     console.log('PDF saved successfully!');
+        // });
     } catch(err) {
         console.log(err)
     }
@@ -1239,7 +1262,11 @@ module.exports.submitPDS_post = async (req, res) => {
 
 module.exports.printPDS_get = async (req, res) => {
     const userId = req.params.id;
-    const filePath = './PDF/'+userId+'.pdf';
-    res.download(filePath, 'Personal Data Sheet.pdf');
+    const pdfData = await PDF.findOne({userId: userId});
+    res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
+        res.setHeader('Content-type', 'application/pdf');
+        res.send(pdfData.pdf_data.buffer);
+    // const filePath = './PDF/'+userId+'.pdf';
+    // res.download(filePath, 'Personal Data Sheet.pdf');
    // Download the modified PDF
 }
