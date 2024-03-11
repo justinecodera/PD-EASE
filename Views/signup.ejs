@@ -1,80 +1,91 @@
 <!DOCTYPE html>
 <html>
 <%- include('./Partials/header.ejs') %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTU-PDSMS</title>
+  <!-- Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="Style.css">
+</head>
 <body>
-    <!-- navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">RTU-PDSMS</a>
+
+<!-- navbar -->
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#">RTU-PDSMS</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav align-right">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-              <a class="nav-link" href="/dashboard">Sign Up</a>
-              <a class="nav-link" href="#">Contacts</a>
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Login</a>
-            </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav align-right">
+        <a class="nav-link" aria-current="page" href="/">Home</a>
+        <a class="nav-link active" href="/dashboard">Sign Up</a>
+        <a class="nav-link" href="#">Contacts</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <!-- sign up -->
+  <div class="container-fluid vh-100 p-3 black">
+    <div class="row vh-100 align-items-center d-flex">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center mb-4">Sign Up</h1>
+            <form class="signup-form">
+              <div class="form-group">
+                <label for="firstname">First Name:</label>
+                <div class="firstname error"></div>
+                <input class="form-control" type="text" id="firstname" name="firstname" required>
+              </div>
+
+              <div class="form-group">
+                <label for="lastname">Last Name:</label>
+                <div class="lastname error"></div>
+                <input class="form-control" type="text" id="lastname" name="lastname" required>
+              </div>
+
+              <div class="form-group">
+                <label for="institutionalEmail">Institutional Email:</label>
+                <div class="institutionalEmail error"></div>
+                <input class="form-control" type="email" id="institutionalEmail" name="institutionalEmail" required>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password: </label>
+                <div class="password error"></div>
+                <input class="form-control" type="password" id="password" name="password" required>
+              </div>
+
+              <div class="form-group">
+                <label for="retypePassword">Re-type Password:</label>
+                <input class="form-control" type="password" id="retypePassword" name="retypePassword" required>
+              </div>
+
+              <div class="form-check d-flex justify-content-center mt-3">
+                <input class="form-check-input EULAcheck" type="checkbox" value="" id="flexCheckDefault" required>
+                <label class="form-check-label" for="flexCheckDefault">I Agree to EULA Terms and Conditions</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">Signup</button>
+            </form>
           </div>
         </div>
-      </nav>
-    <!-- sign up -->
-    <div class="container-fluid vh-100 p-5 balck">
-        <div class="row vh-100 align-items-center d-flex p-5">
-            
-            <div class="col">
-                    <form class="row signup-form m-5" method="POST">
-                        <label for="firstname">First Name:</label>
-                        <div class="firstname error"></div>
-                        <input class="inputsignup" type="text" id="firstname" name="firstname" required>
-
-                        <label for="lastname">Last Name:</label>
-                        <div class="lastname error"></div>
-                        <input class="inputsignup" type="text" id="lastname" name="lastname" required>
-
-                        <label for="institutionalEmail">Institutional Email:</label>
-                        <div class="institutionalEmail error"></div>
-                        <input class="inputsignup" type="email" id="institutionalEmail" name="institutionalEmail" required>
-
-                        <label for="password">Password: </label>
-                        <div class="password error"></div>
-                        <input class="inputsignup" type="password" id="password" name="password" required>
-
-                        <label for="retypePassword">Re-type Password:</label>
-                        <input class="inputsignup" type="password" id="retypePassword" name="retypePassword"  required>
-
-                        <div class="form-check d-flex justify-content-center mt-3">
-                            <input class="form-check-input EULAcheck" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              I Agree to EULA Terms and Conditions
-                            </label>
-                        </div>
-                        
-                        <button type="submit">Signup</button>
-                    </form>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="signup-info">
-                        <h1 class="">Sign Up</h1>
-                        <p> Lorem ipsum dolor sit amet. Ut distinctio tempore et vitae asperiores ex quibusdam culpa? Sit nihil maxime et voluptas quia ut nulla Quis? Et delectus quis aut repudiandae unde aut cumque debitis.</p>
-                    </div>
-                </div>  
-            </div>
-        </div>
+      </div>
     </div>
-    <!-- Container-4 -->
-    <div class="Container vh-100" style="padding: 30px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;" id="contacts">
-        <p>Contacts</p>
-    </div>
+  </div>
 
-    <script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
         const signupform = document.querySelector('form');
         const institutionalEmailError = document.querySelector('.institutionalEmail.error');
         const passwordError = document.querySelector('.password.error');
@@ -122,9 +133,9 @@
           catch (err){
           }
         })
-    </script>
+</script>
 
-    <%- include('./Partials/footer.ejs') %>
+<%- include('./Partials/footer.ejs') %>
 </body>
 <%- include('./Partials/scripts.ejs') %>
 </html>

@@ -1,117 +1,132 @@
 <!DOCTYPE html>
 <html>
 <%- include('./Partials/header.ejs') %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTU-PDSMS</title>
+  <!-- Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="Style.css">
+</head>
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">RTU - PD-EASE</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">Sign Up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contacts</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Login</a>
-            </li>
-          </ul>
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">RTU-PDSMS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contacts</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="container-fluid vh-100 Hero" id="home">
+  <div class="background-image">
+      <div class="overlay"></div>
+      <div class="date-time" id="date-time"></div>
+      <div class="hero-text">
+        <h1 style="font-size: 76px;">Welcome to <span style="color: orange;">PD-EASE</span></h1>
+        <p style="font-size: 20px;" >Personal Data Sheet Management System For Rizal Technological University</p>
+      </div>
+  </div>
+</div>
+
+  <!-- Login -->
+  <div class="container-fluid vh-100 p-3">
+    <div class="row vh-100 align-items-center d-flex">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center mb-4">Login</h1>
+            <form class="login-form">
+              <div class="form-group">
+                <label for="institutionalEmail">Institutional Email:</label>
+                <div class="institutionalEmail error"></div>
+                <input class="form-control" id="institutionalEmail" name="institutionalEmail" type="email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <div class="password error"></div>
+                <input class="form-control" id="password" name="password" type="password" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </form>
+          </div>
         </div>
       </div>
-    </nav>
-    
-      <!-- Hero -->
-      <div class="container-fluid vh-100 Hero" id="home">
-        <div class="background-image">
-            <div class="overlay"></div> <!-- Add an overlay to darken the image -->
-            <h1 class="text-center hero-text">Welcome to PD-EASE Personal Data Sheet Management System For Rizal Technological University</h1>
-            <div class="date-time" id="date-time"></div>
-        </div>
     </div>
-    
-    <!-- Login -->
-    <div class="container-fluid vh-100 p-5">
-        <div class="row vh-100 align-items-center d-flex p-5">
-            <div class="col">
-                <div class="row">
-                    <div class="login-info">
-                        <h1 class="">Login</h1>
-                        <p> Lorem ipsum dolor sit amet. Ut distinctio tempore et vitae asperiores ex quibusdam culpa? Sit nihil maxime et voluptas quia ut nulla Quis? Et delectus quis aut repudiandae unde aut cumque debitis.</p>
-                    </div>
-                </div>  
-            </div>
-            <div class="col">
-                    <form class="row login-form m-5" >
-                        <label for="institutionalEmail">Institutional Email: </label>
-                        <div class="institutionalEmail error"></div>
-                        <input class="inputlogin" id="institutionalEmail" name="institutionalEmail" required>
-                            
-                        <label for="password">Password: </label>
-                        <div class="password error"></div>
-                        <input class="inputlogin" type="password" id="password" name="password" required>
+  </div>
 
-                        
-                        <button type="submit">Log in</button>
-                    </form>
-            </div>
-        </div>
-    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Container-4 -->
-    <div class="Container vh-100" style="padding: 30px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;" id="contacts">
-        <p>Contacts</p>
-    </div>
+<!-- Container-4 -->
+<div class="Container vh-100" id="contacts">
+  <div class="px-custom" style="padding: 30px; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+      <p>Contacts</p>
+  </div>
+</div>
 
-    <script>
-        const loginform = document.querySelector('form');
-        const institutionalEmailError = document.querySelector('.institutionalEmail.error');
-        const passwordError = document.querySelector('.password.error');
-        loginform.addEventListener('submit', async (e) => {
-          e.preventDefault();
+<script>
+    const loginform = document.querySelector('form');
+    const institutionalEmailError = document.querySelector('.institutionalEmail.error');
+    const passwordError = document.querySelector('.password.error');
+    loginform.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-          const institutionalEmail = loginform.institutionalEmail.value;
-          const password = loginform.password.value;
+      const institutionalEmail = loginform.institutionalEmail.value;
+      const password = loginform.password.value;
 
-          //reset errors 
-              institutionalEmailError.textContent = '';
-              passwordError.textContent = '';
+      //reset errors 
+      institutionalEmailError.textContent = '';
+      passwordError.textContent = '';
 
-          try{
-            const res = await fetch('/login', {
-              method: 'POST',
-              body: JSON.stringify({institutionalEmail, password}),
-              headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await res.json();
-            console.log(data);
-            if(data.errors){
-              institutionalEmailError.textContent = data.errors.institutionalEmail;
-              passwordError.textContent = data.errors.password;
-            }
-            if (data.user){
-              location.assign('/'+data.user);
-            }
-          }
-          catch (err){
-          }
-        })
-    </script>
-    <%- include('./Partials/footer.ejs') %>
-</body>
-
+      try{
+        const res = await fetch('/login', {
+          method: 'POST',
+          body: JSON.stringify({institutionalEmail, password}),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        console.log(data);
+        if(data.errors){
+          institutionalEmailError.textContent = data.errors.institutionalEmail;
+          passwordError.textContent = data.errors.password;
+        }
+        if (data.user){
+          location.assign('/'+data.user);
+        }
+      }
+      catch (err){
+      }
+    })
+</script>
+<%- include('./Partials/footer.ejs') %>
 <script src='/dateTime.js'></script>
 <%- include('./Partials/scripts.ejs') %>
+<script>
+  
+</script>
+</body>
 </html>

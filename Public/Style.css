@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
+/* Reset styles for ::after and ::before pseudo-elements */
 ::after,
 ::before {
     box-sizing: border-box;
@@ -7,37 +6,43 @@
     padding: 0;
 }
 
+/* Remove default underline from anchor tags */
 a {
     text-decoration: none;
 }
 
+/* Remove default list-style from list items */
 li {
     list-style: none;
 }
 
+/* Styling for headings */
 h1 {
     font-weight: 600;
     font-size: 1.5rem;
 }
 
+/* Body font family */
 body {
     font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
 }
 
-
-
-.balck{
+/* Black background color class */
+.black {
     background-color: black;
 }
 
-/* login */
-
+/* Login Page Styles */
 .date-time {
+    font-size: 18px;
     color: white;
     position: absolute;
-    top: 70px;
+    top: 10px;
     right: 20px;
 }
+
+/* Hero Section Styles */
 .Hero {
     position: relative;
     padding: 0;
@@ -62,7 +67,6 @@ body {
 }
 
 .hero-text {
-    font-size: 2.5rem;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -71,17 +75,20 @@ body {
     text-align: center;
     z-index: 1; /* Ensure text appears above overlay */
 }
-.login-info{
+
+/* Login Info and Form Styles */
+.login-info {
     width: 25rem;
     text-align: right;
     margin: auto;
 }
+
 .login-form .inputlogin {
     border: 1px solid;
     border-radius: 30px;
     height: 2rem;
     padding: 1rem;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .login-form button {
@@ -97,32 +104,29 @@ body {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
-} 
-.EULAcheck{
-    display: block;
-    margin-right: .5rem;
 }
-.signup-info{
+
+.EULAcheck {
+    display: block;
+    margin-right: 20rem;
+}
+
+/* Signup Info and Form Styles */
+.signup-info {
     width: 25rem;
     text-align: right;
     margin: auto;
     color: white;
 }
-.signup-form{
-    border-radius: 20px;
-    background-color: black;
-    padding: 20px;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-}
+
 .signup-form .inputsignup {
     border: 1px solid;
     border-radius: 30px;
     height: 2rem;
     padding: 1rem;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
+
 .signup-form button {
     margin-top: 20px;
     height: 45px;
@@ -134,7 +138,12 @@ body {
     font-weight: bold;
     border-radius: 30px;
     font-size: 17px;
-} 
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+/* Footer Styles */
 .footer {
     padding-left: 20px;
     font-size: 10px;
@@ -146,9 +155,7 @@ body {
     background-color: rgb(0, 0, 0);
 }
 
-
-
-/* sidebar */
+/* Sidebar Styles */
 .wrapper {
     display: flex;
 }
@@ -157,7 +164,7 @@ body {
     min-height: 100vh;
     width: 100%;
     overflow: auto;
-    overflow-x:hidden;
+    overflow-x: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
     margin-bottom: 5rem;
@@ -174,7 +181,7 @@ body {
     flex-direction: column;
     position: fixed;
     overflow-y: scroll;
-       -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
 
@@ -214,7 +221,6 @@ body {
 .sidebar-nav {
     padding: 2rem 0;
     flex: 1 1 auto;
-    
 }
 
 a.sidebar-link {
@@ -276,11 +282,12 @@ a.sidebar-link:hover {
     transition: all .2s ease-out;
 }
 
-/* pds form */
+/* Personal Data Sheet (PDS) Form Styles */
 .pds-form input:disabled {
     background-color: #a7a7a7;
     color: #020202;
 }
+
 .pds-form select, .pds-form input {
     background-color: #f2f2f2;
     width: 100%;
@@ -289,7 +296,6 @@ a.sidebar-link:hover {
     height: 2.5rem;
     font-size: 1rem;
     margin-bottom: 1rem;
-    
 }
 
 .pds-form select option {
@@ -309,6 +315,7 @@ a.sidebar-link:hover {
     font-weight: bold;
     margin-bottom: .5rem;
 }
+
 label.formHeader {
     color: #3f3f3f;
     font-size: 1.5rem;
@@ -317,36 +324,39 @@ label.formHeader {
     margin-bottom: .5rem;
     text-align: center;
 }
+
 .pds-form button.form-btn {
     width: 5rem;
     margin-right: 1rem;
 }
+
 .form-btn-print {
     width: 5rem;
 }
+
 .required {
     color: red;
     display: inline;
 }
 
-
-/* instance blocks */
-.referenceblock {
-}
+/* Reference Blocks Styles */
 .referenceblock .card {
     margin-top: 1rem;
     width: 80%;
 }
+
 .referenceblock .card .card-body p {
     margin: 0;
     font-size: .8rem;
     margin-left: 1rem;
 }
+
 .referenceblock .card .card-body h1 {
     margin: 0;
     font-size: 1.2rem;
     margin-bottom: 1rem;
 }
+
 .referenceblock .card .card-body a {
     background-color: #d11a2a;
     color: white;
@@ -355,18 +365,21 @@ label.formHeader {
     margin-top: 1rem;
 }
 
+/* Custom Padding Class */
 .px-custom {
     padding: 0 5rem;
 }
 
+/* Icons for Success and Error */
 .lni-checkmark-circle {
     color: green;
 }
+
 .lni-cross-circle {
     color: red;
 }
 
-/* //forums */
+/* Forum Post Styles */
 .forumpost {
     vertical-align: middle;
     width: 60%; /* Occupy full width */
@@ -388,4 +401,14 @@ label.formHeader {
     font-weight: bold; /* Bold header text */
 }
 
-
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
