@@ -253,7 +253,7 @@ const familyBackgroundSchema = new Schema({
             }
         }
     ]
-});
+}); 
 
 //education schema
 const educationSchema = new Schema({

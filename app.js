@@ -36,6 +36,9 @@ app.use(cookieParser());
 
 app.get('*', checkUser);
 
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end(); // Respond with No Content status
+});
 //loginroutes
 app.use(authRoutes);
 
