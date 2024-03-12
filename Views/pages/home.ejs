@@ -58,7 +58,8 @@ class="row justify-content-center align-items-center g-2"
                   
                   <p class="card-text">1. Fill up your Personal Data Sheet</p>
                   <p class="card-text">2. After Filling up, click submit to notify UCHRDM-STAR that you are about to submit your PDS</p>
-                  <p class="card-text">3. Print your PDS and submit the hardcopy to UCHRDM-STAR on or before (date)</p>
+                  <p class="card-text">3. Dont forget to Submit Again after updating your PDS before printing</p>
+                  <p class="card-text">4. Print your PDS and submit the hardcopy to UCHRDM-STAR on or before (date)</p>
                   <p class="card-text">Dont forget to bring your pen for your signatures</p>
                 </div>
             </div>
@@ -95,8 +96,11 @@ class="row justify-content-center align-items-center g-2"
           });
           const data = await res.json();
               if(data.errors){
+                localStorage.setItem('notification', 'PDS FAILED TO SUBMIT!');
+                location.assign('/<%=user._id%>');
               }
               if (data.status){
+                localStorage.setItem('notification', 'PDS SUBMITTED SUCCESSFULLY!');
                 location.assign('/<%=user._id%>');
               }
         }

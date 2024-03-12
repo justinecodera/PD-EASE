@@ -57,7 +57,7 @@
     const notiftext = document.querySelector('.notif-text');
 // Check if notification is present
 if (notification) {
-    if(notification === 'Data saved successfully.') {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding') {
         notificationblock.classList.remove('hidden');
         notificationblock.classList.add('bg-success');
         notificationblock.classList.add('text-light');
@@ -68,7 +68,7 @@ if (notification) {
         }, 5000);
         localStorage.setItem('notification', '');
     }
-    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting') {
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
         notificationblock.classList.remove('hidden');
         notificationblock.classList.add('bg-danger');
         notiftext.innerText = notification;
