@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg transparent" id="navbar">
   <div class="container-fluid">
@@ -25,13 +24,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="#home">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/signup">Sign Up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contacts</a>
+          <a class="nav-link" href="#login">Log-in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contacts">Contacts</a>
         </li>
       </ul>
     </div>
@@ -44,14 +46,14 @@
       <div class="overlay"></div>
       <div class="date-time" id="date-time"></div>
       <div class="hero-text">
-        <h1 style="font-size: 76px;">Welcome to <span class="bounce-effect" style="color: orange;"><span>P</span><span>D</span><span>-</span><span>E</span><span>A</span><span>S</span><span>E</span></span></h1>
+        <h1 style="font-size: 76px;">Welcome to <span class="bounce-effect" style="color: orange; display: block;"><span>P</span><span>D</span><span>-</span><span>E</span><span>A</span><span>S</span><span>E</span></span></h1>
         <p style="font-size: 20px;" >Personal Data Sheet Management System For Rizal Technological University</p>
       </div>
   </div>
 </div>
 
   <!-- Login -->
-  <div class="container-fluid vh-100 p-3">
+  <div class="container-fluid vh-100 p-3" id="login">
     <div class="row vh-100 align-items-center d-flex">
       <div class="col-md-6 mx-auto">
         <div class="card">
@@ -138,8 +140,5 @@
 <%- include('./Partials/footer.ejs') %>
 <script src='/dateTime.js'></script>
 <%- include('./Partials/scripts.ejs') %>
-<script>
-  
-</script>
 </body>
 </html>

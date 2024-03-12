@@ -48,9 +48,10 @@ body {
     font-size: 18px;
     color: white;
     position: absolute;
-    top: 10px;
+    top: 60px;
     right: 20px;
 }
+
 .navbar{
     position: fixed;
     width: 100%;
@@ -268,7 +269,10 @@ a.sidebar-link {
     white-space: nowrap;
     border-left: 3px solid transparent;
 }
-
+.sidebar-link.disabled {
+    pointer-events: none; /* Disable pointer events */
+    color: #999; /* Change text color to indicate it's disabled */
+}
 .sidebar-link i {
     font-size: 1.1rem;
     margin-right: .75rem;
