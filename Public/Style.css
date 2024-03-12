@@ -335,7 +335,7 @@ a.sidebar-link:hover {
     padding: .5rem 1rem;
     height: 100%;
 }
-.pdssections a, .pdssections i {
+.pdssections , .pdssections i {
     margin-right: .2rem;
     color: #020202;
 }
