@@ -25,8 +25,7 @@
       <div class="navbar-nav align-right">
         <a class="nav-link" aria-current="page" href="/">Home</a>
         <a class="nav-link active" href="/dashboard">Sign Up</a>
-        <a class="nav-link" href="/#login">Log-in</a>
-        <a class="nav-link" href="/#contacts">Contacts</a>
+        <a class="nav-link" href="#">Contacts</a>
       </div>
     </div>
   </div>
@@ -124,8 +123,8 @@
                 passwordError.textContent = data.errors.password;
               }
               if (data.user){
-                localStorage.setItem('notification', 'Please Complete your Profile before proceeding');
-                location.assign('/profile'+data.user);
+                    localStorage.setItem('notification', 'Please Complete Your Profile');
+                location.assign('/profile/'+data.user);
               }
             }else {
               passwordError.textContent = 'Passwords dont match!';

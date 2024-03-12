@@ -87,7 +87,7 @@ module.exports.login_post = async (req, res) => {
         const token = createToken(user._id);
         // console.log(token);
         res.cookie('PEEDS', token, {httpOnly: true});
-        res.status(200).json({user: user._id});
+        res.status(200).json({user: user._id, userloggedin: 'yes'});
     }
     catch (err) {
         console.log(err)
