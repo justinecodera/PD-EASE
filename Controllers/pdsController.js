@@ -726,7 +726,7 @@ async function fillPDF(filename, userid) {
             }
             
             height.setText(piData.height != null ? JSON.stringify(piData.height) : "");
-            weight.setText(piData.height != null ? JSON.stringify(piData.height) : "");
+            weight.setText(piData.height != null ? JSON.stringify(piData.weight) : "");
             bloodType.setText(piData.bloodType != null ? piData.bloodType : "");
             gsisId.setText(piData.gsisId != null ? piData.gsisId : "");
             pagibigId.setText(piData.pagibigId != null ? piData.pagibigId : "");
@@ -777,7 +777,7 @@ async function fillPDF(filename, userid) {
             sMiddleName.setText(fbData.spouse.sMiddleName ? fbData.spouse.sMiddleName : '');
             sOccupation.setText(fbData.spouse.sOccupation ? fbData.spouse.sOccupation : '');
             sEmployerBusinessName.setText(fbData.spouse.sEmployerBusinessName ? fbData.spouse.sEmployerBusinessName : '');
-            sBusinessAdress.setText(fbData.spouse.sBusinessAdress ? fbData.spouse.sBusinessAdress : '');
+            sBusinessAdress.setText(fbData.spouse.sBusinessAddress ? fbData.spouse.sBusinessAddress : '');
             sTelNo.setText(fbData.spouse.sTelNo ? fbData.spouse.sTelNo : '');
             
             fLastName.setText(fbData.father.fLastName ? fbData.father.fLastName : '');
