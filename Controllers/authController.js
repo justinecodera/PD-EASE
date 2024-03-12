@@ -7,12 +7,12 @@ const handleErrors = (err) => {
     let errors = {institutionalEmail: '',password: '', };
 
     //incorrect email
-    if (errors.message === 'Email Not Registered') {
-        errors.email = 'Email Not Registered';
+    if (err.message === 'Email Not Registered') {
+        errors.institutionalEmail = 'Email Not Registered';
     }
 
     //incorrect password
-    if (errors.message === 'Incorrect Password') {
+    if (err.message === 'Incorrect Password') {
         errors.password = 'Incorrect Password';
     }
 
@@ -90,6 +90,7 @@ module.exports.login_post = async (req, res) => {
         res.status(200).json({user: user._id});
     }
     catch (err) {
+        console.log(err)
         const errors = handleErrors(err);
         res.status(400).json({ errors });
     }

@@ -7,7 +7,6 @@
         <label class=" formHeader" for="PD-EASE">Eligibility</label>
         <div class="row justify-content-end">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
-                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -215,6 +214,7 @@ form.addEventListener('submit', async (e) => {
      
 
     console.log({userId, eligibilities} );
+    if(eligibilities.length > 0){
     try{
         const res = await fetch('/eligibility', {
           method: 'POST',
@@ -223,13 +223,20 @@ form.addEventListener('submit', async (e) => {
         });
         const data = await res.json();
             if(data.errors){
+                
+                localStorage.setItem('notification', 'Saving Data Failed.');
+              location.assign('/eligibility/<%=user._id%>');
             }
             if (data.status){
+                localStorage.setItem('notification', 'Data saved successfully.');
               location.assign('/eligibility/<%=user._id%>');
             }
       }
       catch (err){
       }
-  
+    }else {
+        localStorage.setItem('notification', 'Please Input atleast 1 Data before saving');
+        location.assign('/eligibility/<%=user._id%>');
+    }
   })
 </script>

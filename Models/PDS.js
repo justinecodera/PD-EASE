@@ -211,7 +211,7 @@ const familyBackgroundSchema = new Schema({
         sEmployerBusinessName: {
             type: String
         },
-        sBusinessAdress: {
+        sBusinessAddress: {
             type: String
         },
         sTelNo: {
@@ -305,8 +305,7 @@ const eligibilitySchema = new Schema({
     cse: [
         {
             license: {
-                type: String,
-                unique: true
+                type: String
             },
             rating: {
                 type: String

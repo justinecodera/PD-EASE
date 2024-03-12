@@ -5,12 +5,22 @@
     margin: 0;
     padding: 0;
 }
-
+.card, .input, .label {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 /* Remove default underline from anchor tags */
 a {
     text-decoration: none;
 }
+.bg-saved, .btn-saved:hover {
+background-color: #83b4c4!important;
+color: black;
+}
+.bg-flagged {
 
+    color: rgb(0, 0, 0);
+    background-color: #d4d4d4;
+}
 /* Remove default list-style from list items */
 li {
     list-style: none;
@@ -41,13 +51,40 @@ body {
     top: 10px;
     right: 20px;
 }
-
+.navbar{
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+    transition: background-color 0.3s ease;
+}
+.navbar.transparent{
+    background-color: transparent;
+}
+.navbar.transparent .navbar-brand, .navbar.transparent .navbar-nav .nav-link {
+    color: gray;
+}
+.navbar.white .navbar-brand, .navbar.white .navbar-nav .nav-link {
+    color: gray;
+}
+.navbar.transparent .navbar-brand, .navbar.transparent .navbar-nav .active {
+    color: white;
+}
+.navbar.white .navbar-brand, .navbar.white .navbar-nav .active{
+    color: black;
+}
+.navbar.white {
+    background-color: white;
+}
 /* Hero Section Styles */
 .Hero {
     position: relative;
     padding: 0;
 }
-
+.error{
+    color: red;
+    font-size: .8rem;
+    font-weight: 1;
+}
 .background-image {
     position: relative;
     width: 100%;
@@ -282,6 +319,68 @@ a.sidebar-link:hover {
     transition: all .2s ease-out;
 }
 
+/* dashboard */
+.list-group-item {
+    padding: 0;
+}
+.list-group-item span {
+    margin: .5rem 1rem;
+}
+.pdssections {
+    margin: 0!important;
+    padding: .5rem 1rem;
+    height: 100%;
+}
+.pdssections a, .pdssections i {
+    margin-right: .2rem;
+    color: #020202;
+}
+.pdssections:hover {
+    background-color: rgba(0, 0, 0, 0.4); /* Initially transparent */
+  color: white;
+  cursor: pointer;
+}
+.card-home h1 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+.card-home h2 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+.notification {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    margin-top: 1rem;
+    height: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; /* Added */
+    align-items: center; /* Added */
+    justify-content: space-between;
+    text-align: center;
+    padding: 0 1rem;
+    border-radius: .5rem;
+    opacity: 1; /* Ensure the initial opacity is 1 */
+    transition: opacity 0.6s ease; /* Add transition for opacity */
+}
+
+.notification span {
+    margin-right: 5rem;
+}
+
+.notification.hidden {
+    opacity: 0; /* Set opacity to 0 when hidden */
+    pointer-events: none; /* Disable pointer events when hidden */
+}
+.notification-button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* Personal Data Sheet (PDS) Form Styles */
 .pds-form input:disabled {
     background-color: #a7a7a7;
@@ -296,6 +395,16 @@ a.sidebar-link:hover {
     height: 2.5rem;
     font-size: 1rem;
     margin-bottom: 1rem;
+}
+.same-as-label {
+    display: inline-block!important;
+    height: 1rem!important;
+}
+.sameasbutton {
+    display: inline-block!important;
+    width: 1rem!important;
+    height: 1rem!important;
+    
 }
 
 .pds-form select option {
@@ -356,6 +465,7 @@ label.formHeader {
     font-size: 1.2rem;
     margin-bottom: 1rem;
 }
+
 
 .referenceblock .card .card-body a {
     background-color: #d11a2a;
@@ -454,3 +564,4 @@ label.formHeader {
       transform: translateY(-10px);
     }
   }
+  

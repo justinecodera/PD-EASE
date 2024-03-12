@@ -7,7 +7,6 @@
         <label class=" formHeader" for="PD-EASE">References</label>
         <div class="row justify-content-end">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
-                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -179,6 +178,7 @@
          
     
         console.log({userId, references} );
+        if(references.length > 0){
         try{
             const res = await fetch('/references', {
               method: 'POST',
@@ -187,13 +187,20 @@
             });
             const data = await res.json();
                 if(data.errors){
+                    localStorage.setItem('notification', 'Saving Data Failed');
+                  location.assign('/references/<%=user._id%>');
                 }
                 if (data.status){
+                    localStorage.setItem('notification', 'Data saved successfully.');
                   location.assign('/references/<%=user._id%>');
                 }
           }
           catch (err){
           }
+          }else {
+            localStorage.setItem('notification', 'Please Input atleast 1 Data before saving');
+            location.assign('/references/<%=user._id%>');
+        }
       
       })
 </script>

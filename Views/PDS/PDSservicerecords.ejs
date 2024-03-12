@@ -4,20 +4,25 @@
         <label class=" formHeader" for="PD-EASE">Service Records</label>
         <div class="row justify-content-end">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
-                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
                 <label class="" for="govIssuedIdType">Government Issued ID (i.e.Passport, GSIS, SSS, PRC, Driver's License, etc.)                               
                     PLEASE INDICATE ID Number and Date of Issuance</label>
                 <label class="" for="govIssuedIdType">Government Issued Id:  <p class="required">*</p></label>
-                <input class="" id="govIssuedIdType" name="govIssuedIdType" placeholder="i.e.Passport, GSIS, SSS, PRC, Driver's License, etc." value="<% if (sr === null) {} else {%><%= sr.govIssuedIdType %><% } %>" required>
+                <input class="" id="govIssuedIdType" name="govIssuedIdType" placeholder="i.e.Passport, GSIS, SSS, PRC, Driver's License, etc." value="<% if (sr === null) {} else {%><%= sr.govIssuedIdType %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                  
                 <label class="" for="govIssuedIdNumber">ID/License/Passport No.:  <p class="required">*</p></label>
-                <input class="" id="govIssuedIdNumber" name="govIssuedIdNumber" placeholder="ID/License/Passport No." value="<% if (sr === null) {} else {%><%= sr.govIssuedIdNumber %><% } %>" required>
+                <input class="" id="govIssuedIdNumber" name="govIssuedIdNumber" placeholder="ID/License/Passport No." value="<% if (sr === null) {} else {%><%= sr.govIssuedIdNumber %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                  
                 <label class="" for="DatePlaceIssued">Date/Place of Issuance:  <p class="required">*</p></label>
-                <input class="" id="DatePlaceIssued" name="DatePlaceIssued" placeholder="Date(DD/MM/YYYY)/Place of Issuance" value="<% if (sr === null) {} else {%><%= sr.DatePlaceIssued %><% } %>" required>
+                <input class="" id="DatePlaceIssued" name="DatePlaceIssued" placeholder="Date(DD/MM/YYYY)/Place of Issuance" value="<% if (sr === null) {} else {%><%= sr.DatePlaceIssued %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                  
             </div>
             <div class="col-lg-5 col-sm-10">

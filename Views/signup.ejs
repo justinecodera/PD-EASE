@@ -123,7 +123,8 @@
                 passwordError.textContent = data.errors.password;
               }
               if (data.user){
-                location.assign('/'+data.user);
+                localStorage.setItem('notification', 'Please Complete your Profile before proceeding');
+                location.assign('/profile'+data.user);
               }
             }else {
               passwordError.textContent = 'Passwords dont match!';

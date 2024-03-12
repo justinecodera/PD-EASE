@@ -14,8 +14,9 @@
 </head>
 <body>
 
+
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg transparent" id="navbar">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">RTU-PDSMS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,12 +93,24 @@
     const loginform = document.querySelector('form');
     const institutionalEmailError = document.querySelector('.institutionalEmail.error');
     const passwordError = document.querySelector('.password.error');
+    window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        var navbar = document.getElementById("navbar");
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+          navbar.classList.remove("transparent");
+          navbar.classList.add("white");
+        } else {
+          navbar.classList.remove("white");
+          navbar.classList.add("transparent");
+        }
+      }
     loginform.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const institutionalEmail = loginform.institutionalEmail.value;
       const password = loginform.password.value;
-
+      
       //reset errors 
       institutionalEmailError.textContent = '';
       passwordError.textContent = '';

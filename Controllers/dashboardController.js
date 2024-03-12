@@ -65,7 +65,7 @@ module.exports.personalinformation_post = async (req, res) => {
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
-            res.status(200).json({status: 'Update Success'});
+            res.status(200).json({status: 'Update Success', notification: 'saved'});
             console.log(err)
         }
     } else {
@@ -109,7 +109,7 @@ module.exports.familybackground_get = async (req, res) => {
 module.exports.familybackground_post = async (req, res) => {
 
     const userId = req.body.userId;
-    const {sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sTelNo} = req.body.spouse;
+    const {sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sBusinessAddress, sTelNo} = req.body.spouse;
     const {fLastName, fFirstName, fMiddleName, fNameExtension} = req.body.father;
     const {mLastName, mFirstName, mMiddleName} = req.body.mother;
     const children = req.body.children;
@@ -118,7 +118,7 @@ module.exports.familybackground_post = async (req, res) => {
     if (userfb === null) {
         //create new entry
         try {
-            const fbcreate = await FB.create({userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sTelNo}, father: {fLastName,
+            const fbcreate = await FB.create({userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sBusinessAddress, sTelNo}, father: {fLastName,
                 fFirstName, fMiddleName, fNameExtension}, mother:{mLastName, mFirstName, mMiddleName}, children});
             console.log(fbcreate);
             res.status(200).json({status: 'Update Success'});
@@ -130,7 +130,7 @@ module.exports.familybackground_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const fbupdate = await FB.updateOne({userId: userId}, {userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sTelNo}, father: {fLastName,
+            const fbupdate = await FB.updateOne({userId: userId}, {userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sBusinessAddress, sTelNo}, father: {fLastName,
                 fFirstName, fMiddleName, fNameExtension}, mother:{mLastName, mFirstName, mMiddleName}, children});
                 console.log(fbupdate)
                 res.status(200).json({status: 'Update Success'});
@@ -169,6 +169,7 @@ module.exports.education_post = async (req, res) => {
     console.log('pumasok')
     const usered = await ED.exists({userId: userId});
     if (usered === null) {
+        console.log('this runs again?')
         //create new entry
         try {
             const edcreate = await ED.create({userId, ed});
@@ -182,7 +183,7 @@ module.exports.education_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const edupdate = await ED.updateOne({userId, ed});
+            const edupdate = await ED.updateOne({userId}, {ed});
                 console.log(edupdate)
                 res.status(200).json({status: 'Update Success'});
         }
@@ -235,7 +236,7 @@ module.exports.eligibility_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const ebupdate = await EB.updateOne({userId, cse});
+            const ebupdate = await EB.updateOne({userId}, {cse});
                 console.log(ebupdate)
                 res.status(200).json({status: 'Update Success'});
         }
@@ -287,7 +288,7 @@ module.exports.workexperience_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const weupdate = await WE.updateOne({userId, we});
+            const weupdate = await WE.updateOne({userId}, {we});
                 console.log(weupdate)
                 res.status(200).json({status: 'Update Success'});
         }
@@ -328,7 +329,7 @@ module.exports.voluntarywork_post = async (req, res) => {
     if (uservw === null) {
         //create new entry
         try {
-            const vwcreate = await VW.create({userId, vw});
+            const vwcreate = await VW.create({userId}, {vw});
             console.log(vwcreate);
             res.status(200).json({status: 'Update Success'});
         }
@@ -391,7 +392,7 @@ module.exports.training_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const trupdate = await TR.updateOne({userId, ldit});
+            const trupdate = await TR.updateOne({userId}, {ldit});
                 console.log(trupdate)
                 res.status(200).json({status: 'Update Success'});
         }
@@ -505,7 +506,7 @@ module.exports.questions_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const qtupdate = await QT.updateOne({userId, q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
+            const qtupdate = await QT.updateOne({userId}, {q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
                 q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
                  q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}});
                 console.log(qtupdate)
@@ -559,7 +560,7 @@ module.exports.references_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const rrupdate = await RR.updateOne({userId, ref: rr});
+            const rrupdate = await RR.updateOne({userId}, {ref: rr});
                 console.log(rrupdate)
                 res.status(200).json({status: 'Update Success'});
         }
@@ -661,7 +662,7 @@ module.exports.profile_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const profileupdate = await profile.updateOne({userId, employmentStatus, campus});
+            const profileupdate = await profile.updateOne({userId}, {employmentStatus, campus});
                 console.log(profileupdate)
                 res.status(200).json({status: 'Update Success'});
         }

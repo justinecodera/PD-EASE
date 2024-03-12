@@ -7,7 +7,6 @@
         <label class=" formHeader" for="PD-EASE">Work Experiences</label>
         <div class="row justify-content-end">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
-                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -160,6 +159,11 @@
         }
     
         workexperiences.forEach((workexperience, index) => {
+            var cardblock = document.createElement("div");
+            cardblock.className = "card";
+            var cardbody = document.createElement("div");
+            cardbody.className = "card-body";
+    
             // Create h1 element
             var positionTitleblock = document.createElement("h1");
             positionTitleblock.textContent = workexperience.positionTitle;
@@ -200,30 +204,24 @@
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
                 // Remove child's information and the delete button from the DOM
-                referenceblock.removeChild(positionTitleblock);
-                referenceblock.removeChild(workedFromblock);
-                referenceblock.removeChild(workedToblock);
-                referenceblock.removeChild(daocblock);
-                referenceblock.removeChild(monthlySalaryblock);
-                referenceblock.removeChild(salaryJobPayGradeblock);
-                referenceblock.removeChild(statusOfAppointmentblock);
-                referenceblock.removeChild(govtServiceblock);
-                referenceblock.removeChild(deleteButton);
+                referenceblock.removeChild(cardblock);
                 
                 // Remove child's data from the 'children' array
                 workexperiences.splice(index);
             });
+            referenceblock.appendChild(cardblock);
+            cardblock.appendChild(cardbody);
         
             // Append child's name, birthday, and delete button to reference block
-            referenceblock.appendChild(positionTitleblock);
-            referenceblock.appendChild(workedFromblock);
-            referenceblock.appendChild(workedToblock);
-            referenceblock.appendChild(daocblock);
-            referenceblock.appendChild(monthlySalaryblock);
-            referenceblock.appendChild(salaryJobPayGradeblock);
-            referenceblock.appendChild(statusOfAppointmentblock);
-            referenceblock.appendChild(govtServiceblock);
-            referenceblock.appendChild(deleteButton);
+            cardbody.appendChild(positionTitleblock);
+            cardbody.appendChild(workedFromblock);
+            cardbody.appendChild(workedToblock);
+            cardbody.appendChild(daocblock);
+            cardbody.appendChild(monthlySalaryblock);
+            cardbody.appendChild(salaryJobPayGradeblock);
+            cardbody.appendChild(statusOfAppointmentblock);
+            cardbody.appendChild(govtServiceblock);
+            cardbody.appendChild(deleteButton);
     
         
         });
@@ -237,21 +235,31 @@
          
     
         console.log({userId, workexperiences} );
-        try{
-            const res = await fetch('/workexperience', {
-              method: 'POST',
-              body: JSON.stringify({userId, we: workexperiences}),
-              headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await res.json();
-                if(data.errors){
-                }
-                if (data.status){
-                  location.assign('/workexperience/<%=user._id%>');
-                }
-          }
-          catch (err){
-          }
+        
+        if(workexperiences.length > 0){
+            try{
+                const res = await fetch('/workexperience', {
+                  method: 'POST',
+                  body: JSON.stringify({userId, we: workexperiences}),
+                  headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                    if(data.errors){
+                        localStorage.setItem('notification', 'Saving Data Failed.');
+                      location.assign('/workexperience/<%=user._id%>');
+                    }
+                    if (data.status){
+                        localStorage.setItem('notification', 'Data saved successfully.');
+                      location.assign('/workexperience/<%=user._id%>');
+                    }
+              }
+              catch (err){
+              }
+        }else {
+            localStorage.setItem('notification', 'Please Input atleast 1 Data before saving');
+            location.assign('/workexperience/<%=user._id%>');
+        }
+        
       
       })
 </script>

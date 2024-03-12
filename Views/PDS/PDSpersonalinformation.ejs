@@ -5,36 +5,53 @@
         <label class="formHeader" for="spouse">Personal Information</label>
         <div class="row justify-content-end">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
-                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">  
                 <label class="" for="lastName">Surname: <p class="required">*</p></label>
-                <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>" disabled required>
+                <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>" disabled required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="firstName">First Name:  <p class="required">*</p></label>
-                <input class="" id="firstName" name="firstName" placeholder="First Name" value="<%= user.firstname %>" disabled required>
+                <input class="" id="firstName" name="firstName" placeholder="First Name" value="<%= user.firstname %>" disabled required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
-                <label class="" for="middleName">Middle Name: </label>
+                <label class="" for="middleName">Middle Name: <p class="required">*</p></label>
                 <input class="" id="middleName" name="middleName" placeholder="Middle Name" value="<% if (pi){%><%= pi.middleName %><% } %>" >
                     
-                <label class="" for="nameExtension">Name extension: </label>
-                <input class="" id="nameExtension" name="nameExtension" placeholder="ex: jr. sr." value="<% if (pi === null) {} else {%><%= pi.nameExtension %><% } %>" >
+                <label class="" for="nameExtension">Name extension: <p class="required">*</p></label>
+                <select class="" id="nameExtension" name="nameExtension"  required 
+                    oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                    oninput="this.setCustomValidity('')">
+                        <option value="Single" <% if (pi !== null && pi.nameExtension === "N/A") { %>selected<% } %>>N/A</option>
+                        <option value="Married" <% if (pi !== null && pi.nameExtension === "jr.") { %>selected<% } %>>jr.</option>
+                        <option value="Widowed" <% if (pi !== null && pi.nameExtension === "sr.") { %>selected<% } %>>sr.</option>
+                    </select>
                  
                 <label class="" for="birthDate">Date of Birth:  <p class="required">*</p></label>
-                <input class="" type="date" id="birthDate" name="birthDate" placeholder="Date of Birth" value="<% if (pi === null) {} else {%><%= pibirthDate %><% } %>" required>
+                <input class="" type="date" id="birthDate" name="birthDate" placeholder="MM/YYYY" value="<% if (pi === null) {} else {%><%= pibirthDate %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
     
                 <label class="" for="placeOfBirth">Place of Birth:  <p class="required">*</p></label>
-                <input class="" id="placeOfBirth" name="placeOfBirth" placeholder="Place of Birth" value="<% if (pi === null) {} else {%><%= pi.placeOfBirth %><% } %>" required>
+                <input class="" id="placeOfBirth" name="placeOfBirth" placeholder="Place of Birth" value="<% if (pi === null) {} else {%><%= pi.placeOfBirth %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="sex">Sex:  <p class="required">*</p></label>
-                <select class="" id="sex" name="sex" required>
+                <select class="" id="sex" name="sex" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     <option value="Male" <% if (pi !== null && pi.sex === "male") { %>selected<% } %>>Male</option>
                     <option value="Female" <% if (pi !== null && pi.sex === "female") { %>selected<% } %>>Female</option>
                 </select>
                     
                 <label class="" for="civilStatus">Civil Status:  <p class="required">*</p></label>
-                <select class="" id="civilStatus" name="civilStatus" value="<% if (pi === null) {} else {%><%= pi.civilStatus %><% } %>" required>
+                <select class="" id="civilStatus" name="civilStatus" value="<% if (pi === null) {} else {%><%= pi.civilStatus %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     <option value="Single" <% if (pi !== null && pi.civilStatus === "single") { %>selected<% } %>>Single</option>
                     <option value="Married" <% if (pi !== null && pi.civilStatus === "married") { %>selected<% } %>>Married</option>
                     <option value="Widowed" <% if (pi !== null && pi.civilStatus === "widowed") { %>selected<% } %>>Widowed</option>
@@ -43,31 +60,49 @@
                 </select>
                     
                 <label class="" for="height">Height (m):   <p class="required">*</p></label>
-                <input class="" id="height" name="height"  placeholder="Height" value="<% if (pi === null) {} else {%><%= pi.height %><% } %>" required>
+                <input class="" id="height" name="height"  placeholder="Height" value="<% if (pi === null) {} else {%><%= pi.height %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="weight">Weight (Kg):  <p class="required">*</p></label>
-                <input class="" id="weight" name="weight" placeholder="Weight" value="<% if (pi === null) {} else {%><%= pi.weight %><% } %>" required>
+                <input class="" id="weight" name="weight" placeholder="Weight" value="<% if (pi === null) {} else {%><%= pi.weight %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="bloodType">Blood Type:  <p class="required">*</p></label>
-                <input class="" id="bloodType" name="bloodType" placeholder="Blood Type" value="<% if (pi === null) {} else {%><%= pi.bloodType %><% } %>" required>
+                <input class="" id="bloodType" name="bloodType" placeholder="Blood Type" value="<% if (pi === null) {} else {%><%= pi.bloodType %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="gsisId">GSIS ID:  <p class="required">*</p></label>
-                <input class="" id="gsisId" name="gsisId" placeholder="GSIS ID" value="<% if (pi === null) {} else {%><%= pi.gsisId %><% } %>" required>
+                <input class="" id="gsisId" name="gsisId" placeholder="GSIS ID" value="<% if (pi === null) {} else {%><%= pi.gsisId %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="pagibigId">PAG-IBIG ID:  <p class="required">*</p></label>
-                <input class="" id="pagibigId" name="pagibigId" placeholder="PAG-IBIG ID" value="<% if (pi === null) {} else {%><%= pi.pagibigId %><% } %>" required>
+                <input class="" id="pagibigId" name="pagibigId" placeholder="PAG-IBIG ID" value="<% if (pi === null) {} else {%><%= pi.pagibigId %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="philhealthId">PHILHEALTH No.:  <p class="required">*</p></label>
-                <input class="" id="philhealthId" name="philhealthId" placeholder="PHILHEALTH No." value="<% if (pi === null) {} else {%><%= pi.philhealthId %><% } %>" required>
+                <input class="" id="philhealthId" name="philhealthId" placeholder="PHILHEALTH No." value="<% if (pi === null) {} else {%><%= pi.philhealthId %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="sssId">SSS No.:  <p class="required">*</p></label>
-                <input class="" id="sssId" name="sssId" placeholder="SSS No." value="<% if (pi === null) {} else {%><%= pi.sssId %><% } %>" required>
+                <input class="" id="sssId" name="sssId" placeholder="SSS No." value="<% if (pi === null) {} else {%><%= pi.sssId %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="tinId">TIN No.:  <p class="required">*</p></label>
-                <input class="" id="tinId" name="tinId" placeholder="TIN No." value="<% if (pi === null) {} else {%><%= pi.tinId %><% } %>" required>
+                <input class="" id="tinId" name="tinId" placeholder="TIN No." value="<% if (pi === null) {} else {%><%= pi.tinId %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     
                 <label class="" for="agencyEmployeeId">Agency Employee No.:  <p class="required">*</p></label>
-                <input class="" id="agencyEmployeeId" name="agencyEmployeeId" placeholder="Agency Employee No." value="<% if (pi === null) {} else {%><%= pi.agencyEmployeeId %><% } %>" required>
+                <input class="" id="agencyEmployeeId" name="agencyEmployeeId" placeholder="Agency Employee No." value="<% if (pi === null) {} else {%><%= pi.agencyEmployeeId %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
     
                 <label class="" for="telNo">Telephone Number: </label>
                 <input class="" id="telNo" name="telNo" placeholder="Telephone Number" value="<% if (pi === null) {} else {%><%= pi.telNo %><% } %>" >
@@ -76,23 +111,27 @@
                 <input class="" id="celNo" name="celNo" placeholder="Telephone Number" value="<% if (pi === null) {} else {%><%= pi.celNo %><% } %>" >
                 
                 <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
-                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required>
+                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
     
             </div>
             <div class="col-lg-5 col-sm-10">
     
                 <label class="" for="citizenship">Citizenship:  <p class="required">*</p></label>
-                <select class="" id="citizenship" name="citizenship" onchange="handleCitizenshipSelection()"  required>
+                <select class="" id="citizenship" name="citizenship" onchange="handleCitizenshipSelection()"  required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                     <option value="Filipino" <% if (pi !== null && pi.citizenship === "filipino") { %>selected<% } %>>Filipino</option>
                     <option value="Dual Citizenship" <% if (pi !== null && pi.citizenship === "dual citizenship") { %>selected<% } %>>Dual Citizenship</option>
                 </select>
-                <label id="dcTypeL" for="dcType"  >Dual Citizenship Type</label>
+                <label id="dcTypeL" for="dcType"  >Dual Citizenship Type <p class="required">*</p></label>
                 <select id="dcType" name="dcType" >
                     <option value="By Birth" <% if (pi !== null && pi.dualCitizenship.dcType === "By Birth") { %>selected<% } %>>By Birth</option>
                     <option value="By Naturalization" <% if (pi !== null && pi.dualCitizenship.dcType === "By Naturalization") { %>selected<% } %>>By Naturalization</option>
                 </select>
 
-                <label for="dcCountry" id="dcCountryL" style="display: none;">Pls. Indicate Country</label>
+                <label for="dcCountry" id="dcCountryL" style="display: none;">Pls. Indicate Country <p class="required">*</p></label>
                 <select id="dcCountry" name="dcCountry" style="display: none;">
                     <option value="" >Select a country...</option>
                     <option value="Afghanistan" <% if (pi !== null && pi.dualCitizenship.dcCountry === "Afghanistan") { %>selected<% } %>>Afghanistan</option>
@@ -347,48 +386,79 @@
                 <label class=" formsubHeader" for="Residential Address">Residential Address:  <p class="required">*</p></label>
     
                 <label class="" for="raHBLN">House/Block/Lot No.:  <p class="required">*</p></label>
-                <input class="" id="raHBLN" name="raHBLN" placeholder="House/Block/Lot No." value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raHBLN %><% } %>" required>
+                <input class="" id="raHBLN" name="raHBLN" placeholder="House/Block/Lot No." value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raHBLN %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="raStrt">Street:  <p class="required">*</p></label>
-                <input class="" id="raStrt" name="raStrt" placeholder="Street" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raStrt %><% } %>" required>
+                <input class="" id="raStrt" name="raStrt" placeholder="Street" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raStrt %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="raSubVil">Subdivision/Village:  <p class="required">*</p></label>
-                <input class="" id="raSubVil" name="raSubVil" placeholder="Subdivision/Village" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raSubVil %><% } %>" required>
+                <input class="" id="raSubVil" name="raSubVil" placeholder="Subdivision/Village" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raSubVil %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="raBarangay">Barangay:  <p class="required">*</p></label>
-                <input class="" id="raBarangay" name="raBarangay" placeholder="Barangay" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raBarangay %><% } %>" required>
+                <input class="" id="raBarangay" name="raBarangay" placeholder="Barangay" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raBarangay %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="raCity">City:  <p class="required">*</p></label>
-                <input class="" id="raCity" name="raCity" placeholder="City" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raCity %><% } %>" required>
+                <input class="" id="raCity" name="raCity" placeholder="City" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raCity %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="raProvince">Province:  <p class="required">*</p></label>
-                <input class="" id="raProvince" name="raProvince" placeholder="Province" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raProvince %><% } %>" required>
+                <input class="" id="raProvince" name="raProvince" placeholder="Province" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raProvince %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="raZipCode">Zip Code:  <p class="required">*</p></label>
-                <input class="" id="raZipCode" name="raZipCode" placeholder="Zip Code" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raZipCode %><% } %>" required>
-    
+                <input class="" id="raZipCode" name="raZipCode" placeholder="Zip Code" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raZipCode %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
+                
                 <label class="formsubHeader" for="Residential Address">Permanent Address:  <p class="required">*</p></label>
     
+                <input class="sameasbutton" type="checkbox" id="sameasbutton" name="sameasbutton" value="<% if (pi === null) {} else {%><%= pi.residentialAddress.raZipCode %><% } %>" >
+                <label class="same-as-label" for="sameasbutton">Same as Residential Address: </label>
+    
                 <label class="" for="paHBLN">House/Block/Lot No.:  <p class="required">*</p></label>
-                <input class="" id="paHBLN" name="paHBLN" placeholder="House/Block/Lot No." value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paHBLN %><% } %>" required>
+                <input class="" id="paHBLN" name="paHBLN" placeholder="House/Block/Lot No." value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paHBLN %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="paStrt">Street:  <p class="required">*</p></label>
-                <input class="" id="paStrt" name="paStrt" placeholder="Street" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paStrt %><% } %>" required>
+                <input class="" id="paStrt" name="paStrt" placeholder="Street" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paStrt %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="paSubVil">Subdivision/Village:  <p class="required">*</p></label>
-                <input class="" id="paSubVil" name="paSubVil" placeholder="Subdivision/Village" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paSubVil %><% } %>" required>
+                <input class="" id="paSubVil" name="paSubVil" placeholder="Subdivision/Village" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paSubVil %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="paBarangay">Barangay:  <p class="required">*</p></label>
-                <input class="" id="paBarangay" name="paBarangay" placeholder="Barangay" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paBarangay %><% } %>" required>
+                <input class="" id="paBarangay" name="paBarangay" placeholder="Barangay" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paBarangay %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="paCity">City:  <p class="required">*</p></label>
-                <input class="" id="paCity" name="paCity" placeholder="City" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paCity %><% } %>" required>
+                <input class="" id="paCity" name="paCity" placeholder="City" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paCity %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="paProvince">Province:  <p class="required">*</p></label>
-                <input class="" id="paProvince" name="paProvince" placeholder="Province" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paProvince %><% } %>" required>
+                <input class="" id="paProvince" name="paProvince" placeholder="Province" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paProvince %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
                 
                 <label class="" for="paZipCode">Zip Code:  <p class="required">*</p></label>
-                <input class="" id="paZipCode" name="paZipCode" placeholder="Zip Code" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paZipCode %><% } %>" required>
+                <input class="" id="paZipCode" name="paZipCode" placeholder="Zip Code" value="<% if (pi === null) {} else {%><%= pi.permanentAddress.paZipCode %><% } %>" required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
 
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
@@ -400,10 +470,61 @@
 </div>
 
 <script>
+
+    
     const form = document.querySelector('form');
+    
+    var checkbox = document.getElementById("sameasbutton");
+    var raHBLN = document.getElementById("raHBLN");
+    var raStrt = document.getElementById("raStrt");
+    var raSubVil = document.getElementById("raSubVil");
+    var raBarangay = document.getElementById("raBarangay");
+    var raCity = document.getElementById("raCity");
+    var raProvince = document.getElementById("raProvince");
+    var raZipCode = document.getElementById("raZipCode");
+    var paHBLN = document.getElementById("paHBLN");
+    var paStrt = document.getElementById("paStrt");
+    var paSubVil = document.getElementById("paSubVil");
+    var paBarangay = document.getElementById("paBarangay");
+    var paCity = document.getElementById("paCity");
+    var paProvince = document.getElementById("paProvince");
+    var paZipCode = document.getElementById("paZipCode");
+
+// Add an event listener for the 'change' event
+checkbox.addEventListener('change', function() {
+        
+        
+
+    if (this.checked) {
+        paHBLN.value = raHBLN.value;
+        paStrt.value = raStrt.value;
+        paSubVil.value = raSubVil.value;
+        paBarangay.value = raBarangay.value;
+        paCity.value = raCity.value;
+        paProvince.value = raProvince.value;
+        paZipCode.value = raZipCode.value;
+
+    } else {
+        paHBLN.value = '';
+        paStrt.value = '';
+        paSubVil.value = '';
+        paBarangay.value = '';
+        paCity.value = '';
+        paProvince.value = '';
+        paZipCode.value = '';
+    }
+});
+
+
+
+
+
+    
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        
 
         const userId = form.userId.value;
         const middleName = form.middleName.value;
@@ -454,10 +575,13 @@
                   headers: { 'Content-Type': 'application/json' }
                 });
                 const data = await res.json();
-                if(data.errors){
+                if(data.status === 'Update Failed'){
+                    localStorage.setItem('notification', 'Saving Data Failed.');
+                    location.assign('/personalinformation/<%=user._id%>');
                 }
-                if (data.status){
-                  location.assign('/personalinformation/<%=user._id%>');
+                if (data.status === 'Update Success'){
+                    localStorage.setItem('notification', 'Data saved successfully.');
+                    location.assign('/personalinformation/<%=user._id%>');
                 }
                 
               }

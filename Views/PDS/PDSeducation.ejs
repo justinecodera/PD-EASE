@@ -7,7 +7,6 @@
         <label class=" formHeader" for="spouse">Education</label>
         <div class="row justify-content-end">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
-                <button class="btn btn-danger form-btn-print disabled me-5" >Print</button>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -29,9 +28,9 @@
                 
                 <label class=" formsubHeader" for="spouse">Period of Attendance: </label>
                 <label class="" for="attendanceFrom">From: </label>
-                <input class="" id="attendanceFrom" name="attendanceFrom" placeholder="Month-Year eg: June-2019" value="" >
+                <input class="" type="month" id="attendanceFrom" name="attendanceFrom" placeholder="Month-Year eg: June-2019" value="" >
                 <label class="" for="attendanceTo">To: </label>
-                <input class="" id="attendanceTo" name="attendanceTo" placeholder="Month-Year eg: June-2019" value="" >
+                <input class="" type="month" id="attendanceTo" name="attendanceTo" placeholder="Month-Year eg: June-2019" value="" >
                 
                 <label class="" for="highestLevel">Highest Level/ Units Earned: </label>
                 <input class="" id="highestLevel" name="highestLevel" placeholder="Write in full do not Abbreviate" value="" >
@@ -215,9 +214,9 @@
                 deleteButton.addEventListener("click", function() {
                     // Remove child's information and the delete button from the DOM
                     referenceblock.removeChild(cardblock);
-                    
                     // Remove child's data from the 'children' array
                     educations.splice(index);
+                    
                 });
                 referenceblock.appendChild(cardblock);
                 cardblock.appendChild(cardbody);
@@ -245,6 +244,7 @@
          
     
         console.log({userId, educations} );
+        if(educations.length > 0){
         try{
             const res = await fetch('/education', {
               method: 'POST',
@@ -253,13 +253,19 @@
             });
             const data = await res.json();
                 if(data.errors){
+                    localStorage.setItem('notification', 'Saving Data Failed.');
+                  location.assign('/education/<%=user._id%>');
                 }
                 if (data.status){
+                    localStorage.setItem('notification', 'Data saved successfully.');
                   location.assign('/education/<%=user._id%>');
                 }
           }
           catch (err){
           }
-      
+        }else {
+            localStorage.setItem('notification', 'Please Input atleast 1 Data before saving');
+            location.assign('/education/<%=user._id%>');
+        }
       })
 </script>
