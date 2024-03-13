@@ -1030,7 +1030,9 @@ async function fillPDF(filename, userid) {
             if (mapping && training) {
                 mapping.lditPrograms.setText(training.lditPrograms ? training.lditPrograms : '');
                 mapping.trainedFrom.setText(training.trainedFrom ? moment(training.trainedFrom).format('YYYY-MM-DD') : '');
+                mapping.trainedFrom.setFontSize(6);
                 mapping.trainedTo.setText(training.trainedTo ? moment(training.trainedTo).format('YYYY-MM-DD') : '');
+                mapping.trainedTo.setFontSize(6);
                 mapping.trainingnumberOfHours.setText(training.trainingnumberOfHours ? JSON.stringify(training.trainingnumberOfHours) : '');
                 mapping.typeOfLD.setText(training.typeOfLD ? training.typeOfLD : '');
                 mapping.conductedSponsoredBy.setText(training.conductedSponsoredBy ? training.conductedSponsoredBy : '');
@@ -1112,7 +1114,7 @@ async function fillPDF(filename, userid) {
         }
         if (qtData.q2.q2b === true) {
             q2byes.check();
-            q2bDateFiled.setText(qtData.q2.q2bDateFiled || '');
+            q2bDateFiled.setText(moment(qtData.q2.q2bDateFiled).format('YYYY-MM-DD') || '');
             q2bStatusofCase.setText(qtData.q2.q2bStatusofCase || '');
         } else if (qtData.q2.q2b === false) {
             q2bno.check();
@@ -1127,8 +1129,8 @@ async function fillPDF(filename, userid) {
         
         if (qtData.q4.q4a === true) {
             q4ayes.check();
-        } else if (qtData.q4.q4a === false) {
             q4aYesDetails.setText(qtData.q4.q4aYesDetails || '');
+        } else if (qtData.q4.q4a === false) {
             q4ano.check();
         }
         
@@ -1249,7 +1251,7 @@ module.exports.submitPDS_post = async (req, res) => {
             res.status(200).json({status: 'Submit Success'});
         }
         catch (err) {
-            res.status(200).json({status: 'Submit Failed'});
+            res.status(400).json({status: 'Submit Failed'});
             console.log(err)
         }
     } else {

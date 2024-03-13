@@ -8,9 +8,10 @@ togglebtn.addEventListener("click", function () {
 
  
 const sidebaritem = document.querySelector(".sidebar-nav");
-sidebaritem.addEventListener("click", function () {
+sidebaritem.addEventListener("mouseenter", function () {
   document.querySelector("#sidebar").classList.add("expand");
 });
+
 
 const main = document.querySelector(".main");
 main.addEventListener("click", function () {

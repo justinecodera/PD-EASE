@@ -7,28 +7,45 @@
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">Other Informations</label>
-        <div class="row justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
+            </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-sm-10">
+            <div class="col-lg-3 col-sm-10">
 
-                <div id="referenceblock1" class="referenceblock"></div>
+                <a class="btn btn-light bg-flagged my-3" id="AddChild" onclick="addhobbies()">+ add</a>
                 <label class="" for="specialSkillsHobbies">Special Skills and Hobbies: </label>
                 <input class="" id="specialSkillsHobbies" name="specialSkillsHobbies" placeholder="" value="" >
-                <a class="btn" id="AddChild" onclick="addhobbies()">+ add</a>
+                <label class="" for="schooLevel">Click Add after filling up to save entry </label>
+                <label class="" for="schooLevel">Entries Will Show Here</label>
+                <label class="" for="schooLevel">Only Those below Here will be saved after Clicking Save</label>
+                <hr>
+                <div id="referenceblock1" class="referenceblock"></div>
 
-                <div id="referenceblock2"></div>
+            </div>
+            <div class="col-lg-3 col-sm-10">
+
+                <a class="btn btn-light bg-flagged my-3" id="AddChild" onclick="addmembership()">+ add</a>
                 <label class="" for="membershipAssocOrg">Membership in Academic Organization: </label>
                 <input class="" id="membershipAssocOrg" name="membershipAssocOrg" placeholder="" value="" >
-                <a class="btn" id="AddChild" onclick="addmembership()">+ add</a>
+                <label class="" for="schooLevel">Click Add after filling up to save entry </label>
+                <label class="" for="schooLevel">Entries Will Show Here</label>
+                <label class="" for="schooLevel">Only Those below Here will be saved after Clicking Save</label>
+                <hr>
+                <div id="referenceblock2" class="referenceblock"></div>
                 
             </div>
-            <div class="col-lg-5 col-sm-10">
-                <div id="referenceblock3"></div>
+            <div class="col-lg-3 col-sm-10">
+                <a class="btn btn-light bg-flagged my-3" id="AddChild" onclick="addrecognition()">+ add</a>
                 <label class="" for="nonAcadDistRecog">Non Academic Distinctions/Recognition: </label>
                 <input class="" id="nonAcadDistRecog" name="nonAcadDistRecog" placeholder="" value="" >
-                <a class="btn" id="AddChild" onclick="addrecognition()">+ add</a>
+                <label class="" for="schooLevel">Click Add after filling up to save entry </label>
+                <label class="" for="schooLevel">Entries Will Show Here</label>
+                <label class="" for="schooLevel">Only Those below Here will be saved after Clicking Save</label>
+                <hr>
+                <div id="referenceblock3" class="referenceblock"></div>
                 
 
             </div>
@@ -80,7 +97,7 @@
     const referenceblock1 = document.getElementById('referenceblock1');
     const referenceblock2 = document.getElementById('referenceblock2');
     const referenceblock3 = document.getElementById('referenceblock3');
-   
+   function printhobbies() {
     hobbies.forEach((hobby, index) => {
         var cardblock = document.createElement("div");
         cardblock.className = "card";
@@ -113,7 +130,9 @@
 
     
     });
-
+   }
+    printhobbies()
+   function printmemberships() {
     memberships.forEach((recognition, index) => {
         var cardblock = document.createElement("div");
         cardblock.className = "card";
@@ -147,7 +166,9 @@
 
     
     });
-
+   }
+    printmemberships()
+   function printrecognitions() {
     recognitions.forEach((membership, index) => {
         var cardblock = document.createElement("div");
         cardblock.className = "card";
@@ -181,148 +202,83 @@
     
     });
 
-    function addhobbies() {
+   }
+    printrecognitions()
 
+    function addhobbies() {
         const specialSkillsHobbies = document.getElementById('specialSkillsHobbies');
         const referenceblock1 = document.getElementById('referenceblock1');
-       
     
+        // Check if the field is not empty
+        if (specialSkillsHobbies.value.trim() === '') {
+            // If the field is empty, display an alert or handle the error accordingly
+            alert('Please fill in the field');
+            return; // Exit the function early
+        }
+    
+        // If the field is filled, proceed with other actions
         hobbies.push(specialSkillsHobbies.value);
-            console.log(hobbies, 'hello')
+        console.log(hobbies, 'hello');
     
+        // Clear the referenceblock
         while (referenceblock1.firstChild) {
             referenceblock1.removeChild(referenceblock1.firstChild);
         }
     
-        hobbies.forEach((hobby, index) => {
-            var cardblock = document.createElement("div");
-            cardblock.className = "card";
-            var cardbody = document.createElement("div");
-            cardbody.className = "card-body";
-    
-            // Create p element 
-            var specialSkillsHobbiesblock = document.createElement("p");
-            specialSkillsHobbiesblock.textContent = hobby;
-    
-            // Create delete button for deleting this child's information
-            var deleteButton = document.createElement("a");
-            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-            deleteButton.textContent = "Delete";
-            
-            // Add event listener to delete button
-            deleteButton.addEventListener("click", function() {
-                // Remove child's information and the delete button from the DOM
-                referenceblock1.removeChild(cardblock);
-                
-                // Remove child's data from the 'children' array
-                hobbies.splice(index);
-            });
-            referenceblock1.appendChild(cardblock);
-            cardblock.appendChild(cardbody);
-    
-            // Append child's name, birthday, and delete button to reference block
-            cardbody.appendChild(specialSkillsHobbiesblock);
-            cardbody.appendChild(deleteButton);
-    
-        
-        });
-    
+        // Print hobbies (assuming printhobbies() is defined elsewhere)
+        printhobbies();
+        specialSkillsHobbies.value = ''
     }
     function addmembership() {
-
         const membershipAssocOrg = document.getElementById('membershipAssocOrg');
         const referenceblock2 = document.getElementById('referenceblock2');
-       
     
+        // Check if the field is not empty
+        if (membershipAssocOrg.value.trim() === '') {
+            // If the field is empty, display an alert or handle the error accordingly
+            alert('Please fill in the field');
+            return; // Exit the function early
+        }
+    
+        // If the field is filled, proceed with other actions
         memberships.push(membershipAssocOrg.value);
-            console.log(memberships, 'hello')
+        console.log(memberships, 'hello');
     
+        // Clear the referenceblock
         while (referenceblock2.firstChild) {
             referenceblock2.removeChild(referenceblock2.firstChild);
         }
     
-        memberships.forEach((recognition, index) => {
-            var cardblock = document.createElement("div");
-            cardblock.className = "card";
-            var cardbody = document.createElement("div");
-            cardbody.className = "card-body";
-    
-    
-            // Create p element 
-            var membershipAssocOrgblock = document.createElement("p");
-            membershipAssocOrgblock.textContent = recognition;
-    
-            // Create delete button for deleting this child's information
-            var deleteButton = document.createElement("a");
-            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-            deleteButton.textContent = "Delete";
-            
-            // Add event listener to delete button
-            deleteButton.addEventListener("click", function() {
-                // Remove child's information and the delete button from the DOM
-                referenceblock2.removeChild(cardblock);
-                
-                // Remove child's data from the 'children' array
-                memberships.splice(index);
-            });
-            referenceblock2.appendChild(cardblock);
-            cardblock.appendChild(cardbody);
-        
-            // Append child's name, birthday, and delete button to reference block
-            cardbody.appendChild(membershipAssocOrgblock);
-            cardbody.appendChild(deleteButton);
-    
-        
-        });
-    
+        // Print memberships (assuming printmemberships() is defined elsewhere)
+        printmemberships();
+        membershipAssocOrg.value = ''
     }
     function addrecognition() {
-
         const nonAcadDistRecog = document.getElementById('nonAcadDistRecog');
         const referenceblock3 = document.getElementById('referenceblock3');
-       
     
+        // Check if the field is not empty
+        if (nonAcadDistRecog.value.trim() === '') {
+            // If the field is empty, display an alert or handle the error accordingly
+            alert('Please fill in the field');
+            return; // Exit the function early
+        }
+    
+        // If the field is filled, proceed with other actions
         recognitions.push(nonAcadDistRecog.value);
-            console.log(recognitions, 'hello')
+        console.log(recognitions, 'hello');
     
+        // Clear the referenceblock
         while (referenceblock3.firstChild) {
             referenceblock3.removeChild(referenceblock3.firstChild);
         }
     
-        recognitions.forEach((membership, index) => {
-            var cardblock = document.createElement("div");
-            cardblock.className = "card";
-            var cardbody = document.createElement("div");
-            cardbody.className = "card-body";
-    
-            // Create p element 
-            var nonAcadDistRecogblock = document.createElement("p");
-            nonAcadDistRecogblock.textContent = membership;
-    
-            // Create delete button for deleting this child's information
-            var deleteButton = document.createElement("a");
-            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-            deleteButton.textContent = "Delete";
-            
-            // Add event listener to delete button
-            deleteButton.addEventListener("click", function() {
-                // Remove child's information and the delete button from the DOM
-                referenceblock3.removeChild(cardblock);
-                
-                // Remove child's data from the 'children' array
-                recognitions.splice(index);
-            });
-            referenceblock3.appendChild(cardblock);
-            cardblock.appendChild(cardbody);
-    
-            // Append child's name, birthday, and delete button to reference block
-            cardbody.appendChild(nonAcadDistRecogblock);
-            cardbody.appendChild(deleteButton);
-    
-        
-        });
-    
+        // Print recognitions (assuming printrecognitions() is defined elsewhere)
+        printrecognitions();
+        nonAcadDistRecog.value = ''
     }
+
+
     const form = document.querySelector('form');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -334,7 +290,7 @@
         try{
             const res = await fetch('/otherinfo', {
               method: 'POST',
-              body: JSON.stringify({userId, specialSkillsHobbies: hobbies, nonAcadDistRecog: memberships, membershipAssocOrg: recognitions, }),
+              body: JSON.stringify({userId, specialSkillsHobbies: hobbies, nonAcadDistRecog: recognitions, membershipAssocOrg: memberships, }),
               headers: { 'Content-Type': 'application/json' }
             });
             const data = await res.json();

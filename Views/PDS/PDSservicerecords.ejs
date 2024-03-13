@@ -2,8 +2,10 @@
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">Service Records</label>
-        <div class="row justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -20,7 +22,7 @@
                 oninput="this.setCustomValidity('')">
                  
                 <label class="" for="DatePlaceIssued">Date/Place of Issuance:  <p class="required">*</p></label>
-                <input class="" id="DatePlaceIssued" name="DatePlaceIssued" placeholder="Date(DD/MM/YYYY)/Place of Issuance" value="<% if (sr === null) {} else {%><%= sr.DatePlaceIssued %><% } %>" required 
+                <input class="" type="date" id="DatePlaceIssued" name="DatePlaceIssued" placeholder="Date(DD/MM/YYYY)/Place of Issuance" value="<% if (sr === null) {} else {%><%= sr.DatePlaceIssued %><% } %>" required 
                 oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
                 oninput="this.setCustomValidity('')">
                  

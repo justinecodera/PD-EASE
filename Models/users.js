@@ -10,6 +10,8 @@ function validateEmailDomain(email) {
     return regex.test(email);
 }
 
+const passwordComplexity = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; // At least one letter and one number, minimum 6 characters
+
 const usersSchema = new Schema({
     firstname: {
         type: String,
@@ -32,7 +34,12 @@ const usersSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Please enter a Password'],
-        minlength: [6, 'minimum password length is 6 characters']
+        validate: {
+            validator: function(v) {
+                return passwordComplexity.test(v);
+            },
+            message: 'Password must contain at least one letter, one number, and be minimum 6 characters long'
+        }
     },
     verified: Boolean,
     

@@ -12,13 +12,13 @@ class="row justify-content-center align-items-center g-2"
             <div class="card" style="width: 100%;">
                 <ul class="list-group list-group-flush " >
                     <li class="list-group-item <% if (pi !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;" style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Personal Information</span>  <a class="pdssections" href="/personalinformation/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                        <span>Personal Information<p class="required">*</p></span>  <a class="pdssections" href="/personalinformation/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
                     </li>
                   <li class="list-group-item <% if (fb !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Family Background</span>  <a class="pdssections" href="/familybackground/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                    <span>Family Background<p class="required">*</p></span>  <a class="pdssections" href="/familybackground/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
                 </li>
                   <li class="list-group-item <% if (ed !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Education Information</span>  <a class="pdssections" href="/education/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                    <span>Education Information<p class="required">*</p></span>  <a class="pdssections" href="/education/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
                 </li>
                   <li class="list-group-item <% if (eb !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
                     <span>Civil Service Eligibility</span>  <a class="pdssections" href="/eligibility/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
@@ -36,13 +36,13 @@ class="row justify-content-center align-items-center g-2"
                     <span>Other Informations</span>  <a class="pdssections" href="/otherinfo/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
                 </li>
                   <li class="list-group-item <% if (qt !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Questions</span>  <a class="pdssections" href="/questions/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                    <span>Questions<p class="required">*</p></span>  <a class="pdssections" href="/questions/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
                 </li>
                 <li class="list-group-item <% if (rr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                  <span>References</span>  <a class="pdssections" href="/references/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                  <span>References<p class="required">*</p></span>  <a class="pdssections" href="/references/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
               </li>
                   <li class="list-group-item <% if (sr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Service Records</span>  <a class="pdssections" href="/servicerecords/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                    <span>Service Records<p class="required">*</p></span>  <a class="pdssections" href="/servicerecords/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
                 </li>
                 </ul>
               </div>
@@ -86,7 +86,8 @@ class="row justify-content-center align-items-center g-2"
 
   submitPDS.addEventListener('click', async (e) => { 
     e.preventDefault();
-    
+    quicknotify('generating and submitting PDS, Please Wait...')
+
     if(pi !== '' && ed !== '' && fb !== '' && qt !== '' && rr !== '' && sr !== '' ) {
       try{
           const res = await fetch('/submitPDS', {
@@ -100,7 +101,7 @@ class="row justify-content-center align-items-center g-2"
                 location.assign('/<%=user._id%>');
               }
               if (data.status){
-                localStorage.setItem('notification', 'PDS SUBMITTED SUCCESSFULLY!');
+                localStorage.setItem('notification', 'PDS GENERATED SUCCESSFULLY!');
                 location.assign('/<%=user._id%>');
               }
         }
@@ -114,4 +115,18 @@ class="row justify-content-center align-items-center g-2"
         
       
   })
+  function quicknotify(message) {
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+    notificationblock.classList.remove('hidden');
+          notificationblock.classList.add('bg-success');
+          notificationblock.classList.add('text-light');
+          notiftext.innerText = message;
+          console.log(message);
+          setTimeout(() => {
+            notificationblock.classList.add('hidden');
+          }, 5000);
+  }
+  
 </script>

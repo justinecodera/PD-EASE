@@ -2,20 +2,29 @@
 
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
-        <label class="formHeader" for="spouse">Personal Information</label>
+        <label class="formHeader" for="spouse">Profile</label>
         <div class="row justify-content-end">
-                <button class="btn btn-primary form-btn" type="submit">Save</button>
+                
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">  
+                
                 <label class="" for="lastName">Surname: <p class="required">*</p></label>
-                <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>" disabled required>
+                <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>"  required>
                     
                 <label class="" for="firstName">First Name:  <p class="required">*</p></label>
-                <input class="" id="firstName" name="firstName" placeholder="First Name" value="<%= user.firstname %>" disabled required>
+                <input class="" id="firstName" name="firstName" placeholder="First Name" value="<%= user.firstname %>"  required>
 
                 <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
-                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required>
+                <div class="input-group">
+                    <input class="form-control disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" required>
+                    <div class="input-group-append">
+                        <% if (user !== null && user.verified === false) { %> <a href="/sendotp/<%= user._id %>" class="input-group-text">Verify Email</a> <% } else { %>
+                            <i title="Verified" class="lni lni-checkmark input-group-text"></i>
+                        <% } %>
+                        
+                    </div>
+                </div>
     
                 <label class="" for="campus">Campus:  <p class="required">*</p></label>
                 <select id="campus" name="campus" >
@@ -32,10 +41,11 @@
                     <option value="30 Hours" <% if (profile !== null && profile.employmentStatus === "30 Hours") { %>selected<% } %>>30 Hours</option>
                     <option value="Part Time" <% if (profile !== null && profile.employmentStatus === "Part Time") { %>selected<% } %>>Part Time</option>
                 </select>
-
+                <button class="btn btn-primary form-btn" type="submit">Save</button>
             </div>
             <div class="col-lg-5 col-sm-10">
-    
+                <label class="formsubHeader" >Other Settings</label>
+                <a href="#" class="">Change Password</a>
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
             
@@ -61,11 +71,11 @@
                   headers: { 'Content-Type': 'application/json' }
                 });
                 const data = await res.json();
-                if(data.errors){
+                if(data.status === 400){
                     localStorage.setItem('notification', 'Saving Data Failed.');
                   location.assign('/profile/<%=user._id%>');
                 }
-                if (data.status){
+                if (data.status === 200){
                     localStorage.setItem('notification', 'Data saved successfully.');
                   location.assign('/profile/<%=user._id%>');
                 }

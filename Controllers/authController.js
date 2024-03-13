@@ -154,16 +154,17 @@ module.exports.sendOTP_get = async (req, res) => {
     const mailOptions = {
         from: 'pdeasenoreply@gmail.com',
         to: userdata.institutionalEmail,
-        subject: 'Your One-Time Password (OTP)',
-        text: `Dear ,\n\n` +
-            `Thank you for using PD-EASE. To complete your verification process, please use the following One-Time Password (OTP):\n\n` +
-            `OTP:  ` + otp + `\n\n` +
-            `This OTP is valid for 10 minutes. Please do not share this OTP with anyone for security reasons.\n\n` +
-            `If you did not request this OTP, please ignore this email. However, if you continue to receive such emails, please contact our support team immediately.\n\n` +
-            `Thank you for using PD-EASE.\n\n` +
-            `Best regards,\n` +
-            `PD-EASE\n` +
-            `pdeasenoreply@gmail.com`
+        subject: 'Your PD-EASE Verification One-Time Password (OTP)',
+    text: `Subject: Your PD-EASE Verification One-Time Password (OTP)\n\n` +
+        `Dear ${userdata.firstname},\n\n` +
+        `We hope this message finds you well. Thank you for choosing PD-EASE to enhance your experience. To ensure the security of your account, we kindly request your cooperation in completing the verification process using the following One-Time Password (OTP):\n\n` +
+        `OTP: ${otp}\n\n` +
+        `This unique code is valid for the next 10 minutes. For your safety, please refrain from sharing this OTP with anyone.\n\n` +
+        `Should you not have initiated this verification, please disregard this email. However, if you find yourself repeatedly receiving such emails, we encourage you to reach out to our dedicated support team promptly.\n\n` +
+        `Your trust in PD-EASE is greatly appreciated.\n\n` +
+        `Best Regards,\n\n` +
+        `PD-EASE Support Team\n` +
+        `Contact: pdeasesupport@gmail.com`
     };
 
     let redirectTo = '/verifyotp/' + userId; // Initialize redirection URL here

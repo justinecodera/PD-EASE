@@ -50,8 +50,7 @@ const personalInfoSchema = new Schema({
     },
     bloodType: {
         type: String,
-        required: true,
-        lowercase: true
+        required: true
     },
     gsisId: {
         type: String,

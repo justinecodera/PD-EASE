@@ -5,8 +5,10 @@
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">References</label>
-        <div class="row justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -15,16 +17,16 @@
                 </div>
                 <div id="addreferenceblock">
                 
+                    <a class="btn btn-light bg-flagged  my-3" id="AddChild" onclick="addreference()">+ add</a>
                     <label class="" for="refName">Name: </label>
-                    <input class="" id="refName" name="refName" placeholder="Write in full do not Abbreviate" value="" >
+                    <input class="" id="refName" name="refName" placeholder="Surname, Firstname Mi." value="" >
     
                     <label class="" for="refAddress">Address: </label>
-                    <input class="" id="refAddress" name="refAddress" placeholder="Write in full do not Abbreviate" value="" >
+                    <input class="" id="refAddress" name="refAddress" placeholder="Write in full" value="" >
     
                     <label class="" for="refTelNo">Telephone Number: </label>
-                    <input class="" id="refTelNo" name="refTelNo" placeholder="Write in full do not Abbreviate" value="" >
+                    <input type="number" class="" id="refTelNo" name="refTelNo" placeholder="Telephone Number" value="" >
     
-                    <a class="btn" id="AddChild" onclick="addreference()">+ add</a>
                 </div>
                 
             </div>
@@ -46,6 +48,10 @@
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="references">References</label>
                 
+                <label class="" for="schooLevel">Click Add after filling up to save entry </label>
+                <label class="" for="schooLevel">Entries Will Show Here</label>
+                <label class="" for="schooLevel">Only Those below Here will be saved after Clicking Save</label>
+                <hr>
                 <div id="referenceblock1" class="referenceblock" class="referenceblock"></div>
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
@@ -68,63 +74,7 @@
             limitWarning.style.display = 'none';
         }
     }
-    references.forEach((reference, index) => {
-    var cardblock = document.createElement("div");
-    cardblock.className = "card";
-    var cardbody = document.createElement("div");
-    cardbody.className = "card-body";
-        // Create h1 element
-    var refNameblock = document.createElement("h1");
-    refNameblock.textContent = reference.refName;
-
-    // Create p element 
-    var refAddressblock = document.createElement("p");
-    refAddressblock.textContent = reference.refAddress;
-
-    // Create p element 
-    var refTelNoblock = document.createElement("p");
-    refTelNoblock.textContent = reference.refTelNo;
-    
-        // Create delete button for deleting this child's information
-        var deleteButton = document.createElement("a");
-        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-        deleteButton.textContent = "Delete";
-        
-        // Add event listener to delete button
-        deleteButton.addEventListener("click", function() {
-            // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(cardblock);
-            
-            // Remove child's data from the 'children' array
-            references.splice(index);
-            limitTo3()
-        });
-        referenceblock.appendChild(cardblock);
-        cardblock.appendChild(cardbody);
-        // Append child's name, birthday, and delete button to reference block
-        cardbody.appendChild(refNameblock);
-        cardbody.appendChild(refAddressblock);
-        cardbody.appendChild(refTelNoblock);
-        cardbody.appendChild(deleteButton);
-
-        limitTo3()
-    });
-    
-    function addreference() {
-        
-        const refName = document.getElementById('refName');
-        const refAddress = document.getElementById('refAddress');
-        const refTelNo = document.getElementById('refTelNo');
-        const referenceblock = document.getElementById('referenceblock1');
-       
-    
-        references.push({refName: refName.value, refAddress: refAddress.value, refTelNo: refTelNo.value});
-            console.log(references, 'hello')
-    
-        while (referenceblock.firstChild) {
-            referenceblock.removeChild(referenceblock.firstChild);
-        }
-    
+    function printreferences(){
         references.forEach((reference, index) => {
             var cardblock = document.createElement("div");
             cardblock.className = "card";
@@ -134,13 +84,13 @@
             var refNameblock = document.createElement("h1");
             refNameblock.textContent = reference.refName;
         
-            // Create p element 
-            var refAddressblock = document.createElement("p");
-            refAddressblock.textContent = reference.refAddress;
+                // Create p element for reference address
+                var refAddressblock = document.createElement("p");
+                refAddressblock.textContent = 'Reference Address: ' + reference.refAddress;
         
-            // Create p element 
-            var refTelNoblock = document.createElement("p");
-            refTelNoblock.textContent = reference.refTelNo;
+                // Create p element for reference telephone number
+                var refTelNoblock = document.createElement("p");
+                refTelNoblock.textContent = 'Reference Telephone Number: ' + reference.refTelNo;
             
                 // Create delete button for deleting this child's information
                 var deleteButton = document.createElement("a");
@@ -166,8 +116,33 @@
         
                 limitTo3()
             });
-            
+    }
+    printreferences()
+    function addreference() {
+        const refName = document.getElementById('refName').value;
+        const refAddress = document.getElementById('refAddress').value;
+        const refTelNo = document.getElementById('refTelNo').value;
+        const referenceblock = document.getElementById('referenceblock1');
     
+        // Check if any of the form fields are empty
+        if (refName.trim() !== '' && refAddress.trim() !== '' && refTelNo.trim() !== '') {
+            references.push({refName: refName, refAddress: refAddress, refTelNo: refTelNo});
+            console.log(references, 'hello')
+    
+            while (referenceblock.firstChild) {
+                referenceblock.removeChild(referenceblock.firstChild);
+            }
+    
+            printreferences();
+    
+            // Clear form fields after adding reference
+            document.getElementById('refName').value = '';
+            document.getElementById('refAddress').value = '';
+            document.getElementById('refTelNo').value = '';
+        } else {
+            // Alert the user or perform any other action to indicate that fields are empty
+            alert('Please fill in all fields.');
+        }
     }
 
     

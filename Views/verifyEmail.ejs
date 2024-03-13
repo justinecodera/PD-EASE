@@ -65,7 +65,8 @@
                 otpError.textContent = data.errors.otp;
             }
             if (data.user){
-              location.assign('/<%=user._id%>');
+                localStorage.setItem('notification', 'Email Verified Sucesfully');
+              location.assign('/profile/<%=user._id%>');
             }
             
           }

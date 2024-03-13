@@ -5,12 +5,15 @@
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">Trainings</label>
-        <div class="row justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
 
+                <a class="btn btn-light bg-flagged  my-3"  id="AddChild" onclick="addtraining()">+ add</a>
                 <label class="" for="lditPrograms">Title of Learning and Development Interventions/Training Programs: </label>
                 <input class="" id="lditPrograms" name="lditPrograms" placeholder="Write in full do not Abbreviate" value="" >
                 
@@ -21,18 +24,17 @@
                 <input class="" type="date" id="trainedTo" name="trainedTo" placeholder="Ending Date" value="" >
 
                 <label class="" for="trainingnumberOfHours">Number of Hours: </label>
-                <input class="" id="trainingnumberOfHours" name="trainingnumberOfHours" placeholder="in Hours" value="" >
+                <input type="number" class="" id="trainingnumberOfHours" name="trainingnumberOfHours" placeholder="in Hours" value="" >
 
-                <label class="" for="typeOfId">Type of LD: </label>
-                <select class="" id="typeOfId" name="typeOfId" value="" required>
+                <label class="" for="typeOfLD">Type of Learning Development: </label>
+                <select class="" id="typeOfLD" name="typeOfLD" value="" required>
                     <option value="Managerial">Managerial</option>
                     <option value="Supervisory">Supervisory</option>
                     <option value="Technical">Technical</option>
                 </select>
 
                 <label class="" for="conductedSponsoredBy">Conducted and Sponsored By: </label>
-                <input class="" id="conductedSponsoredBy" name="conductedSponsoredBy" placeholder="Write in full " value="" >
-                <a class="btn" id="AddChild" onclick="addtraining()">+ add</a>
+                <input class="" id="conductedSponsoredBy" name="conductedSponsoredBy" placeholder="Write Full Name " value="" >
             </div>
             <div class="col-lg-5 col-sm-10">
                 <% if(tr) {if (tr.ldit === null) {} else {%><% for( var training of tr.ldit ) { %>
@@ -40,21 +42,25 @@
 
                     <script data-trainedfrom="<%- training.trainedFrom.toDateString() %>" data-trainedto="<%- training.trainedTo.toDateString() %>" 
                         data-lditprograms="<%- training.lditPrograms %>" data-trainingnumberofhours="<%- training.trainingnumberOfHours%>"
-                        data-typeofid="<%- training.typeOfId%>" data-conductedsponsoredby="<%- training.conductedSponsoredBy%>">
+                        data-typeofld="<%- training.typeOfLD%>" data-conductedsponsoredby="<%- training.conductedSponsoredBy%>">
                         
                         trainedFrom = document.currentScript.dataset.trainedfrom;
                         trainedTo = document.currentScript.dataset.trainedto;
                         trainingnumberOfHours = document.currentScript.dataset.trainingnumberofhours;
-                        typeOfId = document.currentScript.dataset.typeofid;
+                        typeOfLD = document.currentScript.dataset.typeofld;
                         conductedSponsoredBy = document.currentScript.dataset.conductedsponsoredby;
                         lditPrograms = document.currentScript.dataset.lditprograms;
 
-                        console.log({trainedFrom, trainedTo, trainingnumberOfHours, typeOfId, conductedSponsoredBy, lditPrograms})
-                        trainings.push({trainedFrom, trainedTo, trainingnumberOfHours, typeOfId, conductedSponsoredBy, lditPrograms});
+                        console.log({trainedFrom, trainedTo, trainingnumberOfHours, typeOfLD, conductedSponsoredBy, lditPrograms})
+                        trainings.push({trainedFrom, trainedTo, trainingnumberOfHours, typeOfLD, conductedSponsoredBy, lditPrograms});
                     </script>
 
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="trainings">Learning and Development Interventions/Training Programs</label>
+                <label class="" for="schooLevel">Click Add after filling up to save entry </label>
+                <label class="" for="schooLevel">Entries Will Show Here</label>
+                <label class="" for="schooLevel">Only Those below Here will be saved after Clicking Save</label>
+                <hr>
                 <div id="referenceblock1" class="referenceblock"></div>
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
@@ -65,7 +71,7 @@
 </div>
 <script >
     const referenceblock = document.getElementById('referenceblock1');
-   
+   function printtrainings() {
     trainings.forEach((training, index) => {
         var cardblock = document.createElement("div");
         cardblock.className = "card";
@@ -76,26 +82,25 @@
         var lditProgramsblock = document.createElement("h1");
         lditProgramsblock.textContent = training.lditPrograms;
     
-        // Create p element 
+        // Create p element for trained from
         var trainedFromblock = document.createElement("p");
-        trainedFromblock.textContent = training.trainedFrom;
-    
-        // Create p element 
-        var trainedToblock = document.createElement("p");
-        trainedToblock.textContent = training.trainedTo;
-    
-        // Create p element 
-        var trainingnumberOfHoursblock = document.createElement("p");
-        trainingnumberOfHoursblock.textContent = training.trainingnumberOfHours;
-    
-        // Create p element 
-        var typeOfIdblock = document.createElement("p");
-        typeOfIdblock.textContent = training.typeOfId;
+        trainedFromblock.textContent = 'Trained From: ' + training.trainedFrom;
 
-        // Create p element 
+        // Create p element for trained to
+        var trainedToblock = document.createElement("p");
+        trainedToblock.textContent = 'Trained To: ' + training.trainedTo;
+
+        // Create p element for number of training hours
+        var trainingnumberOfHoursblock = document.createElement("p");
+        trainingnumberOfHoursblock.textContent = 'Number of Training Hours: ' + training.trainingnumberOfHours;
+
+        // Create p element for type of learning and development
+        var typeOfLDblock = document.createElement("p");
+        typeOfLDblock.textContent = 'Type of Learning and Development: ' + training.typeOfLD;
+
+        // Create p element for conducted or sponsored by
         var conductedSponsoredByblock = document.createElement("p");
-        conductedSponsoredByblock.textContent = training.conductedSponsoredBy;
-    
+        conductedSponsoredByblock.textContent = 'Conducted/Sponsored By: ' + training.conductedSponsoredBy; 
 
         // Create delete button for deleting this child's information
         var deleteButton = document.createElement("a");
@@ -118,91 +123,57 @@
         cardbody.appendChild(trainedFromblock);
         cardbody.appendChild(trainedToblock);
         cardbody.appendChild(trainingnumberOfHoursblock);
-        cardbody.appendChild(typeOfIdblock);
+        cardbody.appendChild(typeOfLDblock);
         cardbody.appendChild(conductedSponsoredByblock);
         cardbody.appendChild(deleteButton);
 
     
     });
-    function addtraining() {
+    
+   }
+   printtrainings()
+   function addtraining() {
+    const lditProgramsblock = document.getElementById('lditPrograms');
+    const trainedFromblock = document.getElementById('trainedFrom');
+    const trainedToblock = document.getElementById('trainedTo');
+    const trainingnumberOfHoursblock = document.getElementById('trainingnumberOfHours');
+    const typeOfLDblock = document.getElementById('typeOfLD');
+    const conductedSponsoredByblock = document.getElementById('conductedSponsoredBy');
+    const referenceblock = document.getElementById('referenceblock1');
 
-        const lditProgramsblock = document.getElementById('lditPrograms');
-        const trainedFromblock = document.getElementById('trainedFrom');
-        const trainedToblock = document.getElementById('trainedTo');
-        const trainingnumberOfHoursblock = document.getElementById('trainingnumberOfHours');
-        const typeOfIdblock = document.getElementById('typeOfId');
-        const conductedSponsoredByblock = document.getElementById('conductedSponsoredBy');
-        const referenceblock = document.getElementById('referenceblock1');
-       
-    
-        trainings.push({lditPrograms: lditPrograms.value, trainedFrom: trainedFrom.value
-            , trainedTo: trainedTo.value, trainingnumberOfHours: trainingnumberOfHours.value
-            , typeOfId: typeOfId.value, conductedSponsoredBy: conductedSponsoredBy.value});
-            console.log(trainings, 'hello')
-    
-        while (referenceblock.firstChild) {
-            referenceblock.removeChild(referenceblock.firstChild);
-        }
-    
-        trainings.forEach((training, index) => {
-            var cardblock = document.createElement("div");
-            cardblock.className = "card";
-            var cardbody = document.createElement("div");
-            cardbody.className = "card-body";
-    
-            // Create h1 element
-            var lditProgramsblock = document.createElement("h1");
-            lditProgramsblock.textContent = training.lditPrograms;
-        
-            // Create p element 
-            var trainedFromblock = document.createElement("p");
-            trainedFromblock.textContent = training.trainedFrom;
-        
-            // Create p element 
-            var trainedToblock = document.createElement("p");
-            trainedToblock.textContent = training.trainedTo;
-        
-            // Create p element 
-            var trainingnumberOfHoursblock = document.createElement("p");
-            trainingnumberOfHoursblock.textContent = training.trainingnumberOfHours;
-        
-            // Create p element 
-            var typeOfIdblock = document.createElement("p");
-            typeOfIdblock.textContent = training.typeOfId;
-    
-            // Create p element 
-            var conductedSponsoredByblock = document.createElement("p");
-            conductedSponsoredByblock.textContent = training.conductedSponsoredBy;
-        
-    
-            // Create delete button for deleting this child's information
-            var deleteButton = document.createElement("a");
-            deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-            deleteButton.textContent = "Delete";
-            
-            // Add event listener to delete button
-            deleteButton.addEventListener("click", function() {
-                // Remove child's information and the delete button from the DOM
-                referenceblock.removeChild(cardblock);
-                
-                // Remove child's data from the 'children' array
-                trainings.splice(index);
-            });
-            referenceblock.appendChild(cardblock);
-            cardblock.appendChild(cardbody);
-        
-            // Append child's name, birthday, and delete button to reference block
-            cardbody.appendChild(lditProgramsblock);
-            cardbody.appendChild(trainedFromblock);
-            cardbody.appendChild(trainedToblock);
-            cardbody.appendChild(trainingnumberOfHoursblock);
-            cardbody.appendChild(typeOfIdblock);
-            cardbody.appendChild(conductedSponsoredByblock);
-            cardbody.appendChild(deleteButton);
-    
-        
-        });
-    
+    // Check if all fields are not empty
+    if (lditProgramsblock.value.trim() === '' || trainedFromblock.value.trim() === ''
+        || trainedToblock.value.trim() === '' || trainingnumberOfHoursblock.value.trim() === ''
+        || typeOfLDblock.value.trim() === '' || conductedSponsoredByblock.value.trim() === '') {
+        // If any field is empty, display an alert or handle the error accordingly
+        alert('Please fill in all fields');
+        return; // Exit the function early
+    }
+
+    // If all fields are filled, proceed with other actions
+    trainings.push({
+        lditPrograms: lditProgramsblock.value,
+        trainedFrom: trainedFromblock.value,
+        trainedTo: trainedToblock.value,
+        trainingnumberOfHours: trainingnumberOfHoursblock.value,
+        typeOfLD: typeOfLD.value,
+        conductedSponsoredBy: conductedSponsoredByblock.value
+    });
+    console.log(trainings, 'hello');
+
+    // Clear the referenceblock
+    while (referenceblock.firstChild) {
+        referenceblock.removeChild(referenceblock.firstChild);
+    }
+
+    // Print trainings (assuming printtrainings() is defined elsewhere)
+    printtrainings();
+    lditProgramsblock.value = '';
+    trainedFromblock.value = '';
+    trainedToblock.value = '';
+    trainingnumberOfHoursblock.value = '';
+    typeOfLDblock.value = 'Managerial';
+    conductedSponsoredByblock.value = '';
     }
 
     const form = document.querySelector('form');

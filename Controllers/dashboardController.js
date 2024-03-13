@@ -329,7 +329,7 @@ module.exports.voluntarywork_post = async (req, res) => {
     if (uservw === null) {
         //create new entry
         try {
-            const vwcreate = await VW.create({userId}, {vw});
+            const vwcreate = await VW.create({userId, vw});
             console.log(vwcreate);
             res.status(200).json({status: 'Update Success'});
         }
@@ -340,7 +340,7 @@ module.exports.voluntarywork_post = async (req, res) => {
     } else {
         //update existing entry
         try {
-            const vwupdate = await VW.updateOne({userId, vw});
+            const vwupdate = await VW.updateOne({userId}, {vw});
                 console.log(vwupdate)
                 res.status(200).json({status: 'Update Success'});
         }

@@ -123,7 +123,7 @@
                 passwordError.textContent = data.errors.password;
               }
               if (data.user){
-                localStorage.setItem('notification', 'Email Verified Succesfully');
+                localStorage.setItem('notification', 'Please Verify your Email');
                 location.assign('/sendotp/'+data.user);
               }
             }else {

@@ -5,8 +5,10 @@
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">Family Background<p class="required">*</p></label>
-        <div class="row justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">
@@ -29,7 +31,7 @@
                 <select class="" id="sNameExtension" name="nameExtension"  required 
                     oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
                     oninput="this.setCustomValidity('')">
-                        <option value="Single" <% if (fb !== null && fb.sNameExtension === "N/A") { %>selected<% } %>>N/A</option>
+                        <option value="N/A" <% if (fb !== null && fb.sNameExtension === "N/A") { %>selected<% } %>>N/A</option>
                         <option value="Married" <% if (fb !== null && fb.sNameExtension === "jr.") { %>selected<% } %>>jr.</option>
                         <option value="Widowed" <% if (fb !== null && fb.sNameExtension === "sr.") { %>selected<% } %>>sr.</option>
                     </select>
@@ -68,28 +70,29 @@
                 <select class="" id="fNameExtension" name="nameExtension"  required 
                     oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
                     oninput="this.setCustomValidity('')">
-                        <option value="Single" <% if (fb !== null && fb.fNameExtension === "N/A") { %>selected<% } %>>N/A</option>
+                        <option value="N/A" <% if (fb !== null && fb.fNameExtension === "N/A") { %>selected<% } %>>N/A</option>
                         <option value="Married" <% if (fb !== null && fb.fNameExtension === "jr.") { %>selected<% } %>>jr.</option>
                         <option value="Widowed" <% if (fb !== null && fb.fNameExtension === "sr.") { %>selected<% } %>>sr.</option>
                     </select>
                  
+                    <label class=" formsubHeader" for="spouse">Mother: <p class="required">*</p></label>
+
+                    <label class="" for="mLastName">Surname: <p class="required">*</p></label>
+                    <input class="" id="mLastName" name="mLastName" placeholder="Mother's Surname" value="<% if (fb === null) {} else {%><%= fb.mother.mLastName %><% } %>" required 
+                    oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                    oninput="this.setCustomValidity('')">
+                    <label class="" for="mFirstName">First Name: <p class="required">*</p></label>
+                    <input class="" id="mFirstName" name="mFirstName" placeholder="Mother's First Name" value="<% if (fb === null) {} else {%><%= fb.mother.mFirstName %><% } %>" required 
+                    oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                    oninput="this.setCustomValidity('')">
+                    <label class="" for="mMiddleName">Middle Name: <p class="required">*</p></label>
+                    <input class="" id="mMiddleName" name="mMiddleName" placeholder="Mother's Middle Name" value="<% if (fb === null) {} else {%><%= fb.mother.mMiddleName %><% } %>" required 
+                    oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                    oninput="this.setCustomValidity('')">
             </div>
             <div class="col-lg-5 col-sm-10">
                                                                                                
-                <label class=" formsubHeader" for="spouse">Mother: <p class="required">*</p></label>
-
-                <label class="" for="mLastName">Surname: <p class="required">*</p></label>
-                <input class="" id="mLastName" name="mLastName" placeholder="mother's Surname" value="<% if (fb === null) {} else {%><%= fb.mother.mLastName %><% } %>" required 
-                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
-                oninput="this.setCustomValidity('')">
-                <label class="" for="mFirstName">First Name: <p class="required">*</p></label>
-                <input class="" id="mFirstName" name="mFirstName" placeholder="mother's First Name" value="<% if (fb === null) {} else {%><%= fb.mother.mFirstName %><% } %>" required 
-                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
-                oninput="this.setCustomValidity('')">
-                <label class="" for="mMiddleName">Middle Name: <p class="required">*</p></label>
-                <input class="" id="mMiddleName" name="mMiddleName" placeholder="mother's Middle Name" value="<% if (fb === null) {} else {%><%= fb.mother.mMiddleName %><% } %>" required 
-                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
-                oninput="this.setCustomValidity('')">
+                
 
 
                 <% if(fb) {if (fb.children === null) {} else {%><% for( var child of fb.children ) { %>
@@ -104,13 +107,16 @@
                 <% } %><%}}%>
                 <label class=" formsubHeader" for="spouse">Childrens: </label>
                 
-                
-                
+                <a class="btn btn-light bg-flagged my-3" id="AddChild" onclick="addchild()">+ add</a>
                 <label class="" for="cFullName">Child's Full Name: </label>
                 <input class="" id="cFullName" name="cFullName" placeholder="Surname, Firstname Mi." >
                 <label class="" for="cBirthDate">Child's BirthDate: </label>
                 <input class="" id="cBirthDate" name="cBirthDate" placeholder="MM/DD/YYYY" >
-                <a class="btn" id="AddChild" onclick="addchild()">+ add</a>
+                
+                <label class="" for="schooLevel">Click Add after filling up to save entry </label>
+                <label class="" for="schooLevel">Entries Will Show Here</label>
+                <label class="" for="schooLevel">Only Those below Here will be saved</label>
+                <hr>
                 <div id="referenceblock1" class="referenceblock"></div>
             </div>
         </div>
@@ -123,7 +129,7 @@
     
     const form = document.querySelector('form');
     const referenceblock = document.getElementById('referenceblock1');
-   
+   function printchildren() {
     children.forEach((child, index) => {
         var cardblock = document.createElement("div");
         cardblock.className = "card";
@@ -136,7 +142,7 @@
     
         // Create p element for child's birthday
         var cBirthDateblock = document.createElement("p");
-        cBirthDateblock.textContent = child.cBirthDate;
+        cBirthDateblock.textContent = 'Birthdate: '+child.cBirthDate;
     
         // Create delete button for deleting this child's information
         var deleteButton = document.createElement("a");
@@ -161,7 +167,9 @@
 
     
     });
+   }
     
+   printchildren()
 function addchild() {
 
     const cFullName = document.getElementById('cFullName');
@@ -170,50 +178,16 @@ function addchild() {
 
 
 
-    children.push({cFullName: cFullName.value, cBirthDate: cBirthDate.value});
-
-
-    while (referenceblock.firstChild) {
-        referenceblock.removeChild(referenceblock.firstChild);
+    
+    if(cFullName.value !== '' && cBirthDate !== ''){
+        children.push({cFullName: cFullName.value, cBirthDate: cBirthDate.value});
+        while (referenceblock.firstChild) {
+            referenceblock.removeChild(referenceblock.firstChild);
+        }
+        printchildren()
+    }else {
+        alert('Children Fields are Empty');
     }
-
-    children.forEach((child, index) => {
-        var cardblock = document.createElement("div");
-        cardblock.className = "card";
-        var cardbody = document.createElement("div");
-        cardbody.className = "card-body";
-
-        // Create h1 element for child's name
-        var cFullNameblock = document.createElement("h1");
-        cFullNameblock.textContent = child.cFullName;
-    
-        // Create p element for child's birthday
-        var cBirthDateblock = document.createElement("p");
-        cBirthDateblock.textContent = child.cBirthDate;
-    
-        // Create delete button for deleting this child's information
-        var deleteButton = document.createElement("a");
-        deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-        deleteButton.textContent = "Delete";
-        
-        // Add event listener to delete button
-        deleteButton.addEventListener("click", function() {
-            // Remove child's information and the delete button from the DOM
-            referenceblock.removeChild(cardblock);
-            
-            // Remove child's data from the 'children' array
-            children.splice(index, 1);
-        });
-        referenceblock.appendChild(cardblock);
-        cardblock.appendChild(cardbody);
-
-        // Append child's name, birthday, and delete button to reference block
-        cardbody.appendChild(cFullNameblock);
-        cardbody.appendChild(cBirthDateblock);
-        cardbody.appendChild(deleteButton);
-
-    
-    });
 
 cFullName.value = ''
 cBirthDate.value = ''

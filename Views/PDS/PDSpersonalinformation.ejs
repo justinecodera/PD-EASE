@@ -3,8 +3,10 @@
 <div class="row align-items-center">
     <form class="mt-1 pds-form" >
         <label class="formHeader" for="spouse">Personal Information</label>
-        <div class="row justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-5 col-sm-10">  
@@ -25,7 +27,7 @@
                 <select class="" id="nameExtension" name="nameExtension"  required 
                     oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
                     oninput="this.setCustomValidity('')">
-                        <option value="Single" <% if (pi !== null && pi.nameExtension === "N/A") { %>selected<% } %>>N/A</option>
+                        <option value="N/A" <% if (pi !== null && pi.nameExtension === "N/A") { %>selected<% } %>>N/A</option>
                         <option value="Married" <% if (pi !== null && pi.nameExtension === "jr.") { %>selected<% } %>>jr.</option>
                         <option value="Widowed" <% if (pi !== null && pi.nameExtension === "sr.") { %>selected<% } %>>sr.</option>
                     </select>
@@ -60,19 +62,31 @@
                 </select>
                     
                 <label class="" for="height">Height (m):   <p class="required">*</p></label>
-                <input class="" id="height" name="height"  placeholder="Height" value="<% if (pi === null) {} else {%><%= pi.height %><% } %>" required 
+                <input class="" type="number" id="height" name="height"  placeholder="Height" value="<% if (pi === null) {} else {%><%= pi.height %><% } %>" required 
                 oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
                 oninput="this.setCustomValidity('')">
                     
                 <label class="" for="weight">Weight (Kg):  <p class="required">*</p></label>
-                <input class="" id="weight" name="weight" placeholder="Weight" value="<% if (pi === null) {} else {%><%= pi.weight %><% } %>" required 
+                <input type="number" class="" id="weight" name="weight" placeholder="Weight" value="<% if (pi === null) {} else {%><%= pi.weight %><% } %>" required 
                 oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
                 oninput="this.setCustomValidity('')">
                     
                 <label class="" for="bloodType">Blood Type:  <p class="required">*</p></label>
-                <input class="" id="bloodType" name="bloodType" placeholder="Blood Type" value="<% if (pi === null) {} else {%><%= pi.bloodType %><% } %>" required 
-                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
-                oninput="this.setCustomValidity('')">
+                <select class="" id="bloodType" name="bloodType" required>
+                    <option value="">Select Blood Type</option>
+                    <option value="A" <% if (pi !== null && pi.bloodType === 'A') { %> selected <% } %>>A</option>
+                    <option value="B" <% if (pi !== null && pi.bloodType === 'B') { %> selected <% } %>>B</option>
+                    <option value="AB" <% if (pi !== null && pi.bloodType === 'AB') { %> selected <% } %>>AB</option>
+                    <option value="O" <% if (pi !== null && pi.bloodType === 'O') { %> selected <% } %>>O</option>
+                    <option value="A+" <% if (pi !== null && pi.bloodType === 'A+') { %> selected <% } %>>A+</option>
+                    <option value="A-" <% if (pi !== null && pi.bloodType === 'A-') { %> selected <% } %>>A-</option>
+                    <option value="B+" <% if (pi !== null && pi.bloodType === 'B+') { %> selected <% } %>>B+</option>
+                    <option value="B-" <% if (pi !== null && pi.bloodType === 'B-') { %> selected <% } %>>B-</option>
+                    <option value="AB+" <% if (pi !== null && pi.bloodType === 'AB+') { %> selected <% } %>>AB+</option>
+                    <option value="AB-" <% if (pi !== null && pi.bloodType === 'AB-') { %> selected <% } %>>AB-</option>
+                    <option value="O+" <% if (pi !== null && pi.bloodType === 'O+') { %> selected <% } %>>O+</option>
+                    <option value="O-" <% if (pi !== null && pi.bloodType === 'O-') { %> selected <% } %>>O-</option>
+                </select>
                     
                 <label class="" for="gsisId">GSIS ID:  <p class="required">*</p></label>
                 <input class="" id="gsisId" name="gsisId" placeholder="GSIS ID" value="<% if (pi === null) {} else {%><%= pi.gsisId %><% } %>" required 
@@ -110,14 +124,16 @@
                 <label class="" for="celNo">Cellphone Number: </label>
                 <input class="" id="celNo" name="celNo" placeholder="Telephone Number" value="<% if (pi === null) {} else {%><%= pi.celNo %><% } %>" >
                 
-                <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
-                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required 
-                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
-                oninput="this.setCustomValidity('')">
+                
     
             </div>
             <div class="col-lg-5 col-sm-10">
     
+                <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
+                <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required 
+                oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
+                oninput="this.setCustomValidity('')">
+
                 <label class="" for="citizenship">Citizenship:  <p class="required">*</p></label>
                 <select class="" id="citizenship" name="citizenship" onchange="handleCitizenshipSelection()"  required 
                 oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
