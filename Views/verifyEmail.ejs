@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<%- include('./Partials/header.ejs') %>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Verify Your Email</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="verificationForm">
+                            <div class="form-group">
+                                <label for="otp">Enter OTP:</label>
+                                <div class="otp error"></div>
+                                <input type="text" class="form-control" id="otp" name="otp" required>
+                            </div>
+                            <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+                            <button type="submit" class="btn btn-success btn-block">Verify</button>
+                            <!-- Button for Resending OTP -->
+                            <button type="button" class="btn btn-secondary btn-block mt-3" id="resendOTP">Resend OTP</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include('./Partials/footer.ejs') %>
+<%- include('./Partials/scripts.ejs') %>
+<script >
+    const form = document.querySelector('form');
+    const otpError = document.querySelector('.otp.error');
+    const resendOTPButton = document.getElementById('resendOTP');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = form.userId.value;
+        const otp = form.otp.value;
+        
+        otpError.textContent = '';
+
+        console.log({userId, otp});
+        try{
+            const res = await fetch('/verifyotp', {
+              method: 'POST',
+              body: JSON.stringify({userId, otp}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data.status)
+            if(data.errors){
+                otpError.textContent = data.errors.otp;
+            }
+            if (data.user){
+              location.assign('/<%=user._id%>');
+            }
+            
+          }
+          catch (err){
+          }
+      
+      });
+
+      // Event listener for Resend OTP button
+      resendOTPButton.addEventListener('click', async () => {
+        
+        const userId = form.userId.value;
+        try {
+            
+            const res = await fetch(`/sendotp/${userId}`, {
+                method: 'GET'
+            });
+            // Handle response as needed
+        } catch (error) {
+            console.error('Error resending OTP:', error);
+        }
+    });
+</script>
+
+</html>

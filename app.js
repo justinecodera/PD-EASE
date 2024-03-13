@@ -1,6 +1,7 @@
 //dependencies//
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
@@ -40,6 +41,8 @@ app.get('/favicon.ico', (req, res) => {
     res.status(204).end(); // Respond with No Content status
 });
 //loginroutes
+
+app.use(bodyParser.json());
 app.use(authRoutes);
 
 //dashboard

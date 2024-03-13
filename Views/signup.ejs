@@ -123,8 +123,8 @@
                 passwordError.textContent = data.errors.password;
               }
               if (data.user){
-                    localStorage.setItem('notification', 'Please Complete Your Profile');
-                location.assign('/profile/'+data.user);
+                localStorage.setItem('notification', 'Email Verified Succesfully');
+                location.assign('/sendotp/'+data.user);
               }
             }else {
               passwordError.textContent = 'Passwords dont match!';
