@@ -477,8 +477,11 @@ label.formHeader {
 
 
 .referenceblock .card .card-body a {
-    background-color: #d11a2a;
-    color: white;
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    color: black;
     font-size: .8rem;
     margin-left: 1rem;
     margin-top: 1rem;

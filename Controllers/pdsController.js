@@ -1247,7 +1247,7 @@ module.exports.submitPDS_post = async (req, res) => {
         try {
             const pdsScreate = await pdsS.create({userId, status: 'Pending', comment: ''});
             await fillPDF(filePath, userId);
-            console.log(pdsScreate);
+            // console.log(pdsScreate);
             res.status(200).json({status: 'Submit Success'});
         }
         catch (err) {

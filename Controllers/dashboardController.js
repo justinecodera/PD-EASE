@@ -30,14 +30,14 @@ module.exports.personalinformation_get = async (req, res) => {
     const id = req.params.id;
     await PI.findOne({userId: id})
         .then(result => {
-            console.log(result)
+            // console.log(result)
             if (result === null) {
-                console.log(result,'eto ba nagpiprint')
+                // console.log(result)
                 res.render('Dashboard', {pibirthDate: null, pi: null, title: "Personal Information", page: "personalinformation"});
             } else {
                 convertedBirthdate = moment(result.birthDate).format('YYYY-MM-DD');
                 res.render('Dashboard', {pibirthDate: convertedBirthdate, pi: result, title: "Personal Information", page: "personalinformation"});
-                console.log(result,'eto ba nagpiprint')
+                // console.log(result)
             }
             
         })
@@ -61,7 +61,7 @@ module.exports.personalinformation_post = async (req, res) => {
                 weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo, celNo,
                 citizenship, dualCitizenship: {dcType, dcCountry}, residentialAddress: {raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode}, 
                 permanentAddress: {paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}});
-            console.log(picreate);
+            // console.log(picreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -75,7 +75,7 @@ module.exports.personalinformation_post = async (req, res) => {
                 weight, bloodType, gsisId, pagibigId, philhealthId, sssId, tinId, agencyEmployeeId, telNo,
                 citizenship, dualCitizenship: {dcType, dcCountry}, residentialAddress: {raHBLN, raStrt, raSubVil, raBarangay, raCity, raProvince, raZipCode}, 
                 permanentAddress: {paHBLN, paStrt, paSubVil, paBarangay, paCity, paProvince, paZipCode}});
-                console.log(piupdate)
+                // console.log(piupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -113,14 +113,14 @@ module.exports.familybackground_post = async (req, res) => {
     const {fLastName, fFirstName, fMiddleName, fNameExtension} = req.body.father;
     const {mLastName, mFirstName, mMiddleName} = req.body.mother;
     const children = req.body.children;
-    console.log('pumasok')
+    // console.log('pumasok')
     const userfb = await FB.exists({userId: userId});
     if (userfb === null) {
         //create new entry
         try {
             const fbcreate = await FB.create({userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sBusinessAddress, sTelNo}, father: {fLastName,
                 fFirstName, fMiddleName, fNameExtension}, mother:{mLastName, mFirstName, mMiddleName}, children});
-            console.log(fbcreate);
+            // console.log(fbcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -132,7 +132,7 @@ module.exports.familybackground_post = async (req, res) => {
         try {
             const fbupdate = await FB.updateOne({userId: userId}, {userId, spouse:{sLastName, sFirstName, sMiddleName, sNameExtension, sOccupation, sEmployerBusinessName, sBusinessAddress, sTelNo}, father: {fLastName,
                 fFirstName, fMiddleName, fNameExtension}, mother:{mLastName, mFirstName, mMiddleName}, children});
-                console.log(fbupdate)
+                // console.log(fbupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -166,14 +166,13 @@ module.exports.education_post = async (req, res) => {
 
     const userId = req.body.userId;
     const ed = req.body.ed;
-    console.log('pumasok')
+    // console.log('pumasok')
     const usered = await ED.exists({userId: userId});
     if (usered === null) {
-        console.log('this runs again?')
         //create new entry
         try {
             const edcreate = await ED.create({userId, ed});
-            console.log(edcreate);
+            // console.log(edcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -184,7 +183,7 @@ module.exports.education_post = async (req, res) => {
         //update existing entry
         try {
             const edupdate = await ED.updateOne({userId}, {ed});
-                console.log(edupdate)
+                // console.log(edupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -220,13 +219,13 @@ module.exports.eligibility_post = async (req, res) => {
 
     const userId = req.body.userId;
     const cse = req.body.cse;
-    console.log('pumasok')
+    // console.log('pumasok')
     const usereb = await EB.exists({userId: userId});
     if (usereb === null) {
         //create new entry
         try {
             const ebcreate = await EB.create({userId, cse});
-            console.log(ebcreate);
+            // console.log(ebcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -237,7 +236,7 @@ module.exports.eligibility_post = async (req, res) => {
         //update existing entry
         try {
             const ebupdate = await EB.updateOne({userId}, {cse});
-                console.log(ebupdate)
+                // console.log(ebupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -272,13 +271,13 @@ module.exports.workexperience_post = async (req, res) => {
 
     const userId = req.body.userId;
     const we = req.body.we;
-    console.log('pumasok')
+    // console.log('pumasok')
     const userwe = await WE.exists({userId: userId});
     if (userwe === null) {
         //create new entry
         try {
             const wecreate = await WE.create({userId, we});
-            console.log(wecreate);
+            // console.log(wecreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -289,7 +288,7 @@ module.exports.workexperience_post = async (req, res) => {
         //update existing entry
         try {
             const weupdate = await WE.updateOne({userId}, {we});
-                console.log(weupdate)
+                // console.log(weupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -324,13 +323,13 @@ module.exports.voluntarywork_post = async (req, res) => {
 
     const userId = req.body.userId;
     const vw = req.body.vw;
-    console.log('pumasok')
+    // console.log('pumasok')
     const uservw = await VW.exists({userId: userId});
     if (uservw === null) {
         //create new entry
         try {
             const vwcreate = await VW.create({userId, vw});
-            console.log(vwcreate);
+            // console.log(vwcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -341,7 +340,7 @@ module.exports.voluntarywork_post = async (req, res) => {
         //update existing entry
         try {
             const vwupdate = await VW.updateOne({userId}, {vw});
-                console.log(vwupdate)
+                // console.log(vwupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -376,13 +375,13 @@ module.exports.training_post = async (req, res) => {
 
     const userId = req.body.userId;
     const ldit = req.body.ldit;
-    console.log('pumasok')
+    // console.log('pumasok')
     const usertr = await TR.exists({userId: userId});
     if (usertr === null) {
         //create new entry
         try {
             const trcreate = await TR.create({userId, ldit});
-            console.log(trcreate);
+            // console.log(trcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -393,7 +392,7 @@ module.exports.training_post = async (req, res) => {
         //update existing entry
         try {
             const trupdate = await TR.updateOne({userId}, {ldit});
-                console.log(trupdate)
+                // console.log(trupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -430,13 +429,13 @@ module.exports.otherinfo_post = async (req, res) => {
     const specialSkillsHobbies = req.body.specialSkillsHobbies;
     const nonAcadDistRecog = req.body.nonAcadDistRecog;
     const membershipAssocOrg = req.body.membershipAssocOrg;
-    console.log('pumasok', specialSkillsHobbies)
+    // console.log('pumasok', specialSkillsHobbies)
     const useroi = await OI.exists({userId: userId});
     if (useroi === null) {
         //create new entry
         try {
             const oicreate = await OI.create({userId, specialSkillsHobbies, nonAcadDistRecog, membershipAssocOrg});
-            console.log(oicreate);
+            // console.log(oicreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -447,7 +446,7 @@ module.exports.otherinfo_post = async (req, res) => {
         //update existing entry
         try {
             const oiupdate = await OI.updateOne({userId} ,{userId, specialSkillsHobbies, nonAcadDistRecog, membershipAssocOrg});
-                console.log(oiupdate)
+                // console.log(oiupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -496,7 +495,7 @@ module.exports.questions_post = async (req, res) => {
             const qtcreate = await QT.create({userId, q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
                 q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
                  q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}});
-            console.log(qtcreate);
+            // console.log(qtcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -509,7 +508,7 @@ module.exports.questions_post = async (req, res) => {
             const qtupdate = await QT.updateOne({userId}, {q1: {q1a, q1b, q1bYesDetails}, q2: {q2a, q2aYesDetails, q2b, q2bDateFiled, q2bStatusofCase}, 
                 q3: {q3a, q3aYesDetails}, q4: {q4a, q4aYesDetails}, q5: {q5a, q5aYesDetails, q5b, q5bYesDetails}, q6: {q6a, q6aYesDetails},
                  q7: {q7a, q7aYesDetails, q7b, q7bYesDetails, q7c, q7cYesDetails}});
-                console.log(qtupdate)
+                // console.log(qtupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -544,13 +543,13 @@ module.exports.references_post = async (req, res) => {
 
     const userId = req.body.userId;
     const rr = req.body.rr;
-    console.log('pumasok')
+    // console.log('pumasok')
     const userrr = await RR.exists({userId: userId});
     if (userrr === null) {
         //create new entry
         try {
             const rrcreate = await RR.create({userId, rr});
-            console.log(rrcreate);
+            // console.log(rrcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -561,7 +560,7 @@ module.exports.references_post = async (req, res) => {
         //update existing entry
         try {
             const rrupdate = await RR.updateOne({userId}, {ref: rr});
-                console.log(rrupdate)
+                // console.log(rrupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -598,13 +597,13 @@ module.exports.servicerecords_post = async (req, res) => {
     const govIssuedIdType = req.body.govIssuedIdType;
     const govIssuedIdNumber = req.body.govIssuedIdNumber;
     const DatePlaceIssued = req.body.DatePlaceIssued;
-    console.log('pumasok')
+    // console.log('pumasok')
     const usersr = await SR.exists({userId: userId});
     if (usersr === null) {
         //create new entry
         try {
             const srcreate = await SR.create({userId, govIssuedIdType, govIssuedIdNumber, DatePlaceIssued});
-            console.log(srcreate);
+            // console.log(srcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -615,7 +614,7 @@ module.exports.servicerecords_post = async (req, res) => {
         //update existing entry
         try {
             const srupdate = await SR.updateOne({userId}, {govIssuedIdType, govIssuedIdNumber, DatePlaceIssued});
-                console.log(srupdate)
+                // console.log(srupdate)
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
@@ -646,29 +645,30 @@ module.exports.profile_get = async (req, res) => {
 }
 module.exports.profile_post = async (req, res) => {
 
-    const {userId, employmentStatus, campus} = req.body;
+    const {userId, lastName, firstName, employmentStatus, campus} = req.body;
     const userprofile = await profile.exists({userId: userId});
-    if (userprofile === null) {
+    const user = await User.exists({_id: userId});
+    if (userprofile === null && user !== null) {
         //create new entry
         try {
             const profilecreate = await profile.create({userId, employmentStatus, campus});
-            console.log(profilecreate);
+            const userupdate = await User.updateOne({_id: userId}, firstName, lastName);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
             res.status(200).json({status: 'Update Success'});
             console.log(err)
         }
-    } else {
+    } else if(userprofile !== null && user !== null) {
         //update existing entry
         try {
             const profileupdate = await profile.updateOne({userId}, {employmentStatus, campus});
-                console.log(profileupdate)
+            const userupdate = await User.updateOne({_id: userId}, {firstname: firstName, lastname: lastName});
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){
             console.log(error)
-            res.status(200).json({status: 'Update Failed'});
+            res.status(400).json({status: 'Update Failed'});
         }
     }    
 }

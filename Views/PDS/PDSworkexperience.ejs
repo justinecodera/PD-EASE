@@ -116,7 +116,11 @@
             // Create delete button for deleting this child's information
             var deleteButton = document.createElement("a");
             deleteButton.className = 'btn deleteButton'; // Use className to assign a class
-            deleteButton.textContent = "Delete";
+            
+            var deleticon = document.createElement("i");
+            deleticon.className = 'lni lni-eraser';
+            deleteButton.appendChild(deleticon)
+            
             
             // Add event listener to delete button
             deleteButton.addEventListener("click", function() {
