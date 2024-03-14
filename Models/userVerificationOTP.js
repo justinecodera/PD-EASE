@@ -8,6 +8,9 @@ const UserOtpVerificationSchema = new Schema({
         required: true,
         unique: true
     },
+    usage: {
+        type: String
+    },
     otp: {
         type: String
     },

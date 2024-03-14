@@ -64,7 +64,7 @@ module.exports.signup_get = (req, res) => {
 module.exports.signup_post = async (req, res) => {
     const {firstname, lastname, institutionalEmail, password } = req.body;
     try {
-        const user = await User.create({firstname, lastname, institutionalEmail, password, verified: false})
+        const user = await User.create({firstname, lastname, institutionalEmail, password, verified: false, twofalogin: false})
         // .then((result) => {
         //     sendOTPVerificationEmail();
         // });
@@ -96,13 +96,21 @@ module.exports.login_get = (req, res) => {
 }
 module.exports.login_post = async (req, res) => {
     const {institutionalEmail, password } = req.body;
-
+    const usage = 'Log In';
     try {
         const user = await User.login(institutionalEmail, password);
-        const token = createToken(user._id);
-        // console.log(token);
-        res.cookie('PEEDS', token, {httpOnly: true});
-        res.status(200).json({user: user._id, userloggedin: 'yes'});
+        if (user.twofalogin === true) {
+            const token = createToken();
+            // console.log(token);
+            res.cookie('PEEDS', token, {httpOnly: true});
+            sendOTP(user._id, usage)
+        } else {
+            const token = createToken();
+            // console.log(token);
+            res.cookie('PEEDS', token, {httpOnly: true});
+            res.status(200).json({user: user._id, userloggedin: 'yes', otpdatausage: otpdata.usage});
+        }
+        
     }
     catch (err) {
         console.log(err)
@@ -122,10 +130,26 @@ module.exports.verifyOTP_post = async (req, res) => {
     const otpdata = await UserOtpVerification.findOne({userId: userId})
     try {
         const user = await UserOtpVerification.verify(userId, otp);
-        console.log('hello');
-        await User.updateOne({_id: userId}, {verified: true})
-        await UserOtpVerification.deleteOne({userId: userId})
-        res.status(200).json({user: user.userId, userloggedin: 'yes'});
+        // console.log('hello');
+        if (otpdata.usage === 'Sign Up') {
+            await User.updateOne({_id: userId}, {verified: true})
+            await UserOtpVerification.deleteOne({userId: userId})
+            res.status(200).json({user: user.userId, userloggedin: 'yes', otpdatausage: otpdata.usage});
+        }
+        else if (otpdata.usage === 'Log In') {
+            await UserOtpVerification.deleteOne({userId: userId})
+            res.status(200).json({user: userId, userloggedin: 'yes', otpdatausage: otpdata.usage});
+        }
+        else if (otpdata.usage === 'Change Password') {
+            await UserOtpVerification.deleteOne({userId: userId})
+            res.status(200).json({user: user.userId, userloggedin: 'yes', otpdatausage: otpdata.usage});
+        }
+        else if (otpdata.usage === 'Change Email') {
+            await UserOtpVerification.deleteOne({userId: userId})
+            res.status(200).json({user: user.userId, userloggedin: 'yes', otpdatausage: otpdata.usage});
+        }
+        
+        
     } catch (err) {
         // Handle any errors that occur within the try block
         console.log(err)
@@ -134,51 +158,48 @@ module.exports.verifyOTP_post = async (req, res) => {
     }
 }
 
-
-
-module.exports.sendOTP_get = async (req, res) => {
-    const userId = req.params.id;
+async function sendOTP(userId, usage){
     const userdata = await User.findById(userId);
-    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-    const userotp = await UserOtpVerification.exists({ userId: userId });
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-            user: 'pdeasenoreply@gmail.com',
-            pass: 'lqfe ozbs ljln lquq'
-        }
-    })
+        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+        const userotp = await UserOtpVerification.exists({ userId: userId });
+        const redirectTo = '/verifyotp/' + userId; // Initialize redirection URL here
+        
+        
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'pdeasenoreply@gmail.com',
+                pass: 'lqfe ozbs ljln lquq'
+            }
+        })
 
-    const mailOptions = {
-        from: 'pdeasenoreply@gmail.com',
-        to: userdata.institutionalEmail,
-        subject: 'Your PD-EASE Verification One-Time Password (OTP)',
-    text: `Subject: Your PD-EASE Verification One-Time Password (OTP)\n\n` +
-        `Dear ${userdata.firstname},\n\n` +
-        `We hope this message finds you well. Thank you for choosing PD-EASE to enhance your experience. To ensure the security of your account, we kindly request your cooperation in completing the verification process using the following One-Time Password (OTP):\n\n` +
-        `OTP: ${otp}\n\n` +
-        `This unique code is valid for the next 10 minutes. For your safety, please refrain from sharing this OTP with anyone.\n\n` +
-        `Should you not have initiated this verification, please disregard this email. However, if you find yourself repeatedly receiving such emails, we encourage you to reach out to our dedicated support team promptly.\n\n` +
-        `Your trust in PD-EASE is greatly appreciated.\n\n` +
-        `Best Regards,\n\n` +
-        `PD-EASE Support Team\n` +
-        `Contact: pdeasesupport@gmail.com`
-    };
+        const mailOptions = {
+            from: 'pdeasenoreply@gmail.com',
+            to: userdata.institutionalEmail,
+            subject: 'Your PD-EASE Verification One-Time Password (OTP)',
+        text: `Subject: Your PD-EASE Verification One-Time Password (OTP)\n\n` +
+            `Dear ${userdata.firstname},\n\n` +
+            `We hope this message finds you well. Thank you for choosing PD-EASE to enhance your experience. To ensure the security of your account, we kindly request your cooperation in completing the verification process using the following One-Time Password (OTP):\n\n` +
+            `OTP: ${otp}\n\n` +
+            `This unique code is valid for the next 10 minutes. For your safety, please refrain from sharing this OTP with anyone.\n\n` +
+            `Should you not have initiated this verification, please disregard this email. However, if you find yourself repeatedly receiving such emails, we encourage you to reach out to our dedicated support team promptly.\n\n` +
+            `Your trust in PD-EASE is greatly appreciated.\n\n` +
+            `Best Regards,\n\n` +
+            `PD-EASE Support Team\n` +
+            `Contact: pdeasesupport@gmail.com`
+        };
 
-    let redirectTo = '/verifyotp/' + userId; // Initialize redirection URL here
-
-    try {
         const currentDate = new Date();
         const expiresAt = new Date(currentDate.getTime() + 10 * 60000);
 
         if (userotp === null) {
             // Create new entry
-            await UserOtpVerification.create({ userId, otp, createdAT: currentDate, expiresAt: expiresAt });
+            await UserOtpVerification.create({ userId, otp, usage, createdAT: currentDate, expiresAt: expiresAt });
         } else {
             // Update existing entry
-            await UserOtpVerification.updateOne({ userId }, { otp, createdAT: currentDate, expiresAt: expiresAt });
+            await UserOtpVerification.updateOne({ userId }, { otp, usage,  createdAT: currentDate, expiresAt: expiresAt });
         }
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -190,6 +211,54 @@ module.exports.sendOTP_get = async (req, res) => {
                 res.redirect(redirectTo);
             }
         });
+}
+
+module.exports.changepassOTP_get = async (req, res) => {
+    const userId = req.params.id;
+    const usage = 'Change Password';
+
+    try {
+
+        sendOTP(userId, usage);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error Processing Request');
+    }
+}
+module.exports.changepass_get =  async (req, res) => { 
+
+}
+module.exports.changepass_post =  async (req, res) => { 
+
+}
+
+
+module.exports.changeemailOTP_get = async (req, res) => {
+    const userId = req.params.id;
+    const usage = 'Change Email';
+
+    try {
+
+        sendOTP(userId, usage);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error Processing Request');
+    }
+}
+module.exports.changeemail_get =  async (req, res) => { 
+
+}
+module.exports.changeemail_post =  async (req, res) => { 
+
+}
+
+module.exports.sendOTP_get = async (req, res) => {
+    const userId = req.params.id;
+    const usage = 'Sign up';
+
+    try {
+
+        sendOTP(userId, usage);
     } catch (err) {
         console.log(err);
         res.status(500).send('Error Processing Request');

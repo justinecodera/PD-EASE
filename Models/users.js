@@ -42,6 +42,7 @@ const usersSchema = new Schema({
         }
     },
     verified: Boolean,
+    twofalogin: Boolean
     
 }, {timestamps: true});
 

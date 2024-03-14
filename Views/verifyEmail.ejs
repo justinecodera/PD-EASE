@@ -63,9 +63,21 @@
             if(data.errors){
                 otpError.textContent = data.errors.otp;
             }
-            if (data.user){
-                localStorage.setItem('notification', 'Email Verified Sucesfully');
+            if (data.otpdatausage === 'Sign Up'){
+                localStorage.setItem('notification', 'Email Verified Succesfully');
               location.assign('/profile/<%=user._id%>');
+            }
+            else if (data.otpdatausage === 'Log In'){
+                localStorage.setItem('notification', 'Email Verified Succesfully');
+                location.assign('/'+data.user);
+            }
+            else if (data.otpdatausage === 'Change Password'){
+                localStorage.setItem('notification', 'Email Verified Succesfully');
+                location.assign('/profile/<%=user._id%>');
+            }
+            else if (data.otpdatausage === 'Change Email'){
+                localStorage.setItem('notification', 'Email Verified Succesfully');
+                location.assign('/profile/<%=user._id%>');
             }
             
           }
