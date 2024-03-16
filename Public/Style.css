@@ -456,7 +456,10 @@ label.formHeader {
     color: red;
     display: inline;
 }
-
+.list-group-item {
+    padding: .5rem;
+    border-radius: 0;
+}
 /* Reference Blocks Styles */
 .referenceblock .card {
     margin-top: 1rem;
