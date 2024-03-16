@@ -136,18 +136,18 @@
    }
    printtrainings()
    function addtraining() {
-    const lditProgramsblock = document.getElementById('lditPrograms');
-    const trainedFromblock = document.getElementById('trainedFrom');
-    const trainedToblock = document.getElementById('trainedTo');
-    const trainingnumberOfHoursblock = document.getElementById('trainingnumberOfHours');
-    const typeOfLDblock = document.getElementById('typeOfLD');
-    const conductedSponsoredByblock = document.getElementById('conductedSponsoredBy');
+    const lditPrograms = document.getElementById('lditPrograms');
+    const trainedFrom = document.getElementById('trainedFrom');
+    const trainedTo = document.getElementById('trainedTo');
+    const trainingnumberOfHours = document.getElementById('trainingnumberOfHours');
+    const typeOfLD = document.getElementById('typeOfLD');
+    const conductedSponsoredBy= document.getElementById('conductedSponsoredBy');
     const referenceblock = document.getElementById('referenceblock1');
 
     // Check if all fields are not empty
-    if (lditProgramsblock.value.trim() === '' || trainedFromblock.value.trim() === ''
-        || trainedToblock.value.trim() === '' || trainingnumberOfHoursblock.value.trim() === ''
-        || typeOfLDblock.value.trim() === '' || conductedSponsoredByblock.value.trim() === '') {
+    if (lditPrograms.value.trim() === '' || trainedFrom.value.trim() === ''
+        || trainedTo.value.trim() === '' || trainingnumberOfHours.value.trim() === ''
+        || typeOfLD.value.trim() === '' || conductedSponsoredBy.value.trim() === '') {
         // If any field is empty, display an alert or handle the error accordingly
         alert('Please fill in all fields');
         return; // Exit the function early
@@ -155,12 +155,12 @@
 
     // If all fields are filled, proceed with other actions
     trainings.push({
-        lditPrograms: lditProgramsblock.value,
-        trainedFrom: trainedFromblock.value,
-        trainedTo: trainedToblock.value,
-        trainingnumberOfHours: trainingnumberOfHoursblock.value,
+        lditPrograms: lditPrograms.value,
+        trainedFrom: trainedFrom.value,
+        trainedTo: trainedTo.value,
+        trainingnumberOfHours: trainingnumberOfHours.value,
         typeOfLD: typeOfLD.value,
-        conductedSponsoredBy: conductedSponsoredByblock.value
+        conductedSponsoredBy: conductedSponsoredBy.value
     });
     console.log(trainings, 'hello');
 
@@ -171,12 +171,12 @@
 
     // Print trainings (assuming printtrainings() is defined elsewhere)
     printtrainings();
-    lditProgramsblock.value = '';
-    trainedFromblock.value = '';
-    trainedToblock.value = '';
-    trainingnumberOfHoursblock.value = '';
-    typeOfLDblock.value = 'Managerial';
-    conductedSponsoredByblock.value = '';
+    lditPrograms.value = '';
+    trainedFrom.value = '';
+    trainedTo.value = '';
+    trainingnumberOfHours.value = '';
+    typeOfLD.value = 'Managerial';
+    conductedSponsoredBy.value = '';
     }
 
     const form = document.querySelector('form');

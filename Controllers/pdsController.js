@@ -2,9 +2,12 @@ const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, PDF} = require('../Models/PDS
 const pdsS = require('../Models/tracker');
 const User = require('../Models/users');
 const moment = require('moment');
+const { drawTable } = require('pdf-lib-draw-table-beta');
 const pdflib = require('pdf-lib');
 const fs = require('fs')
 const {readFile, writeFile} = require('fs/promises')
+const pdf2pic = require('pdf2pic');
+
 
 async function fillPDF(filename, userid) {
     console.log("error");
@@ -833,6 +836,129 @@ async function fillPDF(filename, userid) {
                 }
             });
         });
+
+        const elementaryData = edData.ed.filter(edItem => edItem.schooLevel === 'Elementary');
+        const secondaryData = edData.ed.filter(edItem => edItem.schooLevel === 'Secondary');
+        const vocationalData = edData.ed.filter(edItem => edItem.schooLevel === 'Vocational/Trade Course');
+        const collegeData = edData.ed.filter(edItem => edItem.schooLevel === 'College');
+        const graduateData = edData.ed.filter(edItem => edItem.schooLevel === 'Graduate Studies');
+        if (
+            elementaryData.length >= 2 ||
+            secondaryData.length >= 2 ||
+            vocationalData.length >= 2 ||
+            collegeData.length >= 2 ||
+            graduateData.length >= 2
+          ) {
+            
+  // Add a new page
+  const page = unfilledPDS.addPage([612, 792]);
+
+  // Define the table data
+  const tableData = [
+    ['Level', 'Name of School', 'Basic Education/Degree/Course','Attendance From', 'Attendance To', 'Highest Level/Units earned','Year Graduated', 'Scholarships/Academic Honors Recieved'],
+
+  ];
+  elementaryData.slice(1).forEach(edItem => {
+    const rowData = [
+      edItem.schooLevel,
+      edItem.schoolName,
+      edItem.basicEduDegCor,
+      edItem.attendanceFrom,
+      edItem.attendanceTo,
+      edItem.highestLevel,
+      edItem.yearGraduated,
+      edItem.honorsRecieved 
+    ];
+    tableData.push(rowData);
+  });
+  secondaryData.slice(1).forEach(edItem => {
+    const rowData = [
+      edItem.schooLevel,
+      edItem.schoolName,
+      edItem.basicEduDegCor,
+      edItem.attendanceFrom,
+      edItem.attendanceTo,
+      edItem.highestLevel,
+      edItem.yearGraduated,
+      edItem.honorsRecieved 
+    ];
+    tableData.push(rowData);
+  });
+  vocationalData.slice(1).forEach(edItem => {
+    const rowData = [
+      edItem.schooLevel,
+      edItem.schoolName,
+      edItem.basicEduDegCor,
+      edItem.attendanceFrom,
+      edItem.attendanceTo,
+      edItem.highestLevel,
+      edItem.yearGraduated,
+      edItem.honorsRecieved 
+    ];
+    tableData.push(rowData);
+  });
+  const collegeData = edData.ed.filter(edItem => edItem.schooLevel === 'College');
+collegeData.slice(1).forEach(edItem => {
+  const rowData = [
+    edItem.schooLevel,
+    edItem.schoolName,
+    edItem.basicEduDegCor,
+    edItem.attendanceFrom,
+    edItem.attendanceTo,
+    edItem.highestLevel,
+    edItem.yearGraduated,
+    edItem.honorsRecieved 
+  ];
+  tableData.push(rowData);
+});
+const graduateData = edData.ed.filter(edItem => edItem.schooLevel === 'Graduate Studies');
+graduateData.slice(1).forEach(edItem => {
+  const rowData = [
+    edItem.schooLevel,
+    edItem.schoolName,
+    edItem.basicEduDegCor,
+    edItem.attendanceFrom,
+    edItem.attendanceTo,
+    edItem.highestLevel,
+    edItem.yearGraduated,
+    edItem.honorsRecieved 
+  ];
+  tableData.push(rowData);
+});
+
+
+  console.log(tableData)
+  // Set the starting X and Y coordinates for the table
+  const startX = 50;
+  const startY = 750;
+
+  // Set the table options
+  const options = {
+    header: {
+      hasHeaderRow: true,
+      textSize: 6,
+      backgroundColor: pdflib.rgb(0.9, 0.9, 0.9),
+    },
+    textSize: 6
+  };
+  page.drawText('Educational Background', {
+    x: 50,
+    y: 770,
+    size: 12,
+    color: pdflib.rgb(0, 0, 0) // Black color
+});
+  try {
+    // Draw the table
+    const tableDimensions = await drawTable(unfilledPDS, page, tableData, startX, startY, options);
+
+    console.log('Table dimensions:', tableDimensions);
+
+  } catch (error) {
+    console.error('Error drawing table:', error);
+  }
+        }
+
+
     }
         //civil service
         if(ebData != null){
@@ -911,6 +1037,68 @@ async function fillPDF(filename, userid) {
                 mapping.dateOfValidity.setText(eligibility.dateOfValidity ? moment(eligibility.dateOfValidity).format('YYYY-MM-DD') : '');
             }
         }
+
+        
+        if (
+            ebData.cse.length >= 8
+          ) {
+            
+  // Add a new page
+  const page = unfilledPDS.addPage([612, 792]);
+
+  // Define the table data
+  const tableData = [
+    ['License', 'Rating', 'Date of Examination', 'Place of Examination', 'License Number', 'Date of Validity']
+  ];
+
+  ebData.cse.slice(7).forEach(edItem => {
+    const rowData = [
+      edItem.license,
+      edItem.rating,
+      edItem.dateOfExamination,
+      edItem.placeOfExamination,
+      edItem.licenseNumber,
+      edItem.dateOfValidity
+    ];
+    tableData.push(rowData);
+  });
+  
+
+
+  console.log(tableData)
+  // Set the starting X and Y coordinates for the table
+  const startX = 50;
+  const startY = 750;
+
+  // Set the table options
+  const options = {
+    header: {
+      hasHeaderRow: true,
+      textSize: 6,
+      backgroundColor: pdflib.rgb(0.9, 0.9, 0.9),
+    },
+    textSize: 6
+  };
+  page.drawText('Civil Service and Eligibility', {
+    x: 50,
+    y: 770,
+    size: 12,
+    color: pdflib.rgb(0, 0, 0) // Black color
+});
+  try {
+    // Draw the table
+    const tableDimensions = await drawTable(unfilledPDS, page, tableData, startX, startY, options);
+
+    console.log('Table dimensions:', tableDimensions);
+
+  } catch (error) {
+    console.error('Error drawing table:', error);
+  }
+        }
+
+
+
+
     }
         //work experience
         if(weData != null){
@@ -968,6 +1156,60 @@ async function fillPDF(filename, userid) {
                 }
             }
         }
+
+        // Separate if block for weData
+if (weData.we.length >= 29) {
+    // Add a new page for weData
+    const Page = unfilledPDS.addPage([612, 792]);
+  
+    // Define the table data for weData
+    const tableData = [
+      ['Worked From', 'Worked To', 'Position Title', 'DAOC', 'Monthly Salary', 'Salary/Job Pay Grade', 'Status of Appointment', 'Govt Service']
+    ];
+  
+    weData.we.slice(28).forEach(weItem => {
+      const rowData = [
+        moment(weItem.workedFrom).format('YYYY-MM-DD'),
+        moment(weItem.workedTo).format('YYYY-MM-DD'),
+        weItem.positionTitle,
+        weItem.daoc,
+        String(weItem.monthlySalary),
+        weItem.salaryJobPayGrade,
+        weItem.statusOfAppointment,
+        weItem.govtService ? 'Yes' : 'No'
+      ];
+      tableData.push(rowData);
+    });
+  
+    
+  // Set the starting X and Y coordinates for the table
+  const startX = 50;
+  const startY = 750;
+
+  // Set the table options
+  const options = {
+    header: {
+      hasHeaderRow: true,
+      textSize: 6,
+      backgroundColor: pdflib.rgb(0.9, 0.9, 0.9),
+    },
+    textSize: 6
+  };
+
+  Page.drawText('Work Experiences', {
+    x: 50,
+    y: 770,
+    size: 12,
+    color: pdflib.rgb(0, 0, 0) // Black color
+});
+    // Draw the table for weData
+    try {
+      const weTableDimensions = await drawTable(unfilledPDS, Page, tableData, startX, startY, options);
+      console.log('We Table dimensions:', weTableDimensions);
+    } catch (error) {
+      console.error('Error drawing weData table:', error);
+    }
+  }
     }
 
 
@@ -996,6 +1238,54 @@ async function fillPDF(filename, userid) {
                 mapping.positionNature.setText(volunteerWork.positionNature ? volunteerWork.positionNature : '');
             }
         }
+        // Separate if block for vwData
+if (vwData.vw.length >= 8) {
+    // Add a new page for vwData
+    const vwPage = unfilledPDS.addPage([612, 792]);
+
+    // Define the table data for vwData
+    const vwTableData = [
+        ['Name/Address of Organization', 'Volunteered From', 'Volunteered To', 'Number of Hours', 'Position/Nature']
+    ];
+
+    vwData.vw.slice(7).forEach(vwItem => {
+        const vwRowData = [
+            vwItem.nameAddressOfOrganization,
+            moment(vwItem.volunteeredFrom).format('YYYY-MM-DD'),
+            moment(vwItem.volunteeredTo).format('YYYY-MM-DD'),
+            String(vwItem.volunteernumberOfHours),
+            vwItem.positionNature
+        ];
+        vwTableData.push(vwRowData);
+    });
+
+    // Set the starting X and Y coordinates for the table
+    const vwStartX = 50;
+    const vwStartY = 750;
+
+    // Set the table options
+    const vwOptions = {
+        header: {
+            hasHeaderRow: true,
+            textSize: 6,
+            backgroundColor: pdflib.rgb(0.9, 0.9, 0.9),
+        },
+        textSize: 6
+    };
+    vwPage.drawText('Volunteer Works', {
+        x: 50,
+        y: 770,
+        size: 12,
+        color: pdflib.rgb(0, 0, 0) // Black color
+    });
+    // Draw the table for vwData
+    try {
+        const vwTableDimensions = await drawTable(unfilledPDS, vwPage, vwTableData, vwStartX, vwStartY, vwOptions);
+        console.log('VW Table dimensions:', vwTableDimensions);
+    } catch (error) {
+        console.error('Error drawing vwData table:', error);
+    }
+}
     }
 
         //trainings
@@ -1038,6 +1328,55 @@ async function fillPDF(filename, userid) {
                 mapping.conductedSponsoredBy.setText(training.conductedSponsoredBy ? training.conductedSponsoredBy : '');
             }
         }
+        // Separate if block for trData
+if (trData.ldit.length >= 22) {
+    // Add a new page for trData
+    const trPage = unfilledPDS.addPage([612, 792]);
+
+    // Define the table data for trData
+    const trTableData = [
+        ['LD/IT Programs', 'Trained From', 'Trained To', 'Number of Hours', 'Type of LD', 'Conducted/Sponsored By']
+    ];
+
+    trData.ldit.slice(21).forEach(trItem => {
+        const trRowData = [
+            trItem.lditPrograms,
+            moment(trItem.trainedFrom).format('YYYY-MM-DD'),
+            moment(trItem.trainedTo).format('YYYY-MM-DD'),
+            String(trItem.trainingnumberOfHours),
+            String(trItem.typeOfLD),
+            trItem.conductedSponsoredBy
+        ];
+        trTableData.push(trRowData);
+    });
+    // Set the starting X and Y coordinates for the table
+    const trStartX = 50;
+    const trStartY = 750;
+
+    // Set the table options
+    const trOptions = {
+        header: {
+            hasHeaderRow: true,
+            textSize: 6,
+            backgroundColor: pdflib.rgb(0.9, 0.9, 0.9),
+        },
+        textSize: 6
+    };
+
+    trPage.drawText('Trainings', {
+        x: 50,
+        y: 770,
+        size: 12,
+        color: pdflib.rgb(0, 0, 0) // Black color
+    });
+    // Draw the table for trData
+    try {
+        const trTableDimensions = await drawTable(unfilledPDS, trPage, trTableData, trStartX, trStartY, trOptions);
+        console.log('TR Table dimensions:', trTableDimensions);
+    } catch (error) {
+        console.error('Error drawing trData table:', error);
+    }
+}
     }
         //other information
         if(oiData != null){
@@ -1201,6 +1540,16 @@ async function fillPDF(filename, userid) {
         datePlaceIssued.setText(srData.DatePlaceIssued || '');
         }
 
+
+
+
+        //if some data are more than one table
+        
+        // Create a new page
+
+
+
+
         const filledPDS = await unfilledPDS.save()
         const filledPDSBuffer = Buffer.from(filledPDS);
 
@@ -1275,6 +1624,7 @@ module.exports.printPDS_get = async (req, res) => {
             res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
             res.setHeader('Content-type', 'application/pdf');
             res.status(200).send(pdfData.pdf_data)
+            
         }
         catch (err) {
             res.status(400).json({status: 'Submit Failed 2'});
@@ -1309,4 +1659,53 @@ module.exports.preview_get = async (req, res) => {
     } else {
         res.status(400).json({status: 'Preview Not Available'});
     }
+}
+
+module.exports.uploadApprovedPDS_post = async (req, res) => {
+    const selectedFile = req.files.fileUpload;
+    const userId = req.body.userId
+
+    const pdssubmission = await pdsS.exists({userId: userId});
+    if (pdssubmission === null) {
+        //create new entry
+        try {
+            const pdsScreate = await pdsS.create({userId, status: 'Approved', comment: '', pdf_data: selectedFile});
+            const pdfData = await PDF.findOne({userId: userId});
+            res.redirect('/'+userId);
+            
+        }
+        catch (err) {
+            res.status(400).json({status: 'Submit Failed'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+            const pdsSupdate = await pdsS.updateOne({userId}, {status: 'Approved', comment: '', pdf_data: selectedFile});
+            console.log('gumagana ba to')
+            const pdfData = await PDF.findOne({userId: userId});
+            res.redirect('/'+userId);
+    }
+    const fileBuffer = Buffer.from(selectedFile.data, 'base64');
+    console.log(fileBuffer);
+
+
+//     const options = {
+//         density: 100,
+//         saveFilename: "untitled",
+        
+//         format: "png"
+//       };
+
+//     const convert = pdf2pic.fromBuffer(fileBuffer, options);
+//     const pageToConvertAsImage = 1;
+
+// convert(pageToConvertAsImage, { responseType: "image" })
+//   .then((resolve) => {
+//     console.log("Page 1 is now converted as image");
+
+//     return resolve;
+//   });
+//     console.log(convert); // Number of converted images
+    
+    
 }

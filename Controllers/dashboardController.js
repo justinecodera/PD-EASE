@@ -377,12 +377,13 @@ module.exports.training_post = async (req, res) => {
     const userId = req.body.userId;
     const ldit = req.body.ldit;
     // console.log('pumasok')
+    console.log(ldit);
     const usertr = await TR.exists({userId: userId});
     if (usertr === null) {
         //create new entry
         try {
             const trcreate = await TR.create({userId, ldit});
-            // console.log(trcreate);
+            
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
@@ -393,7 +394,7 @@ module.exports.training_post = async (req, res) => {
         //update existing entry
         try {
             const trupdate = await TR.updateOne({userId}, {ldit});
-                // console.log(trupdate)
+            
                 res.status(200).json({status: 'Update Success'});
         }
         catch (error){

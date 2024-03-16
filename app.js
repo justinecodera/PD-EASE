@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const upload = require('express-fileupload')
 
 //routes conection//
 const authRoutes = require('./Routes/authroutes');
@@ -31,6 +32,7 @@ app.use(express.static('Public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(upload())
 
 
 //routes//
