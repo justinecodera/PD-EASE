@@ -1245,7 +1245,7 @@ module.exports.submitPDS_post = async (req, res) => {
     if (pdssubmission === null) {
         //create new entry
         try {
-            const pdsScreate = await pdsS.create({userId, status: 'Pending', comment: ''});
+            const pdsScreate = await pdsS.create({userId, status: 'Generated', comment: ''});
             await fillPDF(filePath, userId);
             // console.log(pdsScreate);
             res.status(200).json({status: 'Submit Success'});
@@ -1256,7 +1256,9 @@ module.exports.submitPDS_post = async (req, res) => {
         }
     } else {
         //update existing entry
-            const pdsSupdate = await pdsS.updateOne({userId}, {status: 'Pending', comment: ''});
+            const pdsSupdate = await pdsS.updateOne({userId}, {status: 'Generated', comment: ''});
+            const pdfData = await pdsS.findOne({userId: userId});
+            console.log(pdfData)
             await fillPDF(filePath, userId);
             res.status(200).json({status: 'Submit Failed'});
     }
@@ -1264,11 +1266,47 @@ module.exports.submitPDS_post = async (req, res) => {
 
 module.exports.printPDS_get = async (req, res) => {
     const userId = req.params.id;
-    const pdfData = await PDF.findOne({userId: userId});
-        res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
-        res.setHeader('Content-type', 'application/pdf');
-        res.send(pdfData.pdf_data);
-    // const filePath = './PDF/'+userId+'.pdf';
-    // res.download(filePath, 'Personal Data Sheet.pdf');
-   // Download the modified PDF
+    const pdssubmission = await pdsS.exists({userId: userId});
+    if (pdssubmission === null) {
+        //create new entry
+        try {
+            const pdsScreate = await pdsS.create({userId, status: 'Submitted', comment: ''});
+            const pdfData = await PDF.findOne({userId: userId});
+            res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
+            res.setHeader('Content-type', 'application/pdf');
+            res.status(200).send(pdfData.pdf_data)
+        }
+        catch (err) {
+            res.status(400).json({status: 'Submit Failed 2'});
+            console.log(err)
+        }
+    } else {
+        //update existing entry
+            const pdsSupdate = await pdsS.updateOne({userId}, {status: 'Submitted', comment: ''});
+            console.log('gumagana ba to')
+            const pdfData = await PDF.findOne({userId: userId});
+            res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
+            res.setHeader('Content-type', 'application/pdf');
+            res.send(pdfData.pdf_data);
+    }
+}
+
+module.exports.preview_get = async (req, res) => {
+    const userId = req.params.id;
+    const pdssubmission = await pdsS.exists({userId: userId});
+    if (pdssubmission !== null) {
+        //create new entry
+        try {
+            const pdfData = await PDF.findOne({userId: userId});
+            res.setHeader('Content-disposition', 'inline; filename=Personal_Data_Sheet.pdf');
+            res.setHeader('Content-type', 'application/pdf');
+            res.send(pdfData.pdf_data);
+        }
+        catch (err) {
+            res.status(400).json({status: 'Submit Failed 2'});
+            console.log(err)
+        }
+    } else {
+        res.status(400).json({status: 'Preview Not Available'});
+    }
 }

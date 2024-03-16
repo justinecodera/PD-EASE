@@ -45,8 +45,12 @@
             </div>
             <div class="col-lg-5 col-sm-10">
                 <label class="formsubHeader" >Other Settings</label>
-                <a href="#" class="">Change Email</a>
-                <a href="#" class="">Change Password</a>
+                <ul class="list-group">
+                    <a href="#" class=" list-group-item btn btn-light w-100 text-start justify-content-center d-flex justify-content-between">Change Email<i class="lni lni-arrow-right"></i></a>
+                    <a href="#" class=" list-group-item btn btn-light w-100 text-start justify-content-center d-flex justify-content-between">Change Password<i class="lni lni-arrow-right"></i></a>
+                    <a href="#" class=" list-group-item btn btn-light w-100 text-start justify-content-center d-flex justify-content-between">2-step Verification is Off<i class="lni lni-arrow-right"></i></a>
+                </ul>
+                
                 <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
             </div>
             

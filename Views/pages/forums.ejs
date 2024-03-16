@@ -2,13 +2,16 @@
 
 <div class="container">
     <div class="row align-items-center">
-        <form class="mt-1" >
+        <form class="mt-1 forumform" >
             
             <label class="formHeader" for="spouse">Forums</label>
             <div class="row justify-content-center">
                     
                     <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
-                    <input class="form-control forumpost" width="100%" id="forumpost" name="forumpost" placeholder="What's on your mind" value="" required>
+                    <input type="hidden" name="firstname" id="firstname" value="<%= user.firstname %>">
+                    <input type="hidden" name="lastname" id="lastname" value="<%= user.lastname %>">
+                    <input type="hidden" name="campus" id="campus" value="<%= profile %>">
+                    <input class="form-control forumpost" width="100%" id="forumBody" name="forumBody" placeholder="What's on your mind" value="" required>
                     <button class="btn btn-primary form-btn" type="submit">Post</button>
                
             </div>
@@ -18,46 +21,110 @@
     <section class="container post-section mt-3">
         <h2 class="mb-3">Posts</h2>
         <hr>
-        <div class="forum-posts">
-            <!-- Forum posts will be displayed here -->
-            <% if(forumposts !== null){
-
-            }%>
-            <div class="post">
-                <div class="post-header"> 
-                    <span class="post-author">John Doe</span> 
-                    <span class="post-date">March 10, 2024</span>
-                </div>
-                <div class="post-content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis non quam tincidunt rhoncus.
-                </div>
-            </div>
-            <hr>
-            <!-- More posts can be added here -->
+        <div class="row justify-content-center">
+                <!-- Forum posts will be displayed here -->
+                <% if(forumposts === null){ %>
+                    <div class="card forum-posts">
+                        <div class="post">
+                        
+                            <div class="post-content">
+                                There are no forum posts available
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <%} else {for(let i = 0; i < forumposts.length; i++) {%>
+                        <div class="card forum-posts">
+                            <div class="post">
+                                <div class="post-header"> 
+                                    <span class="post-author"><%= forumposts[i].poster %></span> 
+                                    <span class="post-date"><%= forumposts[i].createdAt.toDateString() %></span>
+                                </div>
+                                <div class="post-content">
+                                    <%= forumposts[i].forumBody %>
+                                </div>
+                                <hr>
+                                <% for(let j = 0; j < forumposts[i].comments.length; j++) {%>
+                                    
+                                    <div class="post-comment">
+                                        <span class="comment-author"><%= forumposts[i].comments[j].commenter %>: </span> 
+                                        <span class="comment-body"><%= forumposts[i].comments[j].commentBody %></span> 
+                                    </div>
+                                    
+                                    
+                                    <%} %>
+                                
+                            </div>
+                            <form action="" class="commentform">
+                                <input type="hidden" name="postId" id="postId" value="<%= forumposts[i]._id %>">
+                                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+                                <input type="hidden" name="firstname" id="firstname" value="<%= user.firstname %>">
+                                <input type="hidden" name="lastname" id="lastname" value="<%= user.lastname %>">
+                                <input class="form-control forumcomment" id="commentBody" name="commentBody" placeholder="What's on your mind" value="" required>
+                                <button class="btn btn-primary comment-btn" type="submit">Comment</button>
+                            </form>
+                        </div>
+                    
+                    <%}}%>
+                    
+                
+                
         </div>
+        
     </section>
 </div>
 
 <script>
-    const form = document.querySelector('form');
+    const forumform = document.querySelector('.forumform');
 
-    form.addEventListener('submit', async (e) => {
+    forumform.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const userId = form.userId.value;
-        const employmentStatus = form.employmentStatus.value;
-        const campus = form.campus.value;
+        const userId = forumform.userId.value;
+        const firstname = forumform.firstname.value;
+        const lastname = forumform.lastname.value;
+        const forumBody = forumform.forumBody.value;
+        const campus = forumform.campus.value;
         try{
-                const res = await fetch('/profile', {
+                const res = await fetch('/postforum', {
                   method: 'POST',
-                  body: JSON.stringify({userId, employmentStatus, campus}),
+                  body: JSON.stringify({userId, firstname, lastname, forumBody, campus}),
                   headers: { 'Content-Type': 'application/json' }
                 });
                 const data = await res.json();
                 if(data.errors){
                 }
                 if (data.status){
-                  location.assign('/profile/<%=user._id%>');
+                  location.assign('/forums/<%=user._id%>');
+                }
+                
+              }
+              catch (err){
+              }
+      
+      })
+      const commentform = document.querySelector('.commentform');
+
+      commentform.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const postId = commentform.postId.value;
+        const userId = commentform.userId.value;
+        const firstname = commentform.firstname.value;
+        const lastname = commentform.lastname.value;
+        const commentBody = commentform.commentBody.value;
+        try{
+                const res = await fetch('/commentpost', {
+                  method: 'POST',
+                  body: JSON.stringify({postId, userId, firstname, lastname, commentBody}),
+                  headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if(data.errors){
+                }
+                if (data.status){
+                  location.assign('/forums/<%=user._id%>');
                 }
                 
               }

@@ -1,5 +1,6 @@
 const { isEmpty } = require('validator');
-const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile, forumposts} = require('../Models/PDS');
+const forum = require('../Models/forumposts');
+const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile} = require('../Models/PDS');
 const User = require('../Models/users');
 const moment = require('moment');
 const pdsS = require('../Models/tracker');
@@ -675,48 +676,57 @@ module.exports.profile_post = async (req, res) => {
 
 module.exports.forums_get = async (req, res) => {
     const id = req.params.id;
-    const forumposts = await forumposts.findOne({userId: id})
-    await profile.findOne({userId: id})
-        .then(result => {
-            console.log(result)
-            if (result === null) {
-                
-                console.log(result,'eto ba nagpiprint')
-                res.render('Dashboard', {profile: null, forumposts: null,  title: "Forums", page: "forums"});
+    const userprofile = await profile.exists({userId: id})
+    if(userprofile){
+        campus = await profile.findOne({userId: id})
+        if (campus.campus === 'Boni' || campus.campus === 'Pasig') {
+            const forumposts = await forum.find({campus: campus.campus})
+            .sort({ createdAt: -1 }) // Sort by createdAt field in descending order (latest posts first)
+            .limit(10) // Limit the number of posts to fetch (e.g., 10)
+            .exec();
+        
+            if (forumposts.length > 0) {
+                res.render('Dashboard', {profile: campus.campus, forumposts: forumposts, title: "Forums", page: "forums"});
             } else {
-                res.render('Dashboard', {profile: result, forumposts: forumposts, title: "Forums", page: "forums"});
-                console.log(result,'eto ba nagpiprint')
+                res.render('Dashboard', {profile: campus.campus, forumposts: null, title: "Forums", page: "forums"});
             }
-            
-        })
-        .catch (err => {
-            console.log(err)
-        })
+        } else {
+            res.redirect('/profile/'+id);
+        }
+        
+    }else {
+        res.redirect('/profile/'+id);
+    }
+    
 }
-module.exports.forums_post = async (req, res) => {
-    const {userId, employmentStatus, campus} = req.body;
-    const userprofile = await profile.exists({userId: userId});
-    if (userprofile === null) {
-        //create new entry
+module.exports.postforum_post = async (req, res) => {
+    const {userId, firstname, lastname, forumBody, campus} = req.body;
+    const poster = firstname + ' ' + lastname;
+    
         try {
-            const profilecreate = await profile.create({userId, employmentStatus, campus});
-            console.log(profilecreate);
+            const forumpostcreate = await forum.create({userId, poster, forumBody, campus});
+            console.log(forumpostcreate);
             res.status(200).json({status: 'Update Success'});
         }
         catch (err) {
             res.status(200).json({status: 'Update Success'});
             console.log(err)
         }
-    } else {
-        //update existing entry
+      
+}
+module.exports.commentpost_post = async (req, res) => {
+    const {postId, userId, firstname, lastname, commentBody} = req.body;
+    const commenter = lastname + ' ' + firstname;
+    
         try {
-            const profileupdate = await profile.updateOne({userId, employmentStatus, campus});
-                console.log(profileupdate)
-                res.status(200).json({status: 'Update Success'});
+            const forumpostcreate = await forum.updateOne({ _id: postId },
+                { $push: { comments: { commenterId: userId, commenter: commenter, commentBody: commentBody } } });
+            console.log(forumpostcreate);
+            res.status(200).json({status: 'Update Success'});
         }
-        catch (error){
-            console.log(error)
-            res.status(200).json({status: 'Update Failed'});
+        catch (err) {
+            res.status(200).json({status: 'Comment unsuccessfull'});
+            console.log(err)
         }
-    }    
+      
 }

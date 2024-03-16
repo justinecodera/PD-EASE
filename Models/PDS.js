@@ -596,19 +596,7 @@ const profileData = new Schema({
     }
 })
 
-const forumpostsSchema = new Schema({
-    userId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'users',
-        required: true,
-        unique: true
-    },
-    post:[{
-        text: {
-            type: String
-        }
-    }]
-})
+
 const pdfSchema = new Schema({
     userId: String,
     pdf_data: Buffer 
@@ -629,5 +617,4 @@ const QT = mongoose.model('question', questionsSchema);
 const RR = mongoose.model('reference', referencesSchema);
 const SR = mongoose.model('servicerecord', serviceRecordsSchema);
 const profile = mongoose.model('profile', profileData);
-const forumposts = mongoose.model('forumposts', forumpostsSchema);
-module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile, forumposts, PDF};
+module.exports = {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile, PDF};

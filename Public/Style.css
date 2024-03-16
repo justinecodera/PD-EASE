@@ -522,7 +522,42 @@ label.formHeader {
     font-size: 1.5rem; /* Adjust header font size */
     font-weight: bold; /* Bold header text */
 }
-
+.forum-posts {
+    width: 60%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.forum-posts .post .post-header .post-author{
+    font-size: 1.5rem;
+    display: block;
+}
+.forum-posts .post .post-header .post-date{
+    font-size: .75rem;
+    display: block;
+}
+.forum-posts .post .post-content{
+    margin-top: 1rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    display: block;
+}
+.forum-posts .post .post-comment .comment-author{
+    font-size: .8rem;
+    font-weight: bold;
+}
+.forum-posts .post .post-comment .comment-body{
+    font-size: 1rem;
+    
+}
+.forum-posts .commentform .forumcomment{
+    height: 2rem;
+    margin-top: 1rem;
+    width: 80%!important;
+    display: inline;
+}
+.forum-posts .commentform .comment-btn{
+    height: 2rem;
+}
 @keyframes gradient {
     0% {
         background-position: 0% 50%;

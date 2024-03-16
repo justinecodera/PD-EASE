@@ -54,7 +54,7 @@ class="row justify-content-center align-items-center g-2"
                   Submitted PDS's
                 </div>
                 <div class="card-body card-home">
-                  <% if (pdsSData !== null ) { %><h1 class="card-title">Submitted Last: <%=pdsSData.updatedAt.toDateString()%></h1><h2 class="card-title">Status: <%=pdsSData.status%></h2><% } else{%><h5 class="card-title">You have not submitted a PDS</h5><%} %>
+                  <% if (pdsSData !== null ) { %><h1 class="card-title">Updated Last: <%=pdsSData.updatedAt.toDateString()%></h1><h2 class="card-title">Status: <%=pdsSData.status%></h2><% } else{%><h5 class="card-title">You have not submitted a PDS</h5><%} %>
                   
                   <p class="card-text">1. Fill up your Personal Data Sheet</p>
                   <p class="card-text">2. After Filling up, click submit to notify UCHRDM-STAR that you are about to submit your PDS</p>
@@ -65,7 +65,13 @@ class="row justify-content-center align-items-center g-2"
             </div>
             <div class="card p-4 mb-3" style="width: 100%;">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item " ><a href="" class="btn btn-light submitpds bg-info text-light"><i class="lni lni-upload" style="margin: .3rem;"></i>Submit PDS</a> <%if(pdsSData !== null) {%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Print PDS</a><%}%></li>
+                  <li class="list-group-item " >
+                    <a href="" class="btn btn-light submitpds bg-info text-light"><i class="lni lni-play"></i></i>Generate PDS</a>
+                     <%if(pdsSData !== null) {%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}%>
+                     <%if(pdsSData !== null && pdsSData.status === 'Submitted') {%>
+                     <button type="button" class="btn btn-light bg-saved text-light" data-toggle="modal" data-target="#staticBackdrop">
+                      <i class="lni lni-upload" style="margin: .3rem;"></i>Upload Approved PDS
+                  </button><%}%></li>
                 </ul>
             </div>
             
@@ -73,6 +79,31 @@ class="row justify-content-center align-items-center g-2"
 </div>
 </div>
 </div>
+<!-- modals -->
+<form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Upload Approved PDS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="fileUpload">Choose File:</label>
+            <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" accept=".pdf,.doc,.docx" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 <script data-userid="<%=user._id%>" data-pi="<%=pi%>" data-fb="<%=fb%>" data-ed="<%=ed%>" data-qt="<%=qt%>" data-rr="<%=rr%>" data-sr="<%=sr%>">
   const submitPDS = document.querySelector('.submitpds');
   const userId = document.currentScript.dataset.userid;
@@ -86,7 +117,7 @@ class="row justify-content-center align-items-center g-2"
 
   submitPDS.addEventListener('click', async (e) => { 
     e.preventDefault();
-    quicknotify('generating and submitting PDS, Please Wait...')
+    quicknotify('generating PDS, Please Wait...', 10000)
 
     if(pi !== '' && ed !== '' && fb !== '' && qt !== '' && rr !== '' && sr !== '' ) {
       try{
@@ -102,6 +133,7 @@ class="row justify-content-center align-items-center g-2"
               }
               if (data.status){
                 localStorage.setItem('notification', 'PDS GENERATED SUCCESSFULLY!');
+                window.open('/preview/<%=user._id%>');
                 location.assign('/<%=user._id%>');
               }
         }
@@ -115,7 +147,8 @@ class="row justify-content-center align-items-center g-2"
         
       
   })
-  function quicknotify(message) {
+  function quicknotify(message, timeout) {
+
     const notificationblock = document.querySelector('.notification');
     const notification = localStorage.getItem('notification');
     const notiftext = document.querySelector('.notif-text');
@@ -124,9 +157,16 @@ class="row justify-content-center align-items-center g-2"
           notificationblock.classList.add('text-light');
           notiftext.innerText = message;
           console.log(message);
-          setTimeout(() => {
-            notificationblock.classList.add('hidden');
-          }, 5000);
+          if (timeout !== null){
+            setTimeout(() => {
+              notificationblock.classList.add('hidden');
+            }, timeout);
+          }else{
+            setTimeout(() => {
+              notificationblock.classList.add('hidden');
+            }, 5000);
+          }
+          
   }
   
 </script>

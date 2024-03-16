@@ -39,6 +39,7 @@ router.post('/profile', requireAuth, dashboardController.profile_post);
 
 // forums routes
 router.get('/forums/:id', requireAuth, dashboardController.forums_get);
-
+router.post('/postforum', requireAuth, dashboardController.postforum_post);
+router.post('/commentpost', requireAuth, dashboardController.commentpost_post);
 
 module.exports = router;
