@@ -1,4 +1,5 @@
 const User = require('../Models/users');
+const Admin = require('../Models/admin');
 const UserOtpVerification = require('../Models/userVerificationOTP');
 const jwt = require('jsonwebtoken');
 
@@ -73,7 +74,7 @@ module.exports.signup_post = async (req, res) => {
         // magrurun lang dapat to pag verified na email
         const token = createToken(user._id);
         // console.log(token);
-        res.cookie('PEEDS', token, {httpOnly: true});
+        res.cookie('ADMIN', token, {httpOnly: true});
         res.status(201).json({user: user._id});
     }
     catch (err){
@@ -95,20 +96,35 @@ module.exports.login_get = (req, res) => {
     res.render('index', { title: 'Home'});
 }
 module.exports.login_post = async (req, res) => {
-    const {institutionalEmail, password } = req.body;
-
-    try {
-        const user = await User.login(institutionalEmail, password);
-        const token = createToken(user._id);
-        // console.log(token);
-        res.cookie('PEEDS', token, {httpOnly: true});
-        res.status(200).json({user: user._id, userloggedin: 'yes'});
+    const {institutionalEmail, password ,admin} = req.body;
+    if (admin === false) {
+        try {
+            const user = await User.login(institutionalEmail, password);
+            const token = createToken(user._id);
+            // console.log(token);
+            res.cookie('PEEDS', token, {httpOnly: true});
+            res.status(200).json({user: user._id, userloggedin: 'yes'});
+        }
+        catch (err) {
+            console.log(err)
+            const errors = handleErrors(err);
+            res.status(400).json({ errors });
+        }
+    } else {
+        try {
+            const admin = await Admin.login(institutionalEmail, password);
+            const token = createToken(admin._id);
+            // console.log(token);
+            res.cookie('ADMIN', token, {httpOnly: true});
+            res.status(200).json({user: admin._id, userloggedin: 'yes'});
+        }
+        catch (err) {
+            console.log(err)
+            const errors = handleErrors(err);
+            res.status(400).json({ errors });
+        }
     }
-    catch (err) {
-        console.log(err)
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
-    }
+    
 }
 
 module.exports.logout_get = (req, res) => {

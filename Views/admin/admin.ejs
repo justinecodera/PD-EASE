@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../Partials/header.ejs') %>
+<body>
+    <div class="wrapper ">
+        <%- include('./adminnav.ejs') %>
+        <div class="main pt-3">
+            <div class="text-center">
+                <h1>
+                    RTU - PD-EASE - ADMIN
+                </h1>
+            </div>
+            <div class="notification hidden">
+                <span class="notif-text"></span>
+                <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Total Submitted PDS</h5>
+      
+                    <!-- Radial Bar Chart -->
+                    <div id="radialBarChart"></div>
+      
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(document.querySelector("#radialBarChart"), {
+                          series: [44, 55],
+                          chart: {
+                            height: 350,
+                            type: 'radialBar',
+                            toolbar: {
+                              show: true
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: {
+                                  fontSize: '22px',
+                                },
+                                value: {
+                                  fontSize: '16px',
+                                },
+                                total: {
+                                  show: true,
+                                  label: 'Total Users',
+                                  formatter: function(w) {
+                                    // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                                    return 249
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          labels: ['Boni', 'Pasig'],
+                        }).render();
+                      });
+                    </script>
+                    <!-- End Radial Bar Chart -->
+      
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5"></div>
+            </div>
+            
+        </div>
+    </div>
+    <%- include('../Partials/footer.ejs') %>
+</body>
+<%- include('../Partials/scripts.ejs') %>
+<script>
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+// Check if notification is present
+if (notification) {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding' || 'Email Verified Sucessfully') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-success');
+        notificationblock.classList.add('text-light');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-danger');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    
+} else {
+    // Handle case where notification data is not present
+    console.log('No notification data found.');
+}
+    function hideNotification() {
+        
+        if (notificationblock) {
+            notificationblock.classList.add('hidden');
+        }
+    }
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</html>

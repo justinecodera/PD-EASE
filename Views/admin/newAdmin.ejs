@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../Partials/header.ejs') %>
+<body>
+    <div class="wrapper ">
+        <%- include('./adminnav.ejs') %>
+        <div class="main pt-3">
+            <div class="text-center">
+                <h1>
+                    RTU - PD-EASE
+                </h1>
+            </div>
+            <div class="notification hidden">
+                <span class="notif-text"></span>
+                <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-sx-8 col-8">
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+        
+                          <div class="pt-4 pb-2">
+                            <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                            <p class="text-center small">Enter your personal details to create account</p>
+                          </div>
+        
+                          <form class="row g-3 signup-form" novalidate>
+                            <div class="col-12">
+                              <label for="firstname" class="form-label">First Name</label>
+                              <input type="text" name="firstname" class="form-control" id="firstname" required>
+                              <div class="firstname error"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="lastname" class="form-label">Last Name</label>
+                                <input type="text" name="lastname" class="form-control" id="lastname" required>
+                                <div class="lastname error"></div>
+                              </div>
+        
+                            <div class="col-12">
+                              <label for="institutionalEmail" class="form-label">Your Email</label>
+                              <input type="email" name="email" class="form-control" id="institutionalEmail" required>
+                              <div class="institutionalEmail error"></div>
+                            </div>
+        
+                            <div class="col-12">
+                              <label for="yourPassword" class="form-label">Password</label>
+                              <input type="password" name="password" class="form-control" id="yourPassword" required>
+                              <div class="password error"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="access" class="form-label">User Access</label>
+                                <select class="form-select" id="access" name="access" aria-label="Default select example">
+                                    <option value="No"selected>--select--</option>
+                                    <option value="Super Admin">Super Admin</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Intern">Intern</option>
+                                  </select>
+                                  <div class="access error"></div>
+                              </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block w-100">Create Admin</button>
+                            </div>
+                            
+                          </form>
+        
+                        </div>
+                      </div>
+                </div>
+                
+            </div>
+            
+            
+        </div>
+    </div>
+    <%- include('../Partials/footer.ejs') %>
+</body>
+<%- include('../Partials/scripts.ejs') %>
+<script>
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+// Check if notification is present
+if (notification) {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding' || 'Email Verified Sucessfully') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-success');
+        notificationblock.classList.add('text-light');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-danger');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    
+} else {
+    // Handle case where notification data is not present
+    console.log('No notification data found.');
+}
+    function hideNotification() {
+        
+        if (notificationblock) {
+            notificationblock.classList.add('hidden');
+        }
+    }
+    
+    const signupform = document.querySelector('form');
+    const institutionalEmailError = document.querySelector('.institutionalEmail.error');
+    const passwordError = document.querySelector('.password.error');
+    const accessError = document.querySelector('.access.error');
+    const firstnameError = document.querySelector('.firstname.error');
+    const lastnameError = document.querySelector('.lastname.error');
+
+    signupform.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const firstname = signupform.firstname.value;
+      const lastname = signupform.lastname.value;
+      const institutionalEmail = signupform.institutionalEmail.value;
+      const password = signupform.password.value;
+      const access = signupform.access.value;
+
+      //reset errors 
+          institutionalEmailError.textContent = '';
+          passwordError.textContent = '';
+          firstnameError.textContent = '';
+          lastnameError.textContent = '';
+        //console.log({firstname, lastname, institutionalEmail, password, access})
+      try{
+        if(access !== 'No') {
+          const res = await fetch('/adminsignup', {
+            method: 'POST',
+            body: JSON.stringify({firstname, lastname, institutionalEmail, password, access }),
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const data = await res.json();
+          console.log(data);
+          if(data.errors){
+            firstnameError.textContent = data.errors.firstname;
+            lastnameError.textContent = data.errors.lastname;
+            institutionalEmailError.textContent = data.errors.institutionalEmail;
+            passwordError.textContent = data.errors.password;
+          }
+          console.log(data.status)
+          if (data.status === 'Success'){
+            localStorage.setItem('notification', 'Admin Created Successfully');
+            location.assign('/newAdmin');
+          }
+        }else {
+            accessError.textContent = 'Please Input Access Type!';
+        }
+        
+      }
+      catch (err){
+      }
+    })
+</script>
+</html>

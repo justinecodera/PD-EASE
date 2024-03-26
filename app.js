@@ -10,7 +10,7 @@ const upload = require('express-fileupload')
 const authRoutes = require('./Routes/authroutes');
 const dashboardRoutes = require('./Routes/dashboardroutes');
 const pdsroutes = require('./Routes/pdsroutes');
-
+const adminroutes = require('./Routes/adminRoutes');
 //models//
 const Users = require('./Models/users');
 
@@ -36,6 +36,8 @@ app.use(upload())
 
 
 //routes//
+app.use(adminroutes);//admin should not be checked for user
+
 
 app.get('*', checkUser);
 

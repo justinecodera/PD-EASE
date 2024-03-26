@@ -41,6 +41,7 @@ const usersSchema = new Schema({
             message: 'Password must contain at least one letter, one number, and be minimum 6 characters long'
         }
     },
+    restricted: Boolean,
     verified: Boolean,
     
 }, {timestamps: true});

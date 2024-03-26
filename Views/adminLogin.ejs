@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<%- include('./Partials/header.ejs') %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTU-PDSMS</title>
+  <!-- Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#">RTU-PDSMS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav align-right">
+        <a class="nav-link" aria-current="page" href="/">Home</a>
+        <a class="nav-link active" href="/adminLogin">Admin Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <!-- sign up -->
+  <div class="container-fluid vh-100 p-3" id="login">
+    <div class="row vh-100 align-items-center d-flex">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center mb-4">Admin Login</h1>
+            <form class="login-form">
+              <div class="form-group">
+                <label for="institutionalEmail">Institutional Email:</label>
+                <div class="institutionalEmail error"></div>
+                <input class="form-control" id="institutionalEmail" name="institutionalEmail" type="email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <div class="password error"></div>
+                <input class="form-control" id="password" name="password" type="password" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    const loginform = document.querySelector('form');
+    const institutionalEmailError = document.querySelector('.institutionalEmail.error');
+    const passwordError = document.querySelector('.password.error');
+    window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        var navbar = document.getElementById("navbar");
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+          navbar.classList.remove("transparent");
+          navbar.classList.add("white");
+        } else {
+          navbar.classList.remove("white");
+          navbar.classList.add("transparent");
+        }
+      }
+    loginform.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const institutionalEmail = loginform.institutionalEmail.value;
+      const password = loginform.password.value;
+      
+      //reset errors 
+      institutionalEmailError.textContent = '';
+      passwordError.textContent = '';
+
+      try{
+        const res = await fetch('/login', {
+          method: 'POST',
+          body: JSON.stringify({institutionalEmail, password, admin: true}),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        console.log(data);
+        if(data.errors){
+          institutionalEmailError.textContent = data.errors.institutionalEmail;
+          passwordError.textContent = data.errors.password;
+        }
+        if (data.user){
+          location.assign('/admin');
+        }
+      }
+      catch (err){
+      }
+    })
+</script>
+
+<%- include('./Partials/footer.ejs') %>
+</body>
+<%- include('./Partials/scripts.ejs') %>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../Partials/header.ejs') %>
+<body>
+    <div class="wrapper ">
+        <%- include('./adminnav.ejs') %>
+        <div class="main pt-3">
+            <div class="text-center">
+                <h1>
+                    RTU - PD-EASE
+                </h1>
+            </div>
+            <div class="notification hidden">
+                <span class="notif-text"></span>
+                <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                          <!-- Bordered Tabs -->
+                          <ul class="nav nav-tabs nav-tabs-bordered">
+            
+                            <li class="nav-item">
+                              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                            </li>
+            
+                            <li class="nav-item">
+                              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                            </li>
+            
+                            <li class="nav-item">
+                              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                            </li>
+            
+                          </ul>
+                          <div class="tab-content pt-2">
+            
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                              
+                              <h5 class="card-title"><%= userdata.firstname %>'s Profile Details</h5>
+            
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">First Name</div>
+                                <div class="col-lg-9 col-md-8"><%= userdata.firstname %></div>
+                              </div>
+                              
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Last Name</div>
+                                <div class="col-lg-9 col-md-8"><%= userdata.lastname %></div>
+                              </div>
+            
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Institutional Email</div>
+                                <div class="col-lg-9 col-md-8"><%= userdata.institutionalEmail %></div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Campus</div>
+                                <div class="col-lg-9 col-md-8"><% if(profiledata !== null ) { %><%= profiledata.campus%> <% }else{%>N/A<%} %> </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Employment Type</div>
+                                <div class="col-lg-9 col-md-8"><% if(profiledata !== null ) { %><%= profiledata.employmentStatus%> <% }else{%>N/A<%} %></div>
+                              </div>
+                              
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Account Status</div>
+                                <div class="col-lg-9 col-md-8"><%if(userdata.restricted === true){%>Restricted<%} else if(userdata.verified === true){%>Verified<%} else{%>Not Verified<%}%></div>
+                              </div>
+                        
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">PDS Status</div>
+                                <div class="col-lg-9 col-md-8"><% if(pdsdata !== null ) { %><%= pdsdata.status%> <% }else{%>This User has not Submitted their PDS<%} %> </div>
+                              </div>
+            
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Date Last Submitted</div>
+                                <div class="col-lg-9 col-md-8"><% if(pdsdata !== null ) { %><%= pdsdata.updatedAt.toDateString()%> <% }else{%>N/A<%} %> </div>
+                              </div>
+            
+                            </div>
+            
+                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+            
+                              <!-- Profile Edit Form -->
+                              <form>
+                                
+            
+                                <div class="row mb-3">
+                                  <label for="firstname" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                                  <div class="col-md-8 col-lg-9">
+                                    <input name="firstname" type="text" class="form-control" id="firstname" value="<%= userdata.firstname %>">
+                                  </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="firstname" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                      <input name="firstname" type="text" class="form-control" id="firstname" value="<%= userdata.lastname %>">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <label for="firstname" class="col-md-4 col-lg-3 col-form-label">Institutional Email</label>
+                                    <div class="col-md-8 col-lg-9">
+                                      <input name="firstname" type="text" class="form-control" id="firstname" value="<%= userdata.institutionalEmail %>">
+                                    </div>
+                                  </div>
+
+                                  <label class="col-md-4 col-lg-3 col-form-label" for="campus">Campus:  <p class="required">*</p></label>
+                                    <select id="campus" name="campus" >
+                                        <option value="">Select Campus</option>
+                                        <option value="Pasig" <% if (profiledata !== null && profiledata.campus === "Pasig") { %>selected<% } %>>Pasig</option>
+                                        <option value="Boni" <% if (profiledata !== null && profiledata.campus === "Boni") { %>selected<% } %>>Boni</option>
+                                    </select>
+                                
+                                    <label class="col-md-4 col-lg-3 col-form-label" for="employmentStatus">Employment Status:  <p class="required">*</p></label>
+                                    <select id="employmentStatus" name="employmentStatus" >
+                                        <option value="">Select Employment Status</option>
+                                        <option value="Purely Admin" <% if (profiledata !== null && profiledata.employmentStatus === "Purely Admin") { %>selected<% } %>>Purely Admin</option>
+                                        <option value="Quasi Admin" <% if (profiledata !== null && profiledata.employmentStatus === "Quasi Admin") { %>selected<% } %>>Quasi Admin</option>
+                                        <option value="30 Hours" <% if (profiledata !== null && profiledata.employmentStatus === "30 Hours") { %>selected<% } %>>30 Hours</option>
+                                        <option value="Part Time" <% if (profiledata !== null && profiledata.employmentStatus === "Part Time") { %>selected<% } %>>Part Time</option>
+                                    </select>
+                                <div class="text-center">
+                                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                              </form><!-- End Profile Edit Form -->
+            
+                            </div>
+            
+                            <div class="tab-pane fade pt-3" id="profile-settings">
+            
+                              <!-- Settings Form -->
+                              <form>
+            
+                                <div class="row mb-3">
+                                  
+                                  <div class="col-md-8 col-lg-9">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="newProducts" >
+                                      <label class="form-check-label" for="newProducts">
+                                        Restrict Account
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+            
+                                <div class="text-center">
+                                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                              </form><!-- End settings Form -->
+            
+                            </div>
+            
+            
+                          </div><!-- End Bordered Tabs -->
+            
+                        </div>
+                      </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../Partials/footer.ejs') %>
+</body>
+<%- include('../Partials/scripts.ejs') %>
+<script>
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+// Check if notification is present
+if (notification) {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding' || 'Email Verified Sucessfully') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-success');
+        notificationblock.classList.add('text-light');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-danger');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    
+} else {
+    // Handle case where notification data is not present
+    console.log('No notification data found.');
+}
+    function hideNotification() {
+        
+        if (notificationblock) {
+            notificationblock.classList.add('hidden');
+        }
+    }
+    
+</script>
+</html>
