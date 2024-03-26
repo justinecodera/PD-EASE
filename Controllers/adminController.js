@@ -125,3 +125,32 @@ module.exports.userProfile_get = async (req, res) => {
         res.status(500).send('Error fetching users with profile and PDS data');
     }
 }
+
+module.exports.updateuserprofile_post = async (req, res) => {
+    const {userId, firstname, lastname, institutionalEmail, campus, employmentStatus} = req.body;
+    try {
+        const admin = await Admin.create({firstname, lastname, institutionalEmail, password, accessType: access })
+        // .then((result) => {
+        //     sendOTPVerificationEmail();
+        // });
+
+    
+        // magrurun lang dapat to pag verified na email
+        // console.log(token);
+        res.status(201).json({ status: 'Success' });
+    }
+    catch (err){
+        const errors = handleErrors(err);
+        console.log(res.json({ errors }));
+        console.log(err.message)
+    }
+
+
+    // user.save()
+    //     .then((result) => {
+    //         res.redirect('/')
+    //     })
+    //     .catch((err) => {
+    //         handleErrors(err)
+    //     })
+}

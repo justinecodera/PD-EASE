@@ -12,4 +12,7 @@ router.post('/adminsignup',requireAuthAdmin, checkAdmin,  adminController.admins
 router.get('/adminUsers',requireAuthAdmin,checkAdmin,  adminController.adminUsers_get);
 router.get('/userProfile/:id',requireAuthAdmin,checkAdmin,  adminController.userProfile_get);
 
+
+router.post('/updateuserprofile',requireAuthAdmin, checkAdmin,  adminController.updateuserprofile_post);
+
 module.exports = router;
