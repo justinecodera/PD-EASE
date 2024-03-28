@@ -4,12 +4,12 @@
     <form class="mt-1 pds-form" >
         <label class="formHeader" for="spouse">Personal Information</label>
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-10 custom-padding-left">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-sm-10">  
+            <div class="col-lg-5 col-sm-10 custom-padding-left">  
                 <label class="" for="lastName">Surname: <p class="required">*</p></label>
                 <input class="" id="lastName" name="lastName" placeholder="Last Name" value="<%= user.lastname %>" disabled required 
                 oninvalid="this.setCustomValidity('Type N/A when this field is not applicable to You')" 
@@ -127,7 +127,7 @@
                 
     
             </div>
-            <div class="col-lg-5 col-sm-10">
+            <div class="col-lg-5 col-sm-10 custom-padding-left">
     
                 <label class="" for="institutionalEmail">Email:  <p class="required">*</p></label>
                 <input class=" disabled" id="institutionalEmail" placeholder="Please Use Institutional Email" name="institutionalEmail" value="<%= user.institutionalEmail %>" disabled required 

@@ -614,4 +614,8 @@ label.formHeader {
       transform: translateY(-10px);
     }
   }
-  
+  @media (max-width: 576px) {
+    .custom-padding-left {
+        padding-left: 100px; /* Adjust as needed */
+    }
+}
