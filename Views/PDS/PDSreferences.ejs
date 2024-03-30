@@ -6,12 +6,12 @@
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">References</label>
         <div class="row justify-content-center">
-            <div class="col-lg-10 custom-padding-left">
+            <div class="col-lg-10">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-sm-10 custom-padding-left">
+            <div class="col-lg-5 col-sm-10">
                 <div id="limitWarning" style="display: none;">
                     <h1>You can only add up to 3 references!</h1>
                 </div>
@@ -30,7 +30,7 @@
                 </div>
                 
             </div>
-            <div class="col-lg-5 col-sm-10 custom-padding-left">
+            <div class="col-lg-5 col-sm-10">
                 <% if(rr) {if (rr.ref === null) {} else {%><% for( var reference of rr.ref ) { %>
                     <!-- add all the current childrens to the array -->
 
