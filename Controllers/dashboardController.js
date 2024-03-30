@@ -1,14 +1,16 @@
 const { isEmpty } = require('validator');
 const forum = require('../Models/forumposts');
 const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, profile} = require('../Models/PDS');
+const globalsettings = require('../Models/globalSetting');
 const User = require('../Models/users');
 const moment = require('moment');
-const pdsS = require('../Models/tracker');
+const {pdsS} = require('../Models/tracker');
 
 
 module.exports.dashboard_get = async (req, res) => {
     const userid = req.params.id;
     const userdata = await User.findById(userid);
+    const settingdata = await globalsettings.findOne();
     const piData = await PI.findOne({userId: userid});
     const fbData = await FB.findOne({userId: userid});
     const edData = await ED.findOne({userId: userid});
@@ -23,7 +25,7 @@ module.exports.dashboard_get = async (req, res) => {
     const pdsSData = await pdsS.findOne({userId: userid});
 
 
-    res.render('Dashboard', { title: 'Dashboard', page: 'home', pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData, pdsSData: pdsSData});
+    res.render('Dashboard', { title: 'Dashboard', page: 'home',setting: settingdata, pi: piData, fb: fbData, ed: edData, eb: ebData, we: weData, vw: vwData, tr: trData, oi: oiData, qt: qtData, rr: rrData, sr: srData, pdsSData: pdsSData});
 }
 
 //personal info

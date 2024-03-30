@@ -1,7 +1,9 @@
 const User = require('../Models/users');
 const Admin = require('../Models/admin');
 const UserOtpVerification = require('../Models/userVerificationOTP');
+const { userlogs, adminlogs} = require('../Models/tracker');
 const jwt = require('jsonwebtoken');
+
 
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer')
@@ -65,7 +67,7 @@ module.exports.signup_get = (req, res) => {
 module.exports.signup_post = async (req, res) => {
     const {firstname, lastname, institutionalEmail, password } = req.body;
     try {
-        const user = await User.create({firstname, lastname, institutionalEmail, password, verified: false})
+        const user = await User.create({firstname, lastname, institutionalEmail, password, restricted: false, verified: false})
         // .then((result) => {
         //     sendOTPVerificationEmail();
         // });
@@ -100,6 +102,7 @@ module.exports.login_post = async (req, res) => {
     if (admin === false) {
         try {
             const user = await User.login(institutionalEmail, password);
+            const userlog = await userlogs.create({userId: user._id, firstname: user.firstname, lastname: user.lastname, action: 'Logged In'});
             const token = createToken(user._id);
             // console.log(token);
             res.cookie('PEEDS', token, {httpOnly: true});
@@ -113,6 +116,7 @@ module.exports.login_post = async (req, res) => {
     } else {
         try {
             const admin = await Admin.login(institutionalEmail, password);
+            const adminlog = await adminlogs.create({userId: admin._id, firstname: admin.firstname, lastname: admin.lastname, action: 'Logged In'});
             const token = createToken(admin._id);
             // console.log(token);
             res.cookie('ADMIN', token, {httpOnly: true});

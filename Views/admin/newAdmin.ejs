@@ -19,52 +19,37 @@
                     <div class="card mb-3">
 
                         <div class="card-body">
-        
-                          <div class="pt-4 pb-2">
-                            <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                            <p class="text-center small">Enter your personal details to create account</p>
-                          </div>
-        
-                          <form class="row g-3 signup-form" novalidate>
-                            <div class="col-12">
-                              <label for="firstname" class="form-label">First Name</label>
-                              <input type="text" name="firstname" class="form-control" id="firstname" required>
-                              <div class="firstname error"></div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="lastname" class="form-label">Last Name</label>
-                                <input type="text" name="lastname" class="form-control" id="lastname" required>
-                                <div class="lastname error"></div>
-                              </div>
-        
-                            <div class="col-12">
-                              <label for="institutionalEmail" class="form-label">Your Email</label>
-                              <input type="email" name="email" class="form-control" id="institutionalEmail" required>
-                              <div class="institutionalEmail error"></div>
-                            </div>
-        
-                            <div class="col-12">
-                              <label for="yourPassword" class="form-label">Password</label>
-                              <input type="password" name="password" class="form-control" id="yourPassword" required>
-                              <div class="password error"></div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="access" class="form-label">User Access</label>
-                                <select class="form-select" id="access" name="access" aria-label="Default select example">
-                                    <option value="No"selected>--select--</option>
-                                    <option value="Super Admin">Super Admin</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Intern">Intern</option>
-                                  </select>
-                                  <div class="access error"></div>
-                              </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block w-100">Create Admin</button>
-                            </div>
-                            
-                          </form>
+                          <h5 class="card-title  d-flex justify-content-between">Admins <button type="button" class="btn btn-light bg-saved text-light" data-toggle="modal" data-target="#staticBackdrop">
+                            <i class="lni lni-upload" style="margin: .3rem;"></i>Create New Admin
+                        </button></h5>
+                          <table class="table datatable">
+                            <thead>
+                              <tr>
+                                <th>
+                                  <b>Name</b>
+                                </th>
+                                <th>Email</th>
+                                <th>Access Type</th>
+                                <th>Manage</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% if (admindatas && admindatas.length > 0) { %>
+                                <% admindatas.forEach(function(admindata) { %>
+                                    <tr>
+                                      <td><%= admindata.firstname %> <%= admindata.lastname %></td>
+                                      <td><%= admindata.institutionalEmail %></td>
+                                      <td><%= admindata.accessType %></td>
+                                      <td><a href="/adminprofile/<%= admindata._id %>">More Info</a></td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <p>No user data available.</p>
+                            <% } %>
+                              
+                            </tbody>
+                          </table>
+                          
         
                         </div>
                       </div>
@@ -74,6 +59,58 @@
             
             
         </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <form  class="signup-form" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Create an Account</h5>
+          </div>
+          <div class="modal-body">
+            <div class="col-12">
+              <label for="firstname" class="form-label">First Name</label>
+              <input type="text" name="firstname" class="form-control" id="firstname" required>
+              <div class="firstname error"></div>
+            </div>
+
+            <div class="col-12">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" name="lastname" class="form-control" id="lastname" required>
+                <div class="lastname error"></div>
+              </div>
+
+            <div class="col-12">
+              <label for="institutionalEmail" class="form-label">Your Email</label>
+              <input type="email" name="email" class="form-control" id="institutionalEmail" required>
+              <div class="institutionalEmail error"></div>
+            </div>
+
+            <div class="col-12">
+              <label for="yourPassword" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" id="yourPassword" required>
+              <div class="password error"></div>
+            </div>
+
+            <div class="col-12">
+                <label for="access" class="form-label">User Access</label>
+                <select class="form-select" id="access" name="access" aria-label="Default select example">
+                    <option value="No"selected>--select--</option>
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Intern">Intern</option>
+                  </select>
+                  <div class="access error"></div>
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create Admin</button>
+          </div>
+        </div>
+      </form>
+      </div>
     </div>
     <%- include('../Partials/footer.ejs') %>
 </body>
@@ -168,4 +205,7 @@ if (notification) {
       }
     })
 </script>
+<script src="/simple-datatables/simple-datatables.js"></script>
+<script src="/tinymce/tinymce.min.js"></script>
+<script src="/main.js"></script>
 </html>

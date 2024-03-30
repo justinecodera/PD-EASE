@@ -14,7 +14,45 @@
                 <span class="notif-text"></span>
                 <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
             </div>
-            
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PDS Settings</h5>
+                            <form class="pdssettingsform">
+                                <div class="row mb-3">
+                                    <label for="dateinput" class="col-sm-2 col-form-label">Submission Deadline</label>
+                                    <div class="col-sm-10">
+                                      <input type="date" class="form-control" id="dateinput" value="<%= submissionDate %>" required> 
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-check form-switch ms-3">
+                                        <input class="form-check-input" type="checkbox" id="pdssubmissions" name="restrictaccount" <% if (settings.openSubmission === true) {%>checked<%
+                                            
+                                        } else {
+                                            
+                                        } %>>
+                                        <label class="form-check-label" for="pdssubmissions">
+                                          Enable PDS Submissions
+                                        </label><br>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="announcement" class="col-sm-3 col-form-label">Set Announcement</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="announcement" class="form-control" style="height: 100px" ><%= settings.anouncement %></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                  </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
     <%- include('../Partials/footer.ejs') %>
@@ -58,6 +96,36 @@ if (notification) {
             notificationblock.classList.add('hidden');
         }
     }
+    const pdssettingsform = document.querySelector('.pdssettingsform');
+    pdssettingsform.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const inputdate = pdssettingsform.dateinput.value;
+        const pdssubmissions = pdssettingsform.pdssubmissions.checked;
+        const announcement = pdssettingsform.announcement.value;
+        
+         
+    
+        console.log({inputdate, pdssubmissions, announcement});
+        
+        try{
+            const res = await fetch('/updatepdssettings', {
+              method: 'POST',
+              body: JSON.stringify({inputdate, pdssubmissions, announcement}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                    localStorage.setItem('notification', 'Saving Data Failed');
+                  location.assign('/pdssettings');
+                }
+                if (data.status){
+                    localStorage.setItem('notification', 'Data saved successfully.');
+                  location.assign('/pdssettings');
+                }
+          }
+          catch (err){
+          }
+      })
     
 </script>
 </html>

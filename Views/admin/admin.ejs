@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
     <%- include('../Partials/header.ejs') %>
 <body>
-    <div class="wrapper ">
+    <div class="wrapper dashboard">
         <%- include('./adminnav.ejs') %>
         <div class="main pt-3">
             <div class="text-center">
@@ -16,54 +17,99 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-5">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Total Submitted PDS</h5>
-      
-                    <!-- Radial Bar Chart -->
-                    <div id="radialBarChart"></div>
-      
-                    <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#radialBarChart"), {
-                          series: [44, 55],
-                          chart: {
-                            height: 350,
-                            type: 'radialBar',
-                            toolbar: {
-                              show: true
-                            }
-                          },
-                          plotOptions: {
-                            radialBar: {
-                              dataLabels: {
-                                name: {
-                                  fontSize: '22px',
-                                },
-                                value: {
-                                  fontSize: '16px',
-                                },
-                                total: {
-                                  show: true,
-                                  label: 'Total Users',
-                                  formatter: function(w) {
-                                    // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                    return 249
-                                  }
-                                }
+                  
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">PDS Status in Boni</h5>
+        
+                      <!-- Pie Chart -->
+                      <div id="pieChartboni"></div>
+        
+                      <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          new ApexCharts(document.querySelector("#pieChartboni"), {
+                            series: [Number("<%= approvedinBoni %>"), Number("<%= submittedinBoni %>"), Number("<%= generatedinBoni %>"), Number("<%= notupdatedinboni %>")],
+                            chart: {
+                              height: 350,
+                              type: 'pie',
+                              toolbar: {
+                                show: true
                               }
-                            }
-                          },
-                          labels: ['Boni', 'Pasig'],
-                        }).render();
-                      });
-                    </script>
-                    <!-- End Radial Bar Chart -->
-      
+                            },
+                            labels: ['Approved', 'Submitted', 'Generated', 'Not Updated']
+                          }).render();
+                        });
+                      </script>
+                      <!-- End Pie Chart -->
+        
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">PDS Status in Pasig</h5>
+        
+                      <!-- Pie Chart -->
+                      <div id="pieChartpasig"></div>
+        
+                      <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          new ApexCharts(document.querySelector("#pieChartpasig"), {
+                            series: [Number("<%= approvedinPasig %>"), Number("<%= submittedinPasig %>"), Number("<%= generatedinPasig %>"), Number("<%= notupdatedinpasig %>")],
+                            chart: {
+                              height: 350,
+                              type: 'pie',
+                              toolbar: {
+                                show: true
+                              }
+                            },
+                            labels: ['Approved', 'Submitted', 'Generated', 'Not Updated']
+                          }).render();
+                        });
+                      </script>
+                      <!-- End Pie Chart -->
+        
+                    </div>
+                  </div>
+              </div>
+              
+              <div class="col-lg-5">
+                <div class="card info-card revenue-card">
+
+                  
+  
+                  <div class="card-body">
+                    <h5 class="card-title">PDS Submitted <span>| Today</span></h5>
+  
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-cloud-upload"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6><%= usersubmitdatas %></h6>
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+                <div class="card info-card customers-card">
+
+                  
+  
+                  <div class="card-body">
+                    <h5 class="card-title">Employee Logins <span>| Today</span></h5>
+  
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-people"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6><%= userlogdatas %></h6>
+                      </div>
+                    </div>
+  
                   </div>
                 </div>
               </div>
-              <div class="col-lg-5"></div>
             </div>
             
         </div>

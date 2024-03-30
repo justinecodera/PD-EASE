@@ -60,7 +60,7 @@ const checkUser = (req, res, next) => {
             else {
                 // console.log(decodedToken);
                 let user = await User.findById(decodedToken.id);
-                console.log('User '+user.firstname+ ' is online' );
+                // console.log('User '+user.firstname+ ' is online' );
                 res.locals.user = user;
                 next();
             }
@@ -85,7 +85,7 @@ const checkAdmin = (req, res, next) => {
             else {
                 // console.log(decodedToken);
                 let admin = await Admin.findById(decodedToken.id);
-                console.log('Admin '+admin.firstname+' '+admin.lastname+ ' is online at '+ new Date().toLocaleString() );
+                // console.log('Admin '+admin.firstname+' '+admin.lastname+ ' is online at '+ new Date().toLocaleString() );
                 res.locals.admin = admin;
                 next();
             }

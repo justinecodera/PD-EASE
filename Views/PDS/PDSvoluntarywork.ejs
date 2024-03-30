@@ -6,12 +6,12 @@
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">Voluntary Works</label>
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-10 col-8">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-sm-10">
+            <div class="col-lg-5 col-8">
 
                 <a class="btn btn-light bg-flagged  my-3" id="AddChild" onclick="addvoluntarywork()">+ add</a>
                 <label class="" for="nameAddressOfOrganization">Name & Adress of Ogranization: </label>
@@ -28,7 +28,7 @@
                 <label class="" for="positionNature">Position/Nature of Work: </label>
                 <input class="" id="positionNature" name="positionNature" placeholder="Write in full " value="" >
             </div>
-            <div class="col-lg-5 col-sm-10">
+            <div class="col-lg-5 col-8">
                 <% if(vw) {if (vw.vw === null) {} else {%><% for( var voluntarywork of vw.vw ) { %>
                     <!-- add all the current childrens to the array -->
 

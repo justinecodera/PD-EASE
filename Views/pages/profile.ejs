@@ -41,6 +41,7 @@
                     <option value="30 Hours" <% if (profile !== null && profile.employmentStatus === "30 Hours") { %>selected<% } %>>30 Hours</option>
                     <option value="Part Time" <% if (profile !== null && profile.employmentStatus === "Part Time") { %>selected<% } %>>Part Time</option>
                 </select>
+                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
             </div>
             <!-- <div class="col-lg-5 col-sm-10">
@@ -51,7 +52,7 @@
                     <a href="#" class="profilesettings list-group-item btn btn-light w-100 text-start justify-content-center d-flex justify-content-between">2-step Verification is Off<i class="lni lni-arrow-right"></i></a>
                 </ul>
                 
-                <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+                
             </div> -->
             
         </div>

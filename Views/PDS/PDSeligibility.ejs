@@ -6,12 +6,12 @@
     <form class="mt-1 pds-form" >
         <label class=" formHeader" for="PD-EASE">Eligibility</label>
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-10 col-8">
                 <button class="btn btn-primary form-btn" type="submit">Save</button>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-sm-10">
+            <div class="col-lg-5 col-8">
                 <a class="btn btn-light bg-flagged my-3" id="AddChild" onclick="addeligibility()">+ add</a>
                 <label class="" for="license">CAREER SERVICE/ RA 1080 (BOARD/ BAR) UNDER SPECIAL LAWS/ CES/ cseE BARANGAY ELIGIBILITY / DRIVER'S LICENSE: </label>
                 <input class="" id="license" name="license" placeholder="License Name" value="<% if (eb === null) {} else {%><%= eb.cse.license %><%}%>" >
@@ -33,7 +33,7 @@
                 <input class="" type="date" id="dateOfValidity" name="dateOfValidity" placeholder="Date of Validity" value="<% if (eb === null) {} else {%><%= eb.cse.dateOfValidity %><%}%>" >
                 
             </div>
-            <div class="col-lg-5 col-sm-10">
+            <div class="col-lg-5 col-8">
                 <% if(eb) {if (eb.cse === null) {} else {%><% for( var eligibility of eb.cse ) { %>
                     <!-- add all the current childrens to the array -->
 

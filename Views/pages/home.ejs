@@ -7,46 +7,8 @@ class="row justify-content-center align-items-center g-2"
         <h1>Welcome <%=user.firstname %></h1>
     </div>
     
-    <div class="row justify-content-center px-custom">
-        <div class="col-lg-6">
-            <div class="card" style="width: 100%;">
-                <ul class="list-group list-group-flush " >
-                    <li class="list-group-item <% if (pi !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;" style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Personal Information<p class="required">*</p></span>  <a class="pdssections" href="/personalinformation/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                    </li>
-                  <li class="list-group-item <% if (fb !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Family Background<p class="required">*</p></span>  <a class="pdssections" href="/familybackground/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (ed !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Education Information<p class="required">*</p></span>  <a class="pdssections" href="/education/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (eb !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Civil Service Eligibility</span>  <a class="pdssections" href="/eligibility/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (we !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Work Experience</span>  <a class="pdssections" href="/workexperience/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (vw !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Voluntary Work</span>  <a class="pdssections" href="/voluntarywork/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (tr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Development/Training Programs</span>   <a class="pdssections" href="/training/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (oi !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Other Informations</span>  <a class="pdssections" href="/otherinfo/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                  <li class="list-group-item <% if (qt !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Questions<p class="required">*</p></span>  <a class="pdssections" href="/questions/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                <li class="list-group-item <% if (rr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                  <span>References<p class="required">*</p></span>  <a class="pdssections" href="/references/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-              </li>
-                  <li class="list-group-item <% if (sr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Service Records<p class="required">*</p></span>  <a class="pdssections" href="/servicerecords/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
-                </li>
-                </ul>
-              </div>
-        </div>
+    <div class="row justify-content-center px-custom mt-2">
+        
         
         <div class="col-lg-6">
             <div class="card mb-3">
@@ -54,8 +16,9 @@ class="row justify-content-center align-items-center g-2"
                   Submitted PDS's
                 </div>
                 <div class="card-body card-home">
-                  <% if (pdsSData !== null ) { %><h1 class="card-title">Updated Last: <%=pdsSData.updatedAt.toDateString()%></h1><h2 class="card-title">Status: <%=pdsSData.status%></h2><% } else{%><h5 class="card-title">You have not submitted a PDS</h5><%} %>
-                  
+                  <% if (pdsSData !== null ) { %><h1 class="card-title">Updated Last: <%=pdsSData.updatedAt.toDateString()%></h1><h2 class="card-subtitle">Status: <%=pdsSData.status%></h2> <% } else{%><h5 class="card-title">You have not submitted a PDS</h5><%} %>
+
+                  <h2 class="card-subtitle"><%if(setting.openSubmission === true){ if(new Date().toDateString() < setting.submissionDate.toDateString() ){%> PDS submission was closed last <%=setting.submissionDate.toDateString()%><%}else{%> PDS can only be submitted until: <%=setting.submissionDate.toDateString()%><%}} else{ %>PDS Submission is Currently Closed, But you can still print your PDS<% }%></h2>
                   <p class="card-text">1. Fill up your Personal Data Sheet</p>
                   <p class="card-text">2. After Filling up, click submit to notify UCHRDM-STAR that you are about to submit your PDS</p>
                   <p class="card-text">3. Dont forget to Submit Again after updating your PDS before printing</p>
@@ -70,7 +33,7 @@ class="row justify-content-center align-items-center g-2"
                     <%} else {%>
                       <li class="list-group-item " >
                         <a href="" class="btn btn-light submitpds bg-info text-light"><i class="lni lni-play"></i></i>Generate PDS</a>
-                         <%if(pdsSData !== null) {%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}%>
+                         <%if(pdsSData !== null) { if(setting.openSubmission === true){%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}else if(setting.openSubmission === false){%><a href="/printonlyPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Print PDS</a><%}}%>
                          <%if(pdsSData !== null && pdsSData.status === 'Submitted') {%>
                          <button type="button" class="btn btn-light bg-saved text-light" data-toggle="modal" data-target="#staticBackdrop">
                           <i class="lni lni-upload" style="margin: .3rem;"></i>Upload Approved PDS
@@ -81,6 +44,45 @@ class="row justify-content-center align-items-center g-2"
             </div>
             
         </div>
+        <div class="col-lg-6">
+          <div class="card" style="width: 100%;">
+              <ul class="list-group list-group-flush " >
+                  <li class="list-group-item <% if (pi !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;" style="display: flex; justify-content: space-between; align-items: center;">
+                      <span>Personal Information<p class="required">*</p></span>  <a class="pdssections" href="/personalinformation/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+                  </li>
+                <li class="list-group-item <% if (fb !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Family Background<p class="required">*</p></span>  <a class="pdssections" href="/familybackground/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (ed !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Education Information<p class="required">*</p></span>  <a class="pdssections" href="/education/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (eb !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Civil Service Eligibility</span>  <a class="pdssections" href="/eligibility/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (we !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Work Experience</span>  <a class="pdssections" href="/workexperience/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (vw !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Voluntary Work</span>  <a class="pdssections" href="/voluntarywork/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (tr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Development/Training Programs</span>   <a class="pdssections" href="/training/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (oi !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Other Informations</span>  <a class="pdssections" href="/otherinfo/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+                <li class="list-group-item <% if (qt !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Questions<p class="required">*</p></span>  <a class="pdssections" href="/questions/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+              <li class="list-group-item <% if (rr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                <span>References<p class="required">*</p></span>  <a class="pdssections" href="/references/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+            </li>
+                <li class="list-group-item <% if (sr !== null ) { %>bg-saved<% } else{%>bg-flagged<%} %>" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Service Records<p class="required">*</p></span>  <a class="pdssections" href="/servicerecords/<%=user._id%>" class="">Edit<i class="lni lni-arrow-right"></i></a>
+              </li>
+              </ul>
+            </div>
+      </div>
 </div>
 </div>
 </div>
@@ -177,6 +179,9 @@ class="row justify-content-center align-items-center g-2"
               notificationblock.classList.add('hidden');
             }, 5000);
           }
+          const generatebutton = document.querySelector('.uploadspinner');
+          generatebutton.classList.add('spinner-border');
+          generatebutton.classList.add('spinner-border-sm');
           
   }
   

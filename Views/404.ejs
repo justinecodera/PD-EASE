@@ -1,1 +1,68 @@
-<p>nyarkkkk</p>
+<!DOCTYPE html>
+<html>
+<%- include('./Partials/header.ejs') %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTU-PDSMS</title>
+  <!-- Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+
+<section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+    <h1>404</h1>
+    <h2>The page you are looking for doesn't exist.</h2>
+    <a class="btn" href="/">Back to home</a>
+
+  </section>
+
+  <%- include('./Partials/footer.ejs') %>
+</body>
+<%- include('./Partials/scripts.ejs') %>
+<script>
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+// Check if notification is present
+if (notification) {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding' || 'Email Verified Sucessfully') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-success');
+        notificationblock.classList.add('text-light');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-danger');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    
+} else {
+    // Handle case where notification data is not present
+    console.log('No notification data found.');
+}
+    function hideNotification() {
+        
+        if (notificationblock) {
+            notificationblock.classList.add('hidden');
+        }
+    }
+    
+</script>
+</html>

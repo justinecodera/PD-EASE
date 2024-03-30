@@ -615,3 +615,14 @@ label.formHeader {
     }
   }
   
+
+/* admin search user */
+.unverifiedrow {
+    background-color: rgb(255, 78, 78);
+}
+.incompleterow {
+    background-color: rgb(255, 199, 78);
+}
+.restrictedrow {
+    background-color: rgb(117, 117, 117);
+}

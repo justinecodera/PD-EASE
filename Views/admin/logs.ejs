@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../Partials/header.ejs') %>
+<body>
+    <div class="wrapper ">
+        <%- include('./adminnav.ejs') %>
+        <div class="main pt-3">
+            <div class="text-center">
+                <h1>
+                    RTU - PD-EASE
+                </h1>
+            </div>
+            <div class="notification hidden">
+                <span class="notif-text"></span>
+                <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table datatable">
+                                <thead>
+                                  <tr>
+                                    <th>
+                                      <b>User Logs</b>
+                                    </th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% if (userlogdatas && userlogdatas.length > 0) { %>
+                                    <% userlogdatas.forEach(function(userLog) { %>
+                                        <tr>
+                                            <td>User <a href="/userprofile/<%= userLog.userId %>"><%= userLog.firstname %> <%= userLog.lastname %></a>  <%= userLog.action %> at <%= userLog.createdAt.toDateString() %></td>
+                                            
+                                          </tr>
+                                    <% }); %>
+                                <% } else { %>
+                                    <p>No user data available.</p>
+                                <% } %>
+                                </tbody>
+                              </table>
+                            
+                          </div><!-- End List group Advanced Content -->
+            
+                        </div>
+                      </div>
+                      <div class="col-lg-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table datatable">
+                                    <thead>
+                                      <tr>
+                                        <th>
+                                          <b>Admin Logs</b>
+                                        </th>
+                                        
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% if (adminlogdatas && adminlogdatas.length > 0) { %>
+                                        <% adminlogdatas.forEach(function(adminLog) { %>
+                                            <tr>
+                                                <td>Admin <a href="/adminprofile/<%= adminLog.userId %>"><%= adminLog.firstname %> <%= adminLog.lastname %></a>  <%= adminLog.action %> at <%= adminLog.createdAt.toDateString() %></td>
+                                                
+                                              </tr>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p>No user data available.</p>
+                                    <% } %>
+                                    </tbody>
+                                  </table>
+                                
+                              </div><!-- End List group Advanced Content -->
+                
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+    
+            
+            
+        </div>
+    </div>
+    <%- include('../Partials/footer.ejs') %>
+</body>
+<%- include('../Partials/scripts.ejs') %>
+<script>
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+// Check if notification is present
+if (notification) {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding' || 'Email Verified Sucessfully') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-success');
+        notificationblock.classList.add('text-light');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-danger');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    
+} else {
+    // Handle case where notification data is not present
+    console.log('No notification data found.');
+}
+    function hideNotification() {
+        
+        if (notificationblock) {
+            notificationblock.classList.add('hidden');
+        }
+    }
+    
+    const signupform = document.querySelector('form');
+    const institutionalEmailError = document.querySelector('.institutionalEmail.error');
+    const passwordError = document.querySelector('.password.error');
+    const accessError = document.querySelector('.access.error');
+    const firstnameError = document.querySelector('.firstname.error');
+    const lastnameError = document.querySelector('.lastname.error');
+
+    
+</script>
+<script src="/simple-datatables/simple-datatables.js"></script>
+<script src="/tinymce/tinymce.min.js"></script>
+<script src="/main.js"></script>
+</html>

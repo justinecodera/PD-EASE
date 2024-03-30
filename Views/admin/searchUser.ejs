@@ -41,7 +41,13 @@
                       <tbody>
                         <% if (userdatas && userdatas.length > 0) { %>
                             <% userdatas.forEach(function(userData) { %>
-                                <tr>
+                                <tr <% if (userData.restricted === true) {%>
+                                    class="restrictedrow" title="User is Restricted"
+                                    <%} else if (userData.verified === false) {%>
+                                    class="unverifiedrow" title="User Email is not Verified"
+                                    <%} else if (userData.profileData.length  <= 0) {%>
+                                    class="incompleterow" title="User Profile is not Complete"
+                                    <%} %>>
                                     <td><%= userData.firstname %> <%= userData.lastname %></td>
                                     <td><%= userData.institutionalEmail %></td>
                                     <td><%= userData.profileData.length > 0 ? userData.profileData[0].campus : '' %></td>

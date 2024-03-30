@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../Partials/header.ejs') %>
+<body>
+    <div class="wrapper ">
+        <%- include('./adminnav.ejs') %>
+        <div class="main pt-3">
+            <div class="text-center">
+                <h1>
+                    RTU - PD-EASE
+                </h1>
+            </div>
+            <div class="notification hidden">
+                <span class="notif-text"></span>
+                <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-8 col-8">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                          <!-- Bordered Tabs -->
+                          <ul class="nav nav-tabs nav-tabs-bordered">
+            
+                            <li class="nav-item">
+                              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                            </li>
+            
+                            <li class="nav-item">
+                              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                            </li>
+            
+                            <li class="nav-item ">
+                              <a href="/newAdmin" class="btn btn-sm btn-light">
+                                <span>BACK TO MANAGE ADMINS</span>
+                            </a>
+                          </li>
+                            
+            
+                          </ul>
+                          <div class="tab-content pt-2">
+            
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                              
+                              <h5 class="card-title"><%= admindata.firstname %>'s Profile Details</h5>
+            
+                                  
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">First Name</div>
+                                <div class="col-lg-9 col-md-8"><%= admindata.firstname %></div>
+                              </div>
+                              
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Last Name</div>
+                                <div class="col-lg-9 col-md-8"><%= admindata.lastname %></div>
+                              </div>
+            
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Institutional Email</div>
+                                <div class="col-lg-9 col-md-8"><%= admindata.institutionalEmail %></div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-lg-3 col-md-4 ">Access Type</div>
+                                <div class="col-lg-9 col-md-8"><%= admindata.accessType %></div>
+                              </div>
+
+            
+                            </div>
+            
+                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+            
+                              <!-- Profile Edit Form -->
+                              <form class="userform">
+                                
+                                <input type="hidden" name="userId" id="userId" value="<%= admindata._id %>">
+                                <div class="row mb-3">
+                                  <label for="firstname" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                                  <div class="col-md-8 col-lg-9">
+                                    <input name="firstname" type="text" class="form-control" id="firstname" value="<%= admindata.firstname %>">
+                                  </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="lastname" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                      <input name="lastname" type="text" class="form-control" id="lastname" value="<%= admindata.lastname %>">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <label for="institutionalEmail" class="col-md-4 col-lg-3 col-form-label">Institutional Email</label>
+                                    <div class="col-md-8 col-lg-9">
+                                      <input name="institutionalEmail" type="text" class="form-control" id="institutionalEmail" value="<%= admindata.institutionalEmail %>">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <label for="accessType" class="form-label">User Access</label>
+                                    <select class="form-select" id="accessType" name="accessType" aria-label="Default select example" >
+                                        <option value="No">--select--</option>
+                                        <option value="Super Admin" <% if (admindata.accessType === "Super Admin") { %>selected<%} %> >Super Admin</option>
+                                        <option value="Admin" <% if (admindata.accessType === "Admin") { %>selected<%} %>>Admin</option>
+                                        <option value="Intern" <% if (admindata.accessType === "Intern") { %>selected<%} %>>Intern</option>
+                                      </select>
+                                  </div>
+
+                                <div class="text-center">
+                                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                              </form><!-- End Profile Edit Form -->
+            
+                            </div>
+            
+            
+            
+                          </div><!-- End Bordered Tabs -->
+            
+                        </div>
+                      </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../Partials/footer.ejs') %>
+</body>
+<%- include('../Partials/scripts.ejs') %>
+<script>
+    const notificationblock = document.querySelector('.notification');
+    const notification = localStorage.getItem('notification');
+    const notiftext = document.querySelector('.notif-text');
+// Check if notification is present
+if (notification) {
+    if(notification === 'Data saved successfully.' || 'PDS SUBMITTED SUCCESSFULLY!' || 'Please Complete your Profile before proceeding' || 'Email Verified Sucessfully') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-success');
+        notificationblock.classList.add('text-light');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    else if(notification === 'Saving Data Failed.' || 'Please Input atleast 1 Data before saving' || 'You need to fill up all required fields in your PDS before submitting' || 'PDS FAILED TO SUBMIT!') {
+        notificationblock.classList.remove('hidden');
+        notificationblock.classList.add('bg-danger');
+        notiftext.innerText = notification;
+        console.log(notification);
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+        localStorage.setItem('notification', '');
+    }
+    
+} else {
+    // Handle case where notification data is not present
+    console.log('No notification data found.');
+}
+    function hideNotification() {
+        
+        if (notificationblock) {
+            notificationblock.classList.add('hidden');
+        }
+    }
+    
+
+    const userform = document.querySelector('.userform');
+    userform.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = userform.userId.value;
+        const firstname = userform.firstname.value;
+        const lastname = userform.lastname.value;
+        const institutionalEmail = userform.institutionalEmail.value;
+        const accessType = userform.accessType.value;
+         
+    
+        console.log(userId, lastname, institutionalEmail, accessType   );
+        
+        try{
+            const res = await fetch('/updateadminprofile', {
+              method: 'POST',
+              body: JSON.stringify({userId, lastname, institutionalEmail, accessType}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                    localStorage.setItem('notification', 'Saving Data Failed');
+                  location.assign('/adminprofile/<%=admindata._id%>');
+                }
+                if (data.status){
+                    localStorage.setItem('notification', 'Data saved successfully.');
+                  location.assign('/adminprofile/<%=admindata._id%>');
+                }
+          }
+          catch (err){
+          }
+      })
+
+</script>
+</html>

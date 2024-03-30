@@ -1,5 +1,5 @@
 const {PI, FB, ED, EB, WE, VW, TR, OI, QT, RR, SR, PDF} = require('../Models/PDS');
-const pdsS = require('../Models/tracker');
+const {pdsS, userlogs} = require('../Models/tracker');
 const User = require('../Models/users');
 const moment = require('moment');
 const { drawTable } = require('pdf-lib-draw-table-beta');
@@ -1620,6 +1620,8 @@ module.exports.printPDS_get = async (req, res) => {
         //create new entry
         try {
             const pdsScreate = await pdsS.create({userId, status: 'Submitted', comment: ''});
+            const user = await User.findById(userId)
+            const userlog = await userlogs.create({userId: user._id, firstname: user.firstname, lastname: user.lastname, action: 'Submit PDS'});
             const pdfData = await PDF.findOne({userId: userId});
             res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
             res.setHeader('Content-type', 'application/pdf');
@@ -1639,6 +1641,15 @@ module.exports.printPDS_get = async (req, res) => {
             res.setHeader('Content-type', 'application/pdf');
             res.send(pdfData.pdf_data);
     }
+}
+
+module.exports.printonlyPDS_get = async (req, res) => {
+    const userId = req.params.id;
+    const pdfData = await PDF.findOne({userId: userId});
+    res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
+    res.setHeader('Content-type', 'application/pdf');
+    res.send(pdfData.pdf_data);
+    
 }
 
 module.exports.preview_get = async (req, res) => {

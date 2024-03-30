@@ -14,8 +14,8 @@
                 <span class="notif-text"></span>
                 <button class="notification-button" onclick="hideNotification()"><i class="lni lni-circle-minus"></i></button>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-8 col-8">
                     <div class="card">
                         <div class="card-body pt-3">
                           <!-- Bordered Tabs -->
@@ -32,6 +32,12 @@
                             <li class="nav-item">
                               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                             </li>
+                            <li class="nav-item ">
+                              <a href="/adminUsers" class="btn btn-sm btn-light">
+                                <span>BACK TO USERS PAGE</span>
+                            </a>
+                          </li>
+                            
             
                           </ul>
                           <div class="tab-content pt-2">
@@ -40,6 +46,7 @@
                               
                               <h5 class="card-title"><%= userdata.firstname %>'s Profile Details</h5>
             
+                                  
                               <div class="row">
                                 <div class="col-lg-3 col-md-4 ">First Name</div>
                                 <div class="col-lg-9 col-md-8"><%= userdata.firstname %></div>
@@ -72,7 +79,7 @@
                         
                               <div class="row">
                                 <div class="col-lg-3 col-md-4 ">PDS Status</div>
-                                <div class="col-lg-9 col-md-8"><% if(pdsdata !== null ) { %><%= pdsdata.status%> <% }else{%>This User has not Submitted their PDS<%} %> </div>
+                                <div class="col-lg-9 col-md-8"><% if(pdsdata !== null ) { if(pdsdata.status === "Submitted" || pdsdata.status === "Approved") { %>  <%= pdsdata.status%><a href="downloaduserPDS/<%= userdata._id %>" class="btn btn-light btn-sm" title="Download User PDS"><i class="lni lni-download"></i></a> <% }else {%><%= pdsdata.status%> <% }}else {%>This User has not Submitted their PDS<%} %> </div>
                               </div>
             
                               <div class="row">
@@ -139,11 +146,13 @@
                                 <div class="row mb-3">
                                   <input type="hidden" name="userId" id="userId" value="<%= userdata._id %>">
                                   <div class="col-md-8 col-lg-9">
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" id="newProducts" >
-                                      <label class="form-check-label" for="newProducts">
+                                    
+                              <a href="/deleteuser/<%= userdata._id %>" class="btn btn-danger btn-sm">Delete Account</a>
+                                    <div class="form-check mt-3 form-switch">
+                                      <input class="form-check-input" type="checkbox" id="newProducts" name="restrictaccount" <% if (userdata !== null && userdata.restricted === true) { %>checked<% } %>>
+                                      <label class="form-check-label" for="restrictaccount">
                                         Restrict Account
-                                      </label>
+                                      </label><br>
                                     </div>
                                   </div>
                                 </div>
@@ -219,7 +228,8 @@ if (notification) {
         const employmentStatus = userform.employmentStatus.value;
          
     
-        console.log({userId, lastname, institutionalEmail, campus, employmentStatus } );
+        console.log(userId, lastname, institutionalEmail, campus, employmentStatus  );
+        
         try{
             const res = await fetch('/updateuserprofile', {
               method: 'POST',
@@ -229,16 +239,44 @@ if (notification) {
             const data = await res.json();
                 if(data.errors){
                     localStorage.setItem('notification', 'Saving Data Failed');
-                  location.assign('/otherinfo/<%=user._id%>');
+                  location.assign('/userprofile/<%=userdata._id%>');
                 }
                 if (data.status){
                     localStorage.setItem('notification', 'Data saved successfully.');
-                  location.assign('/otherinfo/<%=user._id%>');
+                  location.assign('/userprofile/<%=userdata._id%>');
                 }
           }
           catch (err){
           }
+      })
+
+      const restrictform = document.querySelector('.restrictform');
+      restrictform.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = restrictform.userId.value;
+        const restrictaccount = restrictform.restrictaccount.checked;
+         
+    
+        console.log(userId, restrictaccount);
         
+        try{
+            const res = await fetch('/updateuserrestriction', {
+              method: 'POST',
+              body: JSON.stringify({userId, restrictaccount}),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+                if(data.errors){
+                    localStorage.setItem('notification', 'Saving Data Failed');
+                  location.assign('/userprofile/<%=userdata._id%>');
+                }
+                if (data.status){
+                    localStorage.setItem('notification', 'Data saved successfully.');
+                  location.assign('/userprofile/<%=userdata._id%>');
+                }
+          }
+          catch (err){
+          }
       })
 </script>
 </html>
