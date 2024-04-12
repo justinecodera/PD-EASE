@@ -147,7 +147,8 @@
                                   <input type="hidden" name="userId" id="userId" value="<%= userdata._id %>">
                                   <div class="col-md-8 col-lg-9">
                                     
-                              <a href="/deleteuser/<%= userdata._id %>" class="btn btn-danger btn-sm">Delete Account</a>
+                              <a href="/deleteuser/<%= userdata._id %>" class="btn btn-danger btn-sm">Delete Account</a><br>
+                              <a href="/unsubmitpds/<%= userdata._id %>" class="mt-3 btn btn-light btn-sm <% if(pdsdata !== null ) { if(pdsdata.status === "Submitted" || pdsdata.status === "Approved") { %>  <% }else {%> disabled<% }} %>">Unsubmit PDS</a>
                                     <div class="form-check mt-3 form-switch">
                                       <input class="form-check-input" type="checkbox" id="newProducts" name="restrictaccount" <% if (userdata !== null && userdata.restricted === true) { %>checked<% } %>>
                                       <label class="form-check-label" for="restrictaccount">

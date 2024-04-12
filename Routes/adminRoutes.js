@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const adminController = require('../Controllers/adminController');
+const adminController = require('../Controllers/adminsideController');
 const { requireAuthAdmin, checkAdmin } = require('../middleware/authMiddleware');
 
 const router = Router();
@@ -22,7 +22,7 @@ router.post('/updateuserprofile',requireAuthAdmin, checkAdmin,  adminController.
 router.post('/updateadminprofile',requireAuthAdmin, checkAdmin,  adminController.updateadminprofile_post);
 router.post('/updateuserrestriction',requireAuthAdmin, checkAdmin,  adminController.updateuserrestriction_post);
 router.get('/deleteuser/:id',requireAuthAdmin, checkAdmin,  adminController.deleteuser_delete)
-
+router.get('/unsubmitpds/:id',requireAuthAdmin, checkAdmin,  adminController.unsubmitpds_get)
 
 router.get('/logs',requireAuthAdmin, checkAdmin, adminController.logs_get);
 module.exports = router;

@@ -696,12 +696,12 @@ async function fillPDF(filename, userid) {
         //personal 
         if(piData != null){
          
-            lastname.setText(userdata.lastname != null ? userdata.lastname : "");
-            firstname.setText(userdata.firstname != null ? userdata.firstname : "");
-            middleName.setText(piData.middleName != null ? piData.middleName : "");
-            nameExtension.setText(piData.nameExtension != null ? piData.nameExtension : "");
-            birthDate.setText(piData.birthDate != null ? moment(piData.birthDate).format('YYYY-MM-DD') : "");
-            placeOfBirth.setText(piData.placeOfBirth != null ? piData.placeOfBirth : "");
+            lastname.setText(userdata.lastname != null ? userdata.lastname : "N/A");
+            firstname.setText(userdata.firstname != null ? userdata.firstname : "N/A");
+            middleName.setText(piData.middleName != null ? piData.middleName : "N/A");
+            nameExtension.setText(piData.nameExtension != null ? piData.nameExtension : "N/A");
+            birthDate.setText(piData.birthDate != null ? moment(piData.birthDate).format('YYYY-MM-DD') : "N/A");
+            placeOfBirth.setText(piData.placeOfBirth != null ? piData.placeOfBirth : "N/A");
             if (piData.sex === 'male') {
                 male.check();
             } else if (piData.sex === 'female') {
@@ -728,15 +728,15 @@ async function fillPDF(filename, userid) {
                     break;
             }
             
-            height.setText(piData.height != null ? JSON.stringify(piData.height) : "");
-            weight.setText(piData.height != null ? JSON.stringify(piData.weight) : "");
-            bloodType.setText(piData.bloodType != null ? piData.bloodType : "");
-            gsisId.setText(piData.gsisId != null ? piData.gsisId : "");
-            pagibigId.setText(piData.pagibigId != null ? piData.pagibigId : "");
-            philhealthId.setText(piData.philhealthId != null ? piData.philhealthId : "");
-            sssId.setText(piData.sssId != null ? piData.sssId : "");
-            tinId.setText(piData.tinId != null ? piData.tinId : "");
-            agencyEmployeeId.setText(piData.agencyEmployeeId != null ? piData.agencyEmployeeId : "");
+            height.setText(piData.height != null ? JSON.stringify(piData.height) : "N/A");
+            weight.setText(piData.height != null ? JSON.stringify(piData.weight) : "N/A");
+            bloodType.setText(piData.bloodType != null ? piData.bloodType : "N/A");
+            gsisId.setText(piData.gsisId != null ? piData.gsisId : "N/A");
+            pagibigId.setText(piData.pagibigId != null ? piData.pagibigId : "N/A");
+            philhealthId.setText(piData.philhealthId != null ? piData.philhealthId : "N/A");
+            sssId.setText(piData.sssId != null ? piData.sssId : "N/A");
+            tinId.setText(piData.tinId != null ? piData.tinId : "N/A");
+            agencyEmployeeId.setText(piData.agencyEmployeeId != null ? piData.agencyEmployeeId : "N/A");
             
             if (piData.citizenship === 'filipino') {
                 filipino.check();
@@ -748,63 +748,69 @@ async function fillPDF(filename, userid) {
                 } else if (piData.dualCitizenship.dcType === 'By Naturalization') {
                     byNaturalization.check();
                 }
-                dcCountry.setText(piData.dualCitizenship.dcCountry != null ? piData.dualCitizenship.dcCountry : "");
+                dcCountry.setText(piData.dualCitizenship.dcCountry != null ? piData.dualCitizenship.dcCountry : "N/A");
             }
-            raHBLN.setText(piData.residentialAddress.raHBLN != null ? piData.residentialAddress.raHBLN : "");
-            raStrt.setText(piData.residentialAddress.raStrt != null ? piData.residentialAddress.raStrt : "");
-            raSubVil.setText(piData.residentialAddress.raSubVil != null ? piData.residentialAddress.raSubVil : "");
-            raBarangay.setText(piData.residentialAddress.raBarangay != null ? piData.residentialAddress.raBarangay : "");
-            raCity.setText(piData.residentialAddress.raCity != null ? piData.residentialAddress.raCity : "");
-            raProvince.setText(piData.residentialAddress.raProvince != null ? piData.residentialAddress.raProvince : "");
-            raZipCode.setText(piData.residentialAddress.raZipCode != null ? piData.residentialAddress.raZipCode : "");
+            raHBLN.setText(piData.residentialAddress.raHBLN != null ? piData.residentialAddress.raHBLN : "N/A");
+            raStrt.setText(piData.residentialAddress.raStrt != null ? piData.residentialAddress.raStrt : "N/A");
+            raSubVil.setText(piData.residentialAddress.raSubVil != null ? piData.residentialAddress.raSubVil : "N/A");
+            raBarangay.setText(piData.residentialAddress.raBarangay != null ? piData.residentialAddress.raBarangay : "N/A");
+            raCity.setText(piData.residentialAddress.raCity != null ? piData.residentialAddress.raCity : "N/A");
+            raProvince.setText(piData.residentialAddress.raProvince != null ? piData.residentialAddress.raProvince : "N/A");
+            raZipCode.setText(piData.residentialAddress.raZipCode != null ? piData.residentialAddress.raZipCode : "N/A");
             
-            paHBLN.setText(piData.permanentAddress.paHBLN != null ? piData.permanentAddress.paHBLN : "");
-            paStrt.setText(piData.permanentAddress.paStrt != null ? piData.permanentAddress.paStrt : "");
-            paSubVil.setText(piData.permanentAddress.paSubVil != null ? piData.permanentAddress.paSubVil : "");
-            paBarangay.setText(piData.permanentAddress.paBarangay != null ? piData.permanentAddress.paBarangay : "");
-            paCity.setText(piData.permanentAddress.paCity != null ? piData.permanentAddress.paCity : "");
-            paProvince.setText(piData.permanentAddress.paProvince != null ? piData.permanentAddress.paProvince : "");
-            paZipCode.setText(piData.permanentAddress.paZipCode != null ? piData.permanentAddress.paZipCode : "");
+            paHBLN.setText(piData.permanentAddress.paHBLN != null ? piData.permanentAddress.paHBLN : "N/A");
+            paStrt.setText(piData.permanentAddress.paStrt != null ? piData.permanentAddress.paStrt : "N/A");
+            paSubVil.setText(piData.permanentAddress.paSubVil != null ? piData.permanentAddress.paSubVil : "N/A");
+            paBarangay.setText(piData.permanentAddress.paBarangay != null ? piData.permanentAddress.paBarangay : "N/A");
+            paCity.setText(piData.permanentAddress.paCity != null ? piData.permanentAddress.paCity : "N/A");
+            paProvince.setText(piData.permanentAddress.paProvince != null ? piData.permanentAddress.paProvince : "N/A");
+            paZipCode.setText(piData.permanentAddress.paZipCode != null ? piData.permanentAddress.paZipCode : "N/A");
             
-            telNo.setText(piData.telNo != null ? piData.telNo : "");
-            celNo.setText(piData.celNo != null ? piData.celNo : "");
-            institutionalEmail.setText(userdata.institutionalEmail != null ? userdata.institutionalEmail : "");
+            telNo.setText(piData.telNo != null ? piData.telNo : "N/A");
+            celNo.setText(piData.celNo != null ? piData.celNo : "N/A");
+            institutionalEmail.setText(userdata.institutionalEmail != null ? userdata.institutionalEmail : "N/A");
 
    
     }
         //family background
         if(fbData != null){
-            sLastName.setText(fbData.spouse.sLastName ? fbData.spouse.sLastName : '');
-            sFirstName.setText(fbData.spouse.sFirstName ? fbData.spouse.sFirstName : '');
-            sNameExtension.setText(fbData.spouse.sNameExtension ? fbData.spouse.sNameExtension : '');
-            sMiddleName.setText(fbData.spouse.sMiddleName ? fbData.spouse.sMiddleName : '');
-            sOccupation.setText(fbData.spouse.sOccupation ? fbData.spouse.sOccupation : '');
-            sEmployerBusinessName.setText(fbData.spouse.sEmployerBusinessName ? fbData.spouse.sEmployerBusinessName : '');
-            sBusinessAdress.setText(fbData.spouse.sBusinessAddress ? fbData.spouse.sBusinessAddress : '');
-            sTelNo.setText(fbData.spouse.sTelNo ? fbData.spouse.sTelNo : '');
+            sLastName.setText(fbData.spouse.sLastName ? fbData.spouse.sLastName : 'N/A');
+            sFirstName.setText(fbData.spouse.sFirstName ? fbData.spouse.sFirstName : 'N/A');
+            sNameExtension.setText(fbData.spouse.sNameExtension ? fbData.spouse.sNameExtension : 'N/A');
+            sMiddleName.setText(fbData.spouse.sMiddleName ? fbData.spouse.sMiddleName : 'N/A');
+            sOccupation.setText(fbData.spouse.sOccupation ? fbData.spouse.sOccupation : 'N/A');
+            sEmployerBusinessName.setText(fbData.spouse.sEmployerBusinessName ? fbData.spouse.sEmployerBusinessName : 'N/A');
+            sBusinessAdress.setText(fbData.spouse.sBusinessAddress ? fbData.spouse.sBusinessAddress : 'N/A');
+            sTelNo.setText(fbData.spouse.sTelNo ? fbData.spouse.sTelNo : 'N/A');
             
-            fLastName.setText(fbData.father.fLastName ? fbData.father.fLastName : '');
-            fFirstName.setText(fbData.father.fFirstName ? fbData.father.fFirstName : '');
-            fMiddleName.setText(fbData.father.fMiddleName ? fbData.father.fMiddleName : '');
-            fNameExtension.setText(fbData.father.fNameExtension ? fbData.father.fNameExtension : '');
+            fLastName.setText(fbData.father.fLastName ? fbData.father.fLastName : 'N/A');
+            fFirstName.setText(fbData.father.fFirstName ? fbData.father.fFirstName : 'N/A');
+            fMiddleName.setText(fbData.father.fMiddleName ? fbData.father.fMiddleName : 'N/A');
+            fNameExtension.setText(fbData.father.fNameExtension ? fbData.father.fNameExtension : 'N/A');
             
-            mLastName.setText(fbData.mother.mLastName ? fbData.mother.mLastName : '');
-            mFirstName.setText(fbData.mother.mFirstName ? fbData.mother.mFirstName : '');
-            mMiddleName.setText(fbData.mother.mMiddleName ? fbData.mother.mMiddleName : '');
+            mLastName.setText(fbData.mother.mLastName ? fbData.mother.mLastName : 'N/A');
+            mFirstName.setText(fbData.mother.mFirstName ? fbData.mother.mFirstName : 'N/A');
+            mMiddleName.setText(fbData.mother.mMiddleName ? fbData.mother.mMiddleName : 'N/A');
             
-            fbData.children.forEach((child, index) => {
-                const fieldName = `cFullName${index + 1}`;
-                if (child.cFullName !== undefined && child.cFullName !== null) {
-                    pdsform.getField(fieldName).setText(child.cFullName);
-                }
-            });
+            if (fbData.children.length === 0) {
+                pdsform.getField('cFullName1').setText("N/A");
+                pdsform.getField('cBirthDate1').setText(moment(child.cBirthDate).format('YYYY-MM-DD'));
+            } else {
+                fbData.children.forEach((child, index) => {
+                    const fieldName = `cFullName${index + 1}`;
+                    if (child.cFullName !== undefined && child.cFullName !== null) {
+                        pdsform.getField(fieldName).setText(child.cFullName);
+                    }
+                });
+                fbData.children.forEach((child, index) => {
+                    const fieldName = `cBirthDate${index + 1}`;
+                    if (child.cBirthDate !== undefined && child.cBirthDate !== null) {
+                        pdsform.getField(fieldName).setText(moment(child.cBirthDate).format('YYYY-MM-DD'));
+                    }
+                });
+            }
             
-            fbData.children.forEach((child, index) => {
-                const fieldName = `cBirthDate${index + 1}`;
-                if (child.cBirthDate !== undefined && child.cBirthDate !== null) {
-                    pdsform.getField(fieldName).setText(moment(child.cBirthDate).format('YYYY-MM-DD'));
-                }
-            });
+            
     }
         //education
         
@@ -960,6 +966,15 @@ graduateData.slice(1).forEach(edItem => {
 
 
     }
+    else {
+        schoolName1.setText('N/A');
+        basicEduDegCor1.setText('N/A');
+        attendanceFrom1.setText('N/A');
+        attendanceTo1.setText('N/A');
+        highestLevel1.setText('N/A');
+        yearGraduated1.setText('N/A');
+        honorsRecieved1.setText('N/A');
+    }
         //civil service
         if(ebData != null){
         const eligibilityMappings = [
@@ -1100,6 +1115,14 @@ graduateData.slice(1).forEach(edItem => {
 
 
     }
+    else {
+        license1.setText('N/A');
+        rating1.setText('N/A');
+        dateOfExamination1.setText('N/A');
+        placeOfExamination1.setText('N/A');
+        licenseNumber1.setText('N/A');
+        dateOfValidity1.setText('N/A');
+    }
         //work experience
         if(weData != null){
         const workExperienceMappings = [
@@ -1211,6 +1234,27 @@ if (weData.we.length >= 29) {
     }
   }
     }
+else {
+    const workExperienceMappings = [
+        { workedFrom: workedFrom1, workedTo: workedTo1, positionTitle: positionTitle1, daoc: daoc1, monthlySalary: monthlySalary1, salaryJobPayGrade: salaryJobPayGrade1, statusOfAppointment: statusOfAppointment1, govtService: govtService1 },
+        
+    ];
+    
+    for (let i = 0; i < workExperienceMappings.length; i++) {
+        const workExperience = weData.we[i];
+        const mapping = workExperienceMappings[i];
+        if (mapping && workExperience) {
+            mapping.workedFrom.setText('N/A');
+            mapping.workedTo.setText('N/A');
+            mapping.positionTitle.setText('N/A');
+            mapping.daoc.setText('N/A');
+            mapping.monthlySalary.setText('N/A');
+            mapping.salaryJobPayGrade.setText('N/A');
+            mapping.statusOfAppointment.setText('N/A');
+            mapping.govtService.setText('N/A');
+            }
+        }
+    }
 
 
         //volunteer work
@@ -1287,7 +1331,23 @@ if (vwData.vw.length >= 8) {
     }
 }
     }
+else{
+    const volunteerWorkMappings = [
+        { nameAddressOfOrganization: nameAddressOfOrganization1, volunteeredFrom: volunteeredFrom1, volunteeredTo: volunteeredTo1, volunteernumberOfHours: volunteernumberOfHours1, positionNature: positionNature1 },
+    ];
 
+    for (let i = 0; i < volunteerWorkMappings.length; i++) {
+        const volunteerWork = vwData.vw[i];
+        const mapping = volunteerWorkMappings[i];
+        if (mapping && volunteerWork) {
+            mapping.nameAddressOfOrganization.setText('N/A');
+            mapping.volunteeredFrom.setText('N/A');
+            mapping.volunteeredTo.setText('N/A');
+            mapping.volunteernumberOfHours.setText('N/A');
+            mapping.positionNature.setText('N/A');
+        }
+    }
+}
         //trainings
         if(trData != null){
         const lditTrainingMappings = [
@@ -1378,6 +1438,24 @@ if (trData.ldit.length >= 22) {
     }
 }
     }
+    else{
+        const lditTrainingMappings = [
+            { lditPrograms: lditPrograms1, trainedFrom: trainedFrom1, trainedTo: trainedTo1, trainingnumberOfHours: trainingnumberOfHours1, typeOfLD: typeOfLD1, conductedSponsoredBy: conductedSponsoredBy1 },
+            ];
+
+        for (let i = 0; i < lditTrainingMappings.length; i++) {
+            const training = trData.ldit[i];
+            const mapping = lditTrainingMappings[i];
+            if (mapping && training) {
+                mapping.lditPrograms.setText('N/A');
+                mapping.trainedFrom.setText('N/A');
+                mapping.trainedTo.setText('N/A');
+                mapping.trainingnumberOfHours.setText('N/A');
+                mapping.typeOfLD.setText('N/A');
+                mapping.conductedSponsoredBy.setText('N/A');
+            }
+        }
+    }
         //other information
         if(oiData != null){
         const specialSkillsHobbiesMappings = [
@@ -1429,6 +1507,11 @@ if (trData.ldit.length >= 22) {
                 mapping.membershipAssocOrg.setText(membershipAssocOrgData ? membershipAssocOrgData : '');
             }
         }
+    }
+    else {
+        specialSkillsHobbies1.setText('N/A');
+        nonAcadDistRecog1.setText('N/A');
+        membershipAssocOrg1.setText('N/A');
     }
         //questions
         if(qtData != null){
@@ -1529,6 +1612,21 @@ if (trData.ldit.length >= 22) {
                 mapping.refName.setText(reference.refName || '');
                 mapping.refAddress.setText(reference.refAddress || '');
                 mapping.refTelNo.setText(reference.refTelNo || '');
+            }
+        }
+    }
+    else {
+        const referenceMappings = [
+            { refName: refName1, refAddress: refAddress1, refTelNo: refTelNo1 }
+        ];
+        
+        for (let i = 0; i < referenceMappings.length; i++) {
+            const reference = rrData.ref[i];
+            const mapping = referenceMappings[i];
+            if (mapping && reference) {
+                mapping.refName.setText('N/A');
+                mapping.refAddress.setText('N/A');
+                mapping.refTelNo.setText('N/A');
             }
         }
     }
@@ -1661,6 +1759,7 @@ module.exports.preview_get = async (req, res) => {
             const pdfData = await PDF.findOne({userId: userId});
             res.setHeader('Content-disposition', 'inline; filename=Personal_Data_Sheet.pdf');
             res.setHeader('Content-type', 'application/pdf');
+            
             res.send(pdfData.pdf_data);
         }
         catch (err) {
@@ -1680,7 +1779,7 @@ module.exports.uploadApprovedPDS_post = async (req, res) => {
     if (pdssubmission === null) {
         //create new entry
         try {
-            const pdsScreate = await pdsS.create({userId, status: 'Approved', comment: '', pdf_data: selectedFile});
+            const pdsScreate = await pdsS.create({userId, status: 'Approved', comment: '', approved_pdf: selectedFile});
             const pdfData = await PDF.findOne({userId: userId});
             res.redirect('/'+userId);
             
@@ -1691,7 +1790,7 @@ module.exports.uploadApprovedPDS_post = async (req, res) => {
         }
     } else {
         //update existing entry
-            const pdsSupdate = await pdsS.updateOne({userId}, {status: 'Approved', comment: '', pdf_data: selectedFile});
+            const pdsSupdate = await pdsS.updateOne({userId}, {status: 'Approved', comment: '', approved_pdf: selectedFile});
             console.log('gumagana ba to')
             const pdfData = await PDF.findOne({userId: userId});
             res.redirect('/'+userId);

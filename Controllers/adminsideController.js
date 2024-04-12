@@ -480,7 +480,12 @@ module.exports.downloadPDS_get = async (req, res) => {
     const pdfData = await PDF.findOne({userId: userId});
     res.setHeader('Content-disposition', 'attachment; filename=Personal_Data_Sheet.pdf');
     res.setHeader('Content-type', 'application/pdf');
-    res.send(pdfData.pdf_data);
+    if(pdfData.status === 'Approved'){
+        res.send(pdfData.approved_pdf);
+    }else{
+        res.send(pdfData.pdf_data);
+    }
+    
     
 }
 
@@ -489,6 +494,16 @@ module.exports.deleteuser_delete = async (req, res) => {
     try {
         const userdelete = await User.deleteOne({_id: userId})
         res.redirect('/adminUsers');
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({status: 'Delete Failed'});
+    }
+}
+module.exports.unsubmitpds_get = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const unsubmit = await pdsS.updateOne({userId: userId}, {status: 'Generated'})
+        res.redirect('/userProfile/'+userId)
     } catch (error) {
         console.log(error)
         res.status(500).json({status: 'Delete Failed'});

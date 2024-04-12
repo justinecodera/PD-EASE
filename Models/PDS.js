@@ -599,7 +599,8 @@ const profileData = new Schema({
 
 const pdfSchema = new Schema({
     userId: String,
-    pdf_data: Buffer 
+    pdf_data: Buffer,
+    approved_pdf: Buffer 
 });
 
 
