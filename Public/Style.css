@@ -13,6 +13,9 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+.minvh-100 {
+    min-height: 100vh;
+}
 /* Remove default underline from anchor tags */
 a {
     text-decoration: none;
