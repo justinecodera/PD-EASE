@@ -13,5 +13,6 @@ router.get('/printonlyPDS/:id', requireAuth, pdsController.printonlyPDS_get);
 router.get('/preview/:id', requireAuth, pdsController.preview_get);
 // router.post('/printPDS', requireAuth, pdsController.printPDS_post);
 router.post('/uploadApprovedPDS', requireAuth, pdsController.uploadApprovedPDS_post);
+router.post('/uploadOldPDS', requireAuth, pdsController.uploadOldPDS_post);
 
 module.exports = router;

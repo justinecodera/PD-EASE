@@ -27,7 +27,7 @@
                 </div>
     
                 <label class="" for="campus">Campus:  <p class="required">*</p></label>
-                <select id="campus" name="campus" >
+                <select id="campus" name="campus" <% if (profile !== null) { %>disabled<% } %>>
                     <option value="">Select Campus</option>
                     <option value="Pasig" <% if (profile !== null && profile.campus === "Pasig") { %>selected<% } %>>Pasig</option>
                     <option value="Boni" <% if (profile !== null && profile.campus === "Boni") { %>selected<% } %>>Boni</option>

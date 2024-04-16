@@ -32,8 +32,11 @@ class="row justify-content-center align-items-center g-2"
                     Congratulations!!! your PDS has been Approved
                     <%} else {%>
                       <li class="list-group-item " >
+                        <!-- <button type="button" class="btn btn-light bg-saved text-light" data-toggle="modal" data-target="#oldPDSmodal">
+                          <i class="lni lni-upload" style="margin: .3rem;"></i>Upload Old PDS
+                      </button> -->
                         <a href="" class="btn btn-light submitpds bg-info text-light"><i class="lni lni-play"></i></i>Generate PDS</a>
-                         <%if(pdsSData !== null) { if(setting.openSubmission === true && new Date().toDateString() > setting.submissionDate.toDateString()){%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}else if(setting.openSubmission === false || new Date().toDateString() < setting.submissionDate.toDateString()){%><a href="/printonlyPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Print PDS</a><%}}%>
+                         <%if(pdsSData !== null) { if(setting.openSubmission === true && new Date().toDateString() < setting.submissionDate.toDateString()){%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}else {%><a href="/printonlyPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Print PDS</a><%}}%>
                          <%if(pdsSData !== null && pdsSData.status === 'Submitted') {%>
                          <button type="button" class="btn btn-light bg-saved text-light" data-toggle="modal" data-target="#staticBackdrop">
                           <i class="lni lni-upload" style="margin: .3rem;"></i>Upload Approved PDS
@@ -94,6 +97,31 @@ class="row justify-content-center align-items-center g-2"
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">Upload Approved PDS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="fileUpload">Choose File:</label>
+            <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" accept=".pdf" required>
+            <input type="hidden" class="userId" name="userId" id="userId" value="<%=user._id %>">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input class="btn btn-primary form-btn" type="submit" value="Upload">
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+  <div class="modal fade" id="oldPDSmodal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form method="POST" action="/uploadOldPDS" enctype="multipart/form-data" class="uploadForm" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Upload Old PDS</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

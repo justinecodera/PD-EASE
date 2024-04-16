@@ -794,7 +794,7 @@ async function fillPDF(filename, userid) {
             
             if (fbData.children.length === 0) {
                 pdsform.getField('cFullName1').setText("N/A");
-                pdsform.getField('cBirthDate1').setText(moment(child.cBirthDate).format('YYYY-MM-DD'));
+                pdsform.getField('cBirthDate1').setText("N/A");
             } else {
                 fbData.children.forEach((child, index) => {
                     const fieldName = `cFullName${index + 1}`;
@@ -1818,4 +1818,16 @@ module.exports.uploadApprovedPDS_post = async (req, res) => {
 //     console.log(convert); // Number of converted images
     
     
+}
+module.exports.uploadOldPDS_post = async (req, res) => {
+    const selectedFile = req.files.fileUpload;
+    const userId = req.body.userId
+
+    const fileBuffer = Buffer.from(selectedFile.data, 'base64');
+    // console.log(fileBuffer);
+    const currentPDS = await pdflib.PDFDocument.load(fileBuffer)
+
+        //modify PDS
+        const fieldNames = currentPDS.getForm().getFields().map(f => f.getName());
+        console.log(currentPDS.getForm().getField('Surname').getValue())
 }

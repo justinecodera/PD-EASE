@@ -23,19 +23,19 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="/pdssettings" class="sidebar-link">
+            <a href="/pdssettings" class="sidebar-link <% if (admin.accessType === 'Intern') { %>disabled<% } %>" >
                 <i class="lni lni-folder"></i>
                 <span>PDS Settings</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="/newadmin" class="sidebar-link <% if (admin.accessType !== 'Super Admin') { %>disabled<% } %>">
+            <a href="/newadmin" class="sidebar-link <% if (admin.accessType === 'Intern' || admin.accessType === 'Admin') { %>disabled<% } %>">
                 <i class="lni lni-user"></i>
                 <span>Manage Admins</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="/logs" class="sidebar-link <% if (admin.accessType !== 'Super Admin') { %>disabled<% } %>">
+            <a href="/logs" class="sidebar-link <% if (admin.accessType === 'Intern') { %>disabled<% } %>">
                 <i class="lni lni-folder"></i>
                 <span>Logs</span>
             </a>
