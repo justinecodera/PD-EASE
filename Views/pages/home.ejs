@@ -36,7 +36,7 @@ class="row justify-content-center align-items-center g-2"
                           <i class="lni lni-upload" style="margin: .3rem;"></i>Upload Old PDS
                       </button> -->
                         <a href="" class="btn btn-light submitpds bg-info text-light"><i class="lni lni-play"></i></i>Generate PDS</a>
-                         <%if(pdsSData !== null) { if(setting.openSubmission === true && new Date().toDateString() < setting.submissionDate.toDateString()){%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}else {%><a href="/printonlyPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Print PDS</a><%}}%>
+                         <%if(pdsSData !== null) { if(setting.openSubmission === true && new Date().toDateString() > setting.submissionDate.toDateString()){%><a href="/printPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Submit and Print PDS</a><%}else {%><a href="/printonlyPDS/<%=user._id%>" class="btn btn-light bg-saved text-light"><i class="lni lni-printer" style="margin: .3rem;"></i>Print PDS</a><%}}%>
                          <%if(pdsSData !== null && pdsSData.status === 'Submitted') {%>
                          <button type="button" class="btn btn-light bg-saved text-light" data-toggle="modal" data-target="#staticBackdrop">
                           <i class="lni lni-upload" style="margin: .3rem;"></i>Upload Approved PDS
